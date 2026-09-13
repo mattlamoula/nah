@@ -18,12 +18,15 @@ const SITE_CONFIG = {
     stonkfun: "#",
   },
 
+  // Palette calquée sur stonkfun.xyz (marine très sombre + bleu cyan).
+  // gain/accent restent vert/rouge : convention universelle pour les variations de prix.
   colors: {
-    primary: "#39ff88",
-    primaryDim: "#1f8f4d",
-    bg: "#05070a",
-    bgPanel: "#0b0f0d",
-    accent: "#ff3d81",
+    primary: "#4dc8f5",
+    primaryDim: "#1f6f96",
+    bg: "#080b11",
+    bgPanel: "#0e131c",
+    accent: "#ff5470",
+    gain: "#3ddc84",
     warn: "#ffb347",
   },
 

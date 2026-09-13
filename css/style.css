@@ -1,14 +1,16 @@
 :root {
-  --primary: #39ff88;
-  --primary-dim: #1f8f4d;
-  --bg: #05070a;
-  --bg-panel: #0b0f0d;
-  --bg-panel-2: #0f1512;
-  --accent: #ff3d81;
+  --primary: #4dc8f5;
+  --primary-dim: #1f6f96;
+  --bg: #080b11;
+  --bg-panel: #0e131c;
+  --bg-panel-2: #121a26;
+  --accent: #ff5470;
+  --gain: #3ddc84;
   --warn: #ffb347;
-  --border: #1c2a20;
-  --text: #d7ffe6;
-  --text-dim: #7fa88f;
+  --border: #1c2733;
+  --text: #e8eef5;
+  --text-dim: #8b97a8;
+  --ink: #04121c;
   --font-mono: "JetBrains Mono", "Courier New", monospace;
   --font-display: "Space Grotesk", "Segoe UI", sans-serif;
 }
@@ -24,8 +26,8 @@ body {
   font-family: var(--font-mono);
   overflow-x: hidden;
   background-image:
-    radial-gradient(circle at 20% 0%, rgba(57, 255, 136, 0.08), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(255, 61, 129, 0.06), transparent 40%);
+    radial-gradient(circle at 20% 0%, rgba(77, 200, 245, 0.1), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(255, 84, 112, 0.05), transparent 40%);
 }
 
 body::before {
@@ -107,24 +109,22 @@ nav.links a:hover { color: var(--primary); }
   border-radius: 6px;
   border: 1px solid var(--primary);
   background: var(--primary);
-  color: #04150a;
+  color: var(--ink);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 13px;
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
-  box-shadow: 0 0 0 rgba(57, 255, 136, 0);
+  box-shadow: 0 0 0 rgba(77, 200, 245, 0);
 }
-.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(57, 255, 136, 0.35); }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(77, 200, 245, 0.35); }
 .btn.ghost { background: transparent; color: var(--primary); }
-.btn.pink { border-color: var(--accent); background: var(--accent); color: #1a0410; box-shadow: none; }
-.btn.pink:hover { box-shadow: 0 4px 18px rgba(255, 61, 129, 0.35); }
 
 /* ---------- Ticker ---------- */
 .ticker-wrap {
   border-bottom: 1px solid var(--border);
-  background: #060a07;
+  background: var(--bg-panel);
   overflow: hidden;
   position: relative;
   height: 40px;
@@ -138,7 +138,7 @@ nav.links a:hover { color: var(--primary); }
   align-items: center;
   padding: 0 14px;
   background: var(--primary);
-  color: #04150a;
+  color: var(--ink);
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -166,7 +166,7 @@ nav.links a:hover { color: var(--primary); }
 }
 .ticker-item .sym { color: var(--text); font-weight: 700; }
 .ticker-item .mc { color: var(--text-dim); }
-.ticker-item .chg.up { color: var(--primary); }
+.ticker-item .chg.up { color: var(--gain); }
 .ticker-item .chg.down { color: var(--accent); }
 
 /* ---------- Hero ---------- */
@@ -184,7 +184,7 @@ nav.links a:hover { color: var(--primary); }
   margin: 0 0 16px;
   color: #fff;
 }
-.hero h1 span { color: var(--primary); text-shadow: 0 0 24px rgba(57, 255, 136, 0.5); }
+.hero h1 span { color: var(--primary); text-shadow: 0 0 24px rgba(77, 200, 245, 0.5); }
 .hero p.sub {
   color: var(--text-dim);
   font-size: 16px;
@@ -226,7 +226,7 @@ nav.links a:hover { color: var(--primary); }
   justify-content: center;
   padding: 20px;
 }
-.mascot-stage svg { width: 100%; max-width: 360px; filter: drop-shadow(0 0 30px rgba(57, 255, 136, 0.18)); }
+.mascot-stage svg { width: 100%; max-width: 360px; filter: drop-shadow(0 0 30px rgba(77, 200, 245, 0.18)); }
 
 @keyframes idle-bob {
   0%, 100% { transform: translateY(0); }
@@ -353,7 +353,7 @@ nav.links a:hover { color: var(--primary); }
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: radial-gradient(circle at 50% 30%, #0d1a12, #050705 75%);
+  background: radial-gradient(circle at 50% 30%, #101a26, #06090e 75%);
 }
 .desk-scene svg { width: 100%; display: block; }
 
@@ -387,7 +387,7 @@ nav.links a:hover { color: var(--primary); }
   font-size: 12.5px;
 }
 .trade-feed li:last-child { border-bottom: none; }
-.trade-feed .side.buy { color: var(--primary); }
+.trade-feed .side.buy { color: var(--gain); }
 .trade-feed .side.sell { color: var(--accent); }
 .trade-feed .side.buyback { color: #ffd166; font-weight: 700; }
 .trade-feed .t { color: var(--text-dim); font-size: 11px; }

@@ -18,6 +18,7 @@ function applyBranding() {
   document.documentElement.style.setProperty("--bg", c.colors.bg);
   document.documentElement.style.setProperty("--bg-panel", c.colors.bgPanel);
   document.documentElement.style.setProperty("--warn", c.colors.warn);
+  document.documentElement.style.setProperty("--gain", c.colors.gain);
 
   setHref("buy-btn", c.socials.stonkfun || "#");
   setHref("buy-btn-2", c.socials.stonkfun || "#");
