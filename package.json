@@ -1,0 +1,10 @@
+{
+  "name": "chart-cat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site communautaire + bot de trading pour un token Solana lancé sur StonkFun",
+  "dependencies": {
+    "@solana/web3.js": "^1.95.3",
+    "bs58": "^6.0.0"
+  }
+}
