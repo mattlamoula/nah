@@ -82,7 +82,12 @@ header.topbar {
   text-decoration: none;
 }
 
-.brand-emoji { font-size: 24px; filter: drop-shadow(0 0 6px var(--primary)); }
+.brand-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px rgba(47, 208, 255, 0.7));
+}
 
 nav.links { display: flex; gap: 22px; }
 nav.links a {

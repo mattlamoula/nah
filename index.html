@@ -8,13 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/mascot-badge.svg" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a href="#top" class="brand"><span class="brand-emoji">🐱</span> <span id="brand-name">Chart Cat</span></a>
+    <a href="#top" class="brand"><img src="assets/mascot-badge.svg" alt="" class="brand-badge" /> <span id="brand-name">Chart Cat</span></a>
     <nav class="links">
       <a href="#feed">Nourrir le chat</a>
       <a href="#bot">Trading Bot</a>
@@ -243,7 +244,10 @@
     <a href="#" id="social-tg">Telegram</a>
     <a href="#" id="social-stonkfun">StonkFun</a>
   </div>
-  <div id="footer-name">Chart Cat</div>
+  <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
+    <img src="assets/mascot-badge.svg" alt="" style="width:22px; height:22px; border-radius:50%;" />
+    <span id="footer-name">Chart Cat</span>
+  </div>
   <p class="disclaimer">
     Ceci est un token expérimental communautaire. Le bot de trading peut perdre tout ou partie de son capital.
     Rien ici ne constitue un conseil financier. DYOR. Tant que le statut affiche "DRY-RUN", aucun fonds réel n'est engagé par le bot.

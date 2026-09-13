@@ -1,0 +1,67 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="badgeGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="circleClip"><circle cx="100" cy="100" r="84"/></clipPath>
+  </defs>
+
+  <rect width="200" height="200" fill="#000000"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="#2fd0ff" stroke-width="4" opacity="0.9" filter="url(#badgeGlow)"/>
+  <circle cx="100" cy="100" r="84" fill="#050b14"/>
+
+  <g clip-path="url(#circleClip)">
+    <!-- tete + oreilles pointues + houppe -->
+    <path d="M55 18
+             C64 34 70 46 72 55
+             C79 46 86 44 92 52
+             C96 44 104 44 108 52
+             C114 44 121 46 128 55
+             C130 46 136 34 145 18
+             C158 30 168 48 168 68
+             C168 90 172 100 172 112
+             C172 142 156 166 130 174
+             C118 178 108 180 100 180
+             C92 180 82 178 70 174
+             C44 166 28 142 28 112
+             C28 100 32 90 32 68
+             C32 48 42 30 55 18 Z"
+          fill="#39c9f5" stroke="#031621" stroke-width="5" stroke-linejoin="round"/>
+
+    <!-- interieur oreille gauche -->
+    <path d="M58 30 C63 40 67 48 70 54 C64 52 56 50 50 47 C52 40 55 34 58 30 Z" fill="#031621"/>
+    <!-- interieur oreille droite -->
+    <path d="M142 30 C137 40 133 48 130 54 C136 52 144 50 150 47 C148 40 145 34 142 30 Z" fill="#031621"/>
+
+    <!-- moustaches droite -->
+    <line x1="150" y1="108" x2="187" y2="100" stroke="#031621" stroke-width="3" stroke-linecap="round"/>
+    <line x1="150" y1="116" x2="187" y2="118" stroke="#031621" stroke-width="3" stroke-linecap="round"/>
+    <line x1="148" y1="124" x2="182" y2="132" stroke="#031621" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- yeux fermes, contents -->
+    <path d="M62 106 Q78 90 94 106" fill="none" stroke="#031621" stroke-width="6" stroke-linecap="round"/>
+    <path d="M116 104 Q131 88 148 100" fill="none" stroke="#031621" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- museau + sourire -->
+    <path d="M95 122 L100 128 L105 122" fill="none" stroke="#031621" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M78 122 Q88 134 100 128" fill="none" stroke="#031621" stroke-width="4" stroke-linecap="round"/>
+    <path d="M122 122 Q112 134 100 128" fill="none" stroke="#031621" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- patte levee, style maneki-neko -->
+    <g>
+      <path d="M35 150
+               C20 128 24 100 52 96
+               C82 92 92 116 86 140
+               C81 160 54 168 35 150 Z"
+            fill="#39c9f5" stroke="#031621" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="58" cy="138" rx="13" ry="16" fill="#031621"/>
+      <ellipse cx="40" cy="118" rx="6.5" ry="8" fill="#031621"/>
+      <ellipse cx="57" cy="107" rx="6.5" ry="8" fill="#031621"/>
+      <ellipse cx="74" cy="113" rx="6.5" ry="8" fill="#031621"/>
+    </g>
+  </g>
+</svg>
