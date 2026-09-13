@@ -87,8 +87,53 @@
           </linearGradient>
         </defs>
       </svg>
+      <div class="pet-actions">
+        <button class="pet-action-btn" id="action-pet" type="button">♡ Pet</button>
+        <button class="pet-action-btn" id="action-feed" type="button">✦ Feed</button>
+        <button class="pet-action-btn" id="action-play" type="button">⚡ Play</button>
+        <button class="pet-action-btn" id="action-purr" type="button">♪ Purr</button>
+      </div>
     </div>
   </section>
+
+  <div class="stage-timeline-panel">
+    <div class="container">
+      <div class="stage-timeline-head">
+        <div>
+          <div class="kicker">Five levels. One little cat.</div>
+          <h3>Every feed has a story.</h3>
+        </div>
+      </div>
+      <div class="stage-steps" id="stage-steps"></div>
+      <div class="stage-bar-outer"><div class="stage-bar-inner" id="stage-bar-inner"></div></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="how-it-works">
+      <div class="how-step">
+        <div class="step-num">01</div>
+        <div>
+          <h4>Buy $SKITY</h4>
+          <p>Fair-launched on StonkFun. No presale, no hidden team allocation.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="step-num">02</div>
+        <div>
+          <h4>Watch the bot trade</h4>
+          <p>Skity trades StonkFun's trending tokens live, starting capital: $100.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="step-num">03</div>
+        <div>
+          <h4>Profit buys back supply</h4>
+          <p>Above the threshold, the excess buys back $SKITY on the open market.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="section" id="feed">
     <div class="container">
@@ -160,6 +205,11 @@
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
             <span class="status-pill dry" id="bot-status-pill"><span class="dot"></span> <span id="bot-status-text">DRY-RUN (simulation)</span></span>
             <span style="font-size:11px; color:var(--text-dim);" id="bot-updated">updated —</span>
+          </div>
+
+          <div class="tick-countdown">
+            <span class="label">Next check-in:</span>
+            <span class="clock" id="tick-clock">--:--</span>
           </div>
 
           <div class="stat-row">

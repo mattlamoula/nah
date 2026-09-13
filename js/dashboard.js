@@ -1,4 +1,8 @@
 const DASHBOARD_REFRESH_MS = 30000;
+// Matches the cron schedule in vercel.json ("*/5 * * * *"). If the project runs on a
+// Vercel plan that only allows daily cron, this countdown will look wrong until updated.
+const TICK_INTERVAL_MS = 5 * 60 * 1000;
+let nextTickAt = null;
 
 function fmtUsd(n) {
   const sign = n >= 0 ? "+" : "-";
@@ -35,6 +39,24 @@ function renderBalance(data) {
 
   const updated = document.getElementById("bot-updated");
   if (updated) updated.textContent = `updated ${new Date().toLocaleTimeString("en-US")}`;
+
+  if (data.lastTickAt) {
+    let next = Number(data.lastTickAt) + TICK_INTERVAL_MS;
+    const now = Date.now();
+    while (next < now) next += TICK_INTERVAL_MS;
+    nextTickAt = next;
+  }
+}
+
+function renderCountdown() {
+  const clock = document.getElementById("tick-clock");
+  if (!clock) return;
+  if (!nextTickAt) { clock.textContent = "--:--"; return; }
+  const remainingMs = Math.max(0, nextTickAt - Date.now());
+  const totalSeconds = Math.floor(remainingMs / 1000);
+  const mm = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+  const ss = String(totalSeconds % 60).padStart(2, "0");
+  clock.textContent = `${mm}:${ss}`;
 }
 
 function renderTrades(trades) {
@@ -82,4 +104,5 @@ async function refreshDashboard() {
 document.addEventListener("DOMContentLoaded", () => {
   refreshDashboard();
   setInterval(refreshDashboard, DASHBOARD_REFRESH_MS);
+  setInterval(renderCountdown, 1000);
 });
