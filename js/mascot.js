@@ -2,11 +2,11 @@ const MASCOT_STORAGE_KEY = "chartcat_mascot_state_v1";
 const FOOD_EMOJIS = ["🍣", "🐟", "🍤", "🥩", "🍗"];
 
 const LEVELS = [
-  { level: 1, minFeeds: 0, name: "Chaton" },
-  { level: 2, minFeeds: 5, name: "Chat curieux" },
-  { level: 3, minFeeds: 15, name: "Chat trader" },
-  { level: 4, minFeeds: 35, name: "Chat degen" },
-  { level: 5, minFeeds: 75, name: "Chat diamant" },
+  { level: 1, minFeeds: 0, name: "Kitten" },
+  { level: 2, minFeeds: 5, name: "Curious Cat" },
+  { level: 3, minFeeds: 15, name: "Trader Cat" },
+  { level: 4, minFeeds: 35, name: "Degen Cat" },
+  { level: 5, minFeeds: 75, name: "Diamond Cat" },
 ];
 
 function loadMascotState() {
@@ -32,7 +32,7 @@ function renderMascot(state) {
   const nextLevel = LEVELS.find(l => l.minFeeds > state.feeds);
 
   const levelBadge = document.getElementById("hero-badge");
-  if (levelBadge) levelBadge.textContent = `Niveau ${level.level} · ${level.name}`;
+  if (levelBadge) levelBadge.textContent = `Level ${level.level} · ${level.name}`;
 
   const statLevel = document.getElementById("stat-level");
   if (statLevel) statLevel.textContent = String(level.level);
@@ -54,8 +54,8 @@ function renderMascot(state) {
   const feedBtn = document.getElementById("feed-btn");
   if (feedBtn) {
     feedBtn.textContent = nextLevel
-      ? `🍣 Nourrir (${nextLevel.minFeeds - state.feeds} pour niveau ${nextLevel.level})`
-      : "🍣 Nourrir (niveau max atteint)";
+      ? `🍣 Feed (${nextLevel.minFeeds - state.feeds} to level ${nextLevel.level})`
+      : "🍣 Feed (max level reached)";
   }
 }
 
@@ -96,7 +96,7 @@ function initMascotFeeding() {
     const level = levelForFeeds(state.feeds);
     const prevLevel = levelForFeeds(state.feeds - 1);
     if (level.level > prevLevel.level) {
-      showToast(`🎉 ${SITE_CONFIG.mascotName} passe niveau ${level.level} — ${level.name} !`);
+      showToast(`🎉 ${SITE_CONFIG.mascotName} leveled up to ${level.level} — ${level.name}!`);
     }
   });
 

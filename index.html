@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Skity — le chat trader de la commu</title>
-<meta name="description" content="Skity ($SKITY) : mascotte Solana qui trade en direct et rachète sa propre supply avec les profits. Lancé sur StonkFun." />
+<title>Skity — the community's trading cat</title>
+<meta name="description" content="Skity ($SKITY): a Solana mascot that trades live and buys back its own supply with the profits. Launched on StonkFun." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -17,17 +17,17 @@
   <div class="topbar-inner">
     <a href="#top" class="brand"><img src="assets/mascot-badge.svg" alt="" class="brand-badge" /> <span id="brand-name">Skity</span></a>
     <nav class="links">
-      <a href="#feed">Nourrir le chat</a>
+      <a href="#feed">Feed the cat</a>
       <a href="#bot">Trading Bot</a>
       <a href="#tokenomics">Tokenomics</a>
       <a href="#roadmap">Roadmap</a>
     </nav>
-    <a href="#" id="buy-btn" class="btn">Acheter sur StonkFun</a>
+    <a href="#" id="buy-btn" class="btn">Buy on StonkFun</a>
   </div>
   <div class="ticker-wrap">
     <div class="ticker-label">🔥 TOP STONKFUN</div>
     <div class="ticker-track" id="ticker-track">
-      <div class="ticker-item"><span class="sym">Chargement…</span></div>
+      <div class="ticker-item"><span class="sym">Loading…</span></div>
     </div>
   </div>
 </header>
@@ -36,21 +36,21 @@
 
   <section class="container hero">
     <div>
-      <div class="level-badge" id="hero-badge">Vivant sur Solana</div>
-      <h1>Le chat qui <span>trade</span> pour toute la commu.</h1>
+      <div class="level-badge" id="hero-badge">Live on Solana</div>
+      <h1>The cat that <span>trades</span> for the whole community.</h1>
       <p class="sub">
-        <strong id="tagline-name">Skity</strong> gère un portefeuille réel en direct.
-        Dès qu'il fait du profit, il rachète sa propre supply sur le marché — en public,
-        vérifiable on-chain, aucune promesse en l'air.
+        <strong id="tagline-name">Skity</strong> runs a real portfolio, live.
+        The moment it turns a profit, it buys back its own supply on the open market — publicly,
+        verifiable on-chain, no empty promises.
       </p>
       <div class="cta-row">
-        <a href="#" id="buy-btn-2" class="btn">Acheter <span id="ticker-name">$SKITY</span></a>
-        <a href="#bot" class="btn ghost">Voir le bot trader en direct</a>
+        <a href="#" id="buy-btn-2" class="btn">Buy <span id="ticker-name">$SKITY</span></a>
+        <a href="#bot" class="btn ghost">Watch the bot trade live</a>
       </div>
       <div class="ca-box">
         <span>CA:</span>
-        <code id="contract-address">bientôt disponible</code>
-        <button id="copy-ca">copier</button>
+        <code id="contract-address">coming soon</code>
+        <button id="copy-ca">copy</button>
       </div>
     </div>
 
@@ -94,24 +94,24 @@
     <div class="container">
       <div class="section-head">
         <div class="kicker">Tamagotchi mode</div>
-        <h2>Nourris <span id="feed-name">Skity</span></h2>
-        <p>Plus la commu nourrit le chat, plus il évolue. Chaque niveau débloque une nouvelle skin et rapproche le chat d'un badge communautaire.</p>
+        <h2>Feed <span id="feed-name">Skity</span></h2>
+        <p>The more the community feeds the cat, the more it evolves. Every level unlocks a new skin and gets it closer to a community badge.</p>
       </div>
       <div class="feed-grid panel">
         <div>
           <div class="stat-row">
-            <div class="stat"><div class="label">Niveau</div><div class="value" id="stat-level">1</div></div>
-            <div class="stat"><div class="label">Faim</div><div class="value" id="stat-hunger">40%</div></div>
-            <div class="stat"><div class="label">Nourri par toi</div><div class="value" id="stat-fed">0</div></div>
+            <div class="stat"><div class="label">Level</div><div class="value" id="stat-level">1</div></div>
+            <div class="stat"><div class="label">Hunger</div><div class="value" id="stat-hunger">40%</div></div>
+            <div class="stat"><div class="label">Fed by you</div><div class="value" id="stat-fed">0</div></div>
           </div>
-          <div class="bar-label"><span>Faim</span><span id="hunger-pct">40%</span></div>
+          <div class="bar-label"><span>Hunger</span><span id="hunger-pct">40%</span></div>
           <div class="bar-outer"><div class="bar-inner" id="hunger-bar"></div></div>
-          <button class="btn feed-btn" id="feed-btn">🍣 Nourrir le chat</button>
+          <button class="btn feed-btn" id="feed-btn">🍣 Feed the cat</button>
         </div>
         <div class="mascot-stage" style="padding:0;">
           <div class="panel" style="width:100%; text-align:center;">
-            <p style="color:var(--text-dim); font-size:13px;">Le chat de la commu, nourri <strong id="global-feeds">—</strong> fois au total*</p>
-            <p style="font-size:11px; color:#4d6157;">*compteur local à ton navigateur pour l'instant — se branche sur un compteur partagé (base de données) au lancement</p>
+            <p style="color:var(--text-dim); font-size:13px;">The community's cat, fed <strong id="global-feeds">—</strong> times total*</p>
+            <p style="font-size:11px; color:#4d6157;">*local to your browser for now — will connect to a shared (database) counter at launch</p>
           </div>
         </div>
       </div>
@@ -121,13 +121,13 @@
   <section class="section" id="bot">
     <div class="container">
       <div class="section-head">
-        <div class="kicker">100% vérifiable on-chain</div>
-        <h2>Le bot qui trade, en direct</h2>
+        <div class="kicker">100% verifiable on-chain</div>
+        <h2>The bot that trades, live</h2>
         <p>
-          <span id="bot-name">Skity</span> a reçu un capital de départ de <strong id="seed-amount">$100</strong>.
-          Il trade les tokens tendance de StonkFun en suivant une stratégie momentum avec stoploss strict.
-          Dès que la valeur du portefeuille dépasse <strong id="threshold-amount">$130</strong>, l'excédent sert à racheter
-          <span id="bot-ticker">$SKITY</span> sur le marché.
+          <span id="bot-name">Skity</span> received a starting capital of <strong id="seed-amount">$100</strong>.
+          It trades StonkFun's trending tokens following a momentum strategy with a strict stoploss.
+          The moment the portfolio's value crosses <strong id="threshold-amount">$130</strong>, the excess is used to buy back
+          <span id="bot-ticker">$SKITY</span> on the open market.
         </p>
       </div>
 
@@ -159,23 +159,23 @@
         <div class="panel">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
             <span class="status-pill dry" id="bot-status-pill"><span class="dot"></span> <span id="bot-status-text">DRY-RUN (simulation)</span></span>
-            <span style="font-size:11px; color:var(--text-dim);" id="bot-updated">màj —</span>
+            <span style="font-size:11px; color:var(--text-dim);" id="bot-updated">updated —</span>
           </div>
 
           <div class="stat-row">
-            <div class="stat"><div class="label">Wallet du bot</div><div class="value" style="font-size:13px;" id="stat-wallet">non déployé</div></div>
-            <div class="stat"><div class="label">Solde actuel</div><div class="value" id="stat-balance">$100.00</div></div>
+            <div class="stat"><div class="label">Bot wallet</div><div class="value" style="font-size:13px;" id="stat-wallet">not deployed</div></div>
+            <div class="stat"><div class="label">Current balance</div><div class="value" id="stat-balance">$100.00</div></div>
             <div class="stat"><div class="label">P&amp;L</div><div class="value" id="stat-pnl">+$0.00</div></div>
           </div>
 
           <div class="buyback-progress">
-            <div class="bar-label"><span>Progression vers le prochain buyback</span><span id="buyback-pct">0%</span></div>
+            <div class="bar-label"><span>Progress to next buyback</span><span id="buyback-pct">0%</span></div>
             <div class="bar-outer"><div class="bar-inner" id="buyback-bar" style="width:0%;"></div></div>
           </div>
 
-          <h4 style="margin:22px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em;">Derniers trades</h4>
+          <h4 style="margin:22px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em;">Latest trades</h4>
           <ul class="trade-feed" id="trade-feed">
-            <li><span>Le bot n'a pas encore trade — en attente de déploiement</span></li>
+            <li><span>The bot hasn't traded yet — waiting on deployment</span></li>
           </ul>
         </div>
       </div>
@@ -186,20 +186,20 @@
     <div class="container">
       <div class="section-head">
         <div class="kicker">Tokenomics</div>
-        <h2>Simple, transparent, communautaire</h2>
+        <h2>Simple, transparent, community-owned</h2>
       </div>
       <div class="grid-3">
         <div class="card">
-          <h3>100% supply publique</h3>
-          <p>Aucune allocation équipe cachée. Lancé fair-launch sur StonkFun, comme tout token bonding curve.</p>
+          <h3>100% public supply</h3>
+          <p>No hidden team allocation. Fair-launched on StonkFun, like any bonding curve token.</p>
         </div>
         <div class="card">
-          <h3>Buybacks du bot</h3>
-          <p>Chaque profit réalisé par le bot au-dessus du seuil est utilisé pour racheter la supply sur le marché — visible en direct dans le dashboard.</p>
+          <h3>Bot buybacks</h3>
+          <p>Every profit the bot makes above the threshold is used to buy back supply on the open market — visible live in the dashboard.</p>
         </div>
         <div class="card">
-          <h3>Trésorerie publique</h3>
-          <p>Le wallet du bot est public dès le déploiement. Tu peux vérifier chaque trade et chaque rachat sur Solscan.</p>
+          <h3>Public treasury</h3>
+          <p>The bot's wallet is public from day one. You can verify every trade and every buyback on Solscan.</p>
         </div>
       </div>
     </div>
@@ -209,28 +209,28 @@
     <div class="container">
       <div class="section-head">
         <div class="kicker">Roadmap</div>
-        <h2>Où on va</h2>
+        <h2>Where we're headed</h2>
       </div>
       <div class="roadmap panel">
         <div class="roadmap-item">
-          <h4>Phase 0 — Site + mascotte</h4>
-          <p>Site communautaire live, mécanisme feed-the-cat, ticker StonkFun en direct.</p>
+          <h4>Phase 0 — Site + mascot</h4>
+          <p>Community site live, feed-the-cat mechanic, live StonkFun ticker.</p>
         </div>
         <div class="roadmap-item">
-          <h4>Phase 1 — Lancement StonkFun</h4>
-          <p>Mint du token, fair launch, ouverture du trading.</p>
+          <h4>Phase 1 — StonkFun launch</h4>
+          <p>Token mint, fair launch, trading opens.</p>
         </div>
         <div class="roadmap-item">
-          <h4>Phase 2 — Bot en dry-run public</h4>
-          <p>Le bot trade en simulation, résultats publiés en direct sur le dashboard pour prouver la stratégie avant d'engager du capital réel.</p>
+          <h4>Phase 2 — Bot in public dry-run</h4>
+          <p>The bot trades in simulation, results published live on the dashboard to prove the strategy before committing real capital.</p>
         </div>
         <div class="roadmap-item">
-          <h4>Phase 3 — Bot en live avec capital réel</h4>
-          <p>Bascule vers le trading réel avec le seed de départ, premiers buybacks automatiques.</p>
+          <h4>Phase 3 — Bot goes live with real capital</h4>
+          <p>Switch to real trading with the starting seed, first automatic buybacks.</p>
         </div>
         <div class="roadmap-item">
-          <h4>Phase 4 — Communauté</h4>
-          <p>Leaderboard des meilleurs "nourrisseurs", badges, votes de la commu sur les paramètres du bot.</p>
+          <h4>Phase 4 — Community</h4>
+          <p>Leaderboard for top "feeders", badges, community votes on the bot's parameters.</p>
         </div>
       </div>
     </div>
@@ -249,8 +249,8 @@
     <span id="footer-name">Skity</span>
   </div>
   <p class="disclaimer">
-    Ceci est un token expérimental communautaire. Le bot de trading peut perdre tout ou partie de son capital.
-    Rien ici ne constitue un conseil financier. DYOR. Tant que le statut affiche "DRY-RUN", aucun fonds réel n'est engagé par le bot.
+    This is an experimental community token. The trading bot can lose some or all of its capital.
+    Nothing here is financial advice. DYOR. As long as the status shows "DRY-RUN", the bot has no real funds at risk.
   </p>
 </footer>
 

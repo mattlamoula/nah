@@ -1,15 +1,15 @@
-// Toutes les valeurs de branding sont centralisées ici.
-// Remplace ces placeholders par les vraies infos avant le lancement StonkFun.
+// All branding values live here.
+// Swap these placeholders for the real info before the StonkFun launch.
 const SITE_CONFIG = {
   tokenName: "Skity",
   tokenTicker: "$SKITY",
   mascotName: "Skity",
-  tagline: "Le chat qui trade pour la commu",
+  tagline: "The cat that trades for the community",
 
-  // Adresse du contrat une fois le token mint sur StonkFun
+  // Contract address once the token is minted on StonkFun
   contractAddress: "",
 
-  // Wallet public du bot de trading (doit être visible on-chain, jamais la clé privée)
+  // Trading bot's public wallet (must be visible on-chain, never the private key)
   botWalletAddress: "",
 
   socials: {
@@ -18,8 +18,8 @@ const SITE_CONFIG = {
     stonkfun: "#",
   },
 
-  // Palette calquée sur stonkfun.xyz (marine très sombre + bleu cyan).
-  // gain/accent restent vert/rouge : convention universelle pour les variations de prix.
+  // Palette matched to stonkfun.xyz (very dark navy + cyan blue).
+  // gain/accent stay green/red: the universal convention for price moves.
   colors: {
     primary: "#4dc8f5",
     primaryDim: "#1f6f96",
@@ -30,7 +30,7 @@ const SITE_CONFIG = {
     warn: "#ffb347",
   },
 
-  // Seed initial donné au bot (en USD) et seuil de profit qui déclenche un buyback
+  // Starting seed given to the bot (in USD) and the profit threshold that triggers a buyback
   bot: {
     seedUsd: 100,
     buybackThresholdUsd: 130,

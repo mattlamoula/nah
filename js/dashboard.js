@@ -11,7 +11,7 @@ function renderBotStatus(dryRun) {
   if (!pill || !text) return;
   pill.classList.toggle("dry", dryRun);
   pill.classList.toggle("live", !dryRun);
-  text.textContent = dryRun ? "DRY-RUN (simulation)" : "LIVE (capital réel)";
+  text.textContent = dryRun ? "DRY-RUN (simulation)" : "LIVE (real capital)";
 }
 
 function renderBalance(data) {
@@ -34,20 +34,20 @@ function renderBalance(data) {
   if (pct) pct.textContent = `${Math.round(progress)}%`;
 
   const updated = document.getElementById("bot-updated");
-  if (updated) updated.textContent = `màj ${new Date().toLocaleTimeString("fr-FR")}`;
+  if (updated) updated.textContent = `updated ${new Date().toLocaleTimeString("en-US")}`;
 }
 
 function renderTrades(trades) {
   const list = document.getElementById("trade-feed");
   if (!list) return;
   if (!trades || trades.length === 0) {
-    list.innerHTML = `<li><span>Le bot n'a pas encore trade — en attente de déploiement</span></li>`;
+    list.innerHTML = `<li><span>The bot hasn't traded yet — waiting on deployment</span></li>`;
     return;
   }
   list.innerHTML = trades.slice(0, 20).map(tr => {
     const cls = tr.side === "buyback" ? "buyback" : (tr.side === "buy" ? "buy" : "sell");
     const label = tr.side === "buyback" ? "BUYBACK" : tr.side.toUpperCase();
-    const time = tr.timestamp ? new Date(tr.timestamp).toLocaleString("fr-FR") : "";
+    const time = tr.timestamp ? new Date(tr.timestamp).toLocaleString("en-US") : "";
     return `<li>
       <span><span class="side ${cls}">${label}</span> ${tr.symbol || ""} ${tr.amountUsd ? `· $${Number(tr.amountUsd).toFixed(2)}` : ""}</span>
       <span class="t">${time}</span>
@@ -73,8 +73,8 @@ async function refreshDashboard() {
       renderTrades(tradesData.trades || tradesData);
     }
   } catch (err) {
-    // Bot / API pas encore déployés : on garde l'état "en attente" déjà présent dans le HTML.
-    console.warn("Dashboard: bot pas encore déployé", err);
+    // Bot / API not deployed yet: keep the "waiting" state already present in the HTML.
+    console.warn("Dashboard: bot not deployed yet", err);
     renderBotStatus(true);
   }
 }

@@ -9,8 +9,8 @@ function applyBranding() {
   setText("bot-ticker", c.tokenTicker);
   setText("seed-amount", `$${c.bot.seedUsd}`);
   setText("threshold-amount", `$${c.bot.buybackThresholdUsd}`);
-  setText("contract-address", c.contractAddress || "bientôt disponible");
-  setText("stat-wallet", c.botWalletAddress ? `${c.botWalletAddress.slice(0, 4)}…${c.botWalletAddress.slice(-4)}` : "non déployé");
+  setText("contract-address", c.contractAddress || "coming soon");
+  setText("stat-wallet", c.botWalletAddress ? `${c.botWalletAddress.slice(0, 4)}…${c.botWalletAddress.slice(-4)}` : "not deployed");
 
   document.documentElement.style.setProperty("--primary", c.colors.primary);
   document.documentElement.style.setProperty("--primary-dim", c.colors.primaryDim);
@@ -41,12 +41,12 @@ function setupCopyCA() {
   if (!btn) return;
   btn.addEventListener("click", async () => {
     const ca = SITE_CONFIG.contractAddress;
-    if (!ca) { showToast("Pas encore de contract address"); return; }
+    if (!ca) { showToast("No contract address yet"); return; }
     try {
       await navigator.clipboard.writeText(ca);
-      showToast("Adresse copiée");
+      showToast("Address copied");
     } catch {
-      showToast("Copie impossible sur ce navigateur");
+      showToast("Copy isn't supported in this browser");
     }
   });
 }

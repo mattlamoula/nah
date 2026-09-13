@@ -1,9 +1,9 @@
-// Bannière défilante des tokens à plus grosse market cap sur StonkFun.
-// API publique StonkFun (sans clé) : https://www.stonkfun.xyz/api/public/v1
-// On tente d'abord un fetch direct (si StonkFun autorise le CORS cross-origin).
-// Si ça échoue (CORS bloqué, ou API down), on retombe sur le proxy serverless /api/stonkfun,
-// qui fait l'appel côté serveur et supprime le problème de CORS.
-// Si les deux échouent, on affiche un message clair plutôt que d'inventer des chiffres.
+// Scrolling banner of StonkFun's top-market-cap tokens.
+// Public StonkFun API (keyless): https://www.stonkfun.xyz/api/public/v1
+// We try a direct fetch first (works if StonkFun allows cross-origin CORS).
+// If that fails (CORS blocked, or API down), we fall back to the serverless proxy
+// /api/stonkfun, which makes the call server-side and sidesteps CORS entirely.
+// If both fail, we show a clear message instead of making up numbers.
 
 const STONKFUN_DIRECT_URL = "https://www.stonkfun.xyz/api/public/v1/tokens?sort=newest";
 const TICKER_REFRESH_MS = 45000;
@@ -35,7 +35,7 @@ async function fetchStonkfunTokens() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     const list = Array.isArray(data) ? data : (data.tokens || data.data || data.pairs || []);
-    if (!Array.isArray(list)) throw new Error("Format de réponse inattendu");
+    if (!Array.isArray(list)) throw new Error("Unexpected response format");
     return list.map(normalizeToken);
   };
 
@@ -45,7 +45,7 @@ async function fetchStonkfunTokens() {
     try {
       return await tryFetch(SITE_CONFIG.api.stonkfunTickerEndpoint);
     } catch (proxyErr) {
-      console.warn("StonkFun ticker: direct et proxy ont échoué.", directErr, proxyErr);
+      console.warn("StonkFun ticker: both direct fetch and proxy failed.", directErr, proxyErr);
       return null;
     }
   }
@@ -56,7 +56,7 @@ function renderTicker(tokens) {
   if (!track) return;
 
   if (!tokens || tokens.length === 0) {
-    track.innerHTML = `<div class="ticker-item"><span class="sym">Ticker StonkFun indisponible pour le moment</span></div>`;
+    track.innerHTML = `<div class="ticker-item"><span class="sym">StonkFun ticker unavailable right now</span></div>`;
     return;
   }
 
@@ -75,7 +75,7 @@ function renderTicker(tokens) {
     </div>`;
   }).join("");
 
-  // Dupliqué une fois pour un défilement continu sans coupure (translateX -50%).
+  // Duplicated once for a seamless continuous scroll (translateX -50%).
   track.innerHTML = itemHtml + itemHtml;
 }
 
