@@ -1,5 +1,8 @@
 const { Keypair } = require("@solana/web3.js");
-const bs58 = require("bs58");
+// bs58@6 est un module ESM : require() le renvoie sous `.default` en CommonJS.
+// Le fallback `|| bs58Module` garde la compat si une version CJS classique est installée un jour.
+const bs58Module = require("bs58");
+const bs58 = bs58Module.default || bs58Module;
 
 // BOT_PRIVATE_KEY : clé privée du wallet du bot, en base58 (format export Phantom)
 // ou en JSON array (format solana-keygen). Ne JAMAIS committer cette valeur —

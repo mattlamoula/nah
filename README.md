@@ -1,4 +1,4 @@
-# Chart Cat — site communautaire + bot de trading StonkFun
+# Skity — site communautaire + bot de trading StonkFun
 
 Site pour un memecoin Solana avec mascotte chat : mécanisme feed-the-mascot,
 bannière live des top market cap StonkFun, et un dashboard qui affiche en direct
@@ -28,6 +28,8 @@ bot/stonkfun.js                 récupère les tokens tendance StonkFun côté s
 bot/price.js                     prix SOL / tokens via l'API prix Jupiter
 bot/wallet.js                     charge la clé privée du bot depuis l'env
 bot/store.js                       petit client REST Upstash Redis (état + logs de trades)
+
+scripts/generate-bot-wallet.sh   génère le wallet du bot, envoie la clé privée à Vercel sans jamais l'afficher
 ```
 
 ## Décisions prises pendant le build (et pourquoi)
@@ -46,6 +48,18 @@ table ROI, taille de position max) réimplémentées dans `bot/constants.js` et
 `DRY_RUN=false` **et** `LIVE_TRADING_CONFIRMED=yes-i-understand-the-risk` pour
 qu'une seule transaction réelle parte. Par défaut (aucune variable définie), le
 bot est en simulation totale, aucune clé privée n'est même nécessaire.
+
+**Personne — pas même toi — ne voit la clé privée du bot.** C'est un choix
+délibéré : la crédibilité de "le fondateur n'a pas accès au wallet" ne tient
+que si la clé ne transite jamais par un terminal, un fichier ou une
+conversation partagée, la tienne comprise. `scripts/generate-bot-wallet.sh`
+génère le wallet et envoie la clé privée directement dans les secrets Vercel,
+sans jamais l'afficher — seule l'adresse publique sort du script. Voir la
+section "Passer le bot en live" plus bas. À dire clairement à ta commu : c'est
+une garantie procédurale (personne n'a tapé la commande pour l'exporter), pas
+une preuve cryptographique — un wallet PDA contrôlé par un programme on-chain
+serait la version vérifiable par n'importe qui sans te faire confiance sur
+parole, mais c'est un chantier séparé, plus gros, pas fait ici.
 
 **L'API publique StonkFun n'a pas pu être testée en direct.** Mon environnement
 de build a un accès réseau sortant bloqué vers stonkfun.xyz (proxy sandbox).
@@ -89,20 +103,26 @@ ajuste `pick(...)` dans ces deux fichiers si les vrais noms diffèrent.
 Ne fais ça qu'après avoir laissé tourner le dry-run plusieurs jours et vérifié
 les logs de trades dans le dashboard.
 
-1. Crée un wallet Solana **dédié** au bot (jamais ton wallet principal).
-2. Transfère l'équivalent de $100 en SOL dessus.
-3. Exporte la clé privée (base58) et mets-la dans `BOT_PRIVATE_KEY` côté
-   Vercel — jamais dans un fichier committé.
-4. Renseigne `TOKEN_MINT` avec le contract address de $CHART une fois mint.
-5. Passe `DRY_RUN=false` et `LIVE_TRADING_CONFIRMED=yes-i-understand-the-risk`.
-6. Regarde le premier tick live de près (logs Vercel + dashboard).
+1. Sur ta machine (pas dans une session cloud/partagée) : `npm i -g vercel &&
+   vercel login && vercel link`, puis `npm install` dans ce repo.
+2. Lance `./scripts/generate-bot-wallet.sh`. Il génère le wallet, affiche
+   uniquement l'adresse publique, et envoie la clé privée directement dans les
+   secrets Vercel — personne ne la voit, toi compris.
+3. Colle l'adresse publique affichée dans `js/config.js` -> `botWalletAddress`.
+4. Transfère l'équivalent de $100 en SOL sur cette adresse.
+5. Renseigne `TOKEN_MINT` avec le contract address de $SKITY une fois mint.
+6. Passe `DRY_RUN=false` et `LIVE_TRADING_CONFIRMED=yes-i-understand-the-risk`
+   dans les variables d'environnement Vercel.
+7. Regarde le premier tick live de près (logs Vercel + dashboard).
 
 ## Ce qu'il reste à me donner
 
-Dans `js/config.js` (et `bot/constants.js` pour `TOKEN_MINT`) : nom du token,
-ticker, palette de couleurs si tu veux changer le vert néon par défaut, liens
-X/Telegram/StonkFun, contract address une fois mint, et l'artwork de la
-mascotte si tu en as un (le SVG actuel est un placeholder dessiné à la main).
+- La palette de couleurs officielle de stonkfun.xyz (je ne peux pas accéder au
+  site depuis mon environnement — capture d'écran ou description des couleurs).
+- Liens X/Telegram une fois créés, contract address une fois le token mint.
+- Adresse publique du wallet bot une fois générée via le script ci-dessus.
+- L'artwork final de la mascotte si tu en obtiens une version différente du
+  badge SVG actuel (assets/mascot-badge.svg, redessiné à la main).
 
 ## Limites connues / ce qui n'est pas fait
 

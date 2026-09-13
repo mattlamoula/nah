@@ -1,9 +1,9 @@
 // Toutes les valeurs de branding sont centralisées ici.
 // Remplace ces placeholders par les vraies infos avant le lancement StonkFun.
 const SITE_CONFIG = {
-  tokenName: "Chart Cat",
-  tokenTicker: "$CHART",
-  mascotName: "Chart Cat",
+  tokenName: "Skity",
+  tokenTicker: "$SKITY",
+  mascotName: "Skity",
   tagline: "Le chat qui trade pour la commu",
 
   // Adresse du contrat une fois le token mint sur StonkFun
