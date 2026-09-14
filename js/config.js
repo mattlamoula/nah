@@ -9,6 +9,9 @@ const SITE_CONFIG = {
   // Contract address once $GOOB is minted on StonkFun — leave empty until then.
   contractAddress: "",
 
+  // % of every trade redistributed to holders, paid in $STONK. Easy to tweak — no copy to rewrite elsewhere.
+  rewardTaxPercent: 1,
+
   launchUrl: "https://www.stonkfun.xyz/",
 
   socials: {

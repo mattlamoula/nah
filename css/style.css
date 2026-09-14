@@ -20,6 +20,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -147,6 +148,14 @@ nav.links a:hover { color: var(--teal); }
 .hero h1 {
   font-size: clamp(40px, 6vw, 66px);
   line-height: 1;
+  margin: 0 0 10px;
+}
+
+.hero p.tagline {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--yellow);
   margin: 0 0 16px;
 }
 
@@ -269,8 +278,8 @@ nav.links a:hover { color: var(--teal); }
 /* ---------- How it works / how to buy ---------- */
 .how-it-works {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr;
+  gap: 18px;
   margin: 28px 0 30px;
 }
 .how-step { display: flex; gap: 12px; align-items: flex-start; }

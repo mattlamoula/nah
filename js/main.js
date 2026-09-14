@@ -13,16 +13,27 @@ function applyBranding() {
   document.querySelectorAll("[data-token-name]").forEach(el => el.textContent = c.tokenName);
   document.querySelectorAll("[data-token-ticker]").forEach(el => el.textContent = c.tokenTicker);
   document.querySelectorAll("[data-pair-ticker]").forEach(el => el.textContent = c.pairTicker);
+  document.querySelectorAll("[data-reward-tax]").forEach(el => el.textContent = `${c.rewardTaxPercent}%`);
 
   setText("pair-ca", shortAddr(c.pairContractAddress));
   setHref("pair-ca-link", `https://solscan.io/token/${c.pairContractAddress}`);
 
   const hasCA = Boolean(c.contractAddress);
-  setText("contract-address", hasCA ? c.contractAddress : "not minted yet");
+  setText("contract-address", hasCA ? c.contractAddress : "DROPPING AT LAUNCH");
   document.querySelectorAll("[data-buy-btn]").forEach(el => {
     el.href = hasCA ? c.launchUrl : c.socials.stonkfun;
-    el.textContent = hasCA ? `Buy ${c.tokenTicker}` : "Launching on StonkFun";
+    el.textContent = hasCA ? `Buy ${c.tokenTicker} on StonkFun` : "Launching on StonkFun";
   });
+
+  const chartLink = document.querySelector("[data-chart-link]");
+  if (chartLink) {
+    if (hasCA) {
+      chartLink.href = `https://dexscreener.com/solana/${c.contractAddress}`;
+      chartLink.hidden = false;
+    } else {
+      chartLink.hidden = true;
+    }
+  }
 
   setSrc("hero-mascot", c.mascot.hero);
   setSrc("about-mascot", c.mascot.wave);
