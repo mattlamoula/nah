@@ -3,230 +3,109 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Skity — the community's trading cat</title>
-<meta name="description" content="Skity ($SKITY): a Solana mascot that trades live and buys back its own supply with the profits. Launched on StonkFun." />
+<title>$GOOB — paired to $STONK on StonkFun</title>
+<meta name="description" content="$GOOB: a Solana memecoin launched on StonkFun, paired directly against $STONK instead of SOL. No presale, fixed supply, one mascot." />
+<meta property="og:title" content="$GOOB — paired to $STONK on StonkFun" />
+<meta property="og:description" content="A Solana memecoin launched on StonkFun, paired directly against $STONK instead of SOL." />
+<meta property="og:image" content="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/svg+xml" href="assets/mascot-badge.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link id="favicon" rel="icon" type="image/png" href="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a href="#top" class="brand"><img src="assets/mascot-badge.svg" alt="" class="brand-badge" /> <span id="brand-name">Skity</span></a>
-    <nav class="links">
-      <a href="#feed">Feed the cat</a>
-      <a href="#bot">Trading Bot</a>
+    <a href="#top" class="brand">
+      <img src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="" class="brand-badge" />
+      <span data-token-ticker>$GOOB</span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="links" id="nav-links">
+      <a href="#about">About</a>
+      <a href="#pairing">Pairing</a>
       <a href="#tokenomics">Tokenomics</a>
-      <a href="#roadmap">Roadmap</a>
+      <a href="#how-to-buy">How to buy</a>
+      <a href="#gallery">Gallery</a>
     </nav>
-    <a href="#" id="buy-btn" class="btn">Buy on StonkFun</a>
-  </div>
-  <div class="ticker-wrap">
-    <div class="ticker-label">🔥 TOP STONKFUN</div>
-    <div class="ticker-track" id="ticker-track">
-      <div class="ticker-item"><span class="sym">Loading…</span></div>
-    </div>
+    <a href="#" class="btn" data-buy-btn>Launching on StonkFun</a>
   </div>
 </header>
 
 <main id="top">
 
   <section class="container hero">
-    <div>
-      <div class="level-badge" id="hero-badge">Live on Solana</div>
-      <h1>The cat that <span>trades</span> for the whole community.</h1>
+    <div class="hero-copy">
+      <div class="pill-badge">Paired with <span data-pair-ticker>$STONK</span> · not SOL</div>
+      <h1>Meet <span data-token-ticker>$GOOB</span>.</h1>
       <p class="sub">
-        <strong id="tagline-name">Skity</strong> runs a real portfolio, live.
-        The moment it turns a profit, it buys back its own supply on the open market — publicly,
-        verifiable on-chain, no empty promises.
+        The zipper-mouthed slime riding shotgun with <strong data-pair-ticker>$STONK</strong>.
+        Fixed supply, launched straight on StonkFun, no side quests — when <span data-pair-ticker>$STONK</span> moves,
+        <span data-token-ticker>$GOOB</span> feels it.
       </p>
       <div class="cta-row">
-        <a href="#" id="buy-btn-2" class="btn">Buy <span id="ticker-name">$SKITY</span></a>
-        <a href="#bot" class="btn ghost">Watch the bot trade live</a>
+        <a href="#" class="btn" data-buy-btn>Launching on StonkFun</a>
+        <a href="#pairing" class="btn ghost">How the pairing works</a>
       </div>
       <div class="ca-box">
         <span>CA:</span>
-        <code id="contract-address">coming soon</code>
-        <button id="copy-ca">copy</button>
+        <code id="contract-address">not minted yet</code>
+        <button data-copy="goob">copy</button>
       </div>
     </div>
-
-    <div class="mascot-stage">
-      <svg id="mascot-svg" viewBox="0 0 300 300" class="cat-idle" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="150" cy="270" rx="90" ry="14" fill="#000" opacity="0.35"/>
-        <g class="cat-tail">
-          <path d="M215 190 Q260 160 245 100 Q240 80 220 85 Q232 120 210 150 Z" fill="#1f6f96"/>
-        </g>
-        <path d="M90 260 Q80 160 150 150 Q220 160 210 260 Z" fill="#4dc8f5"/>
-        <path d="M90 260 Q80 160 150 150 Q220 160 210 260 Z" fill="url(#catGrad)" opacity="0.5"/>
-        <circle cx="150" cy="120" r="70" fill="#4dc8f5"/>
-        <path d="M95 90 L75 35 L125 75 Z" fill="#4dc8f5"/>
-        <path d="M205 90 L225 35 L175 75 Z" fill="#4dc8f5"/>
-        <path d="M100 92 L85 55 L120 78 Z" fill="#04121c"/>
-        <path d="M200 92 L215 55 L180 78 Z" fill="#04121c"/>
-        <g class="cat-eyes">
-          <ellipse cx="122" cy="118" rx="12" ry="16" fill="#04121c"/>
-          <ellipse cx="178" cy="118" rx="12" ry="16" fill="#04121c"/>
-          <circle cx="126" cy="112" r="3.5" fill="#fff"/>
-          <circle cx="182" cy="112" r="3.5" fill="#fff"/>
-        </g>
-        <ellipse cx="150" cy="148" rx="7" ry="5" fill="#04121c"/>
-        <path class="cat-mouth" d="M150 153 Q140 165 128 155" stroke="#04121c" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path class="cat-mouth" d="M150 153 Q160 165 172 155" stroke="#04121c" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <line x1="95" y1="140" x2="45" y2="132" stroke="#04121c" stroke-width="2"/>
-        <line x1="95" y1="150" x2="45" y2="150" stroke="#04121c" stroke-width="2"/>
-        <line x1="205" y1="140" x2="255" y2="132" stroke="#04121c" stroke-width="2"/>
-        <line x1="205" y1="150" x2="255" y2="150" stroke="#04121c" stroke-width="2"/>
-        <defs>
-          <linearGradient id="catGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#fff" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div class="pet-actions">
-        <button class="pet-action-btn" id="action-pet" type="button">♡ Pet</button>
-        <button class="pet-action-btn" id="action-feed" type="button">✦ Feed</button>
-        <button class="pet-action-btn" id="action-play" type="button">⚡ Play</button>
-        <button class="pet-action-btn" id="action-purr" type="button">♪ Purr</button>
-      </div>
+    <div class="hero-stage">
+      <img id="hero-mascot" class="hero-mascot" src="" alt="$GOOB mascot jumping" />
     </div>
   </section>
 
-  <div class="stage-timeline-panel">
-    <div class="container">
-      <div class="stage-timeline-head">
-        <div>
-          <div class="kicker">Five levels. One little cat.</div>
-          <h3>Every feed has a story.</h3>
-        </div>
-      </div>
-      <div class="stage-steps" id="stage-steps"></div>
-      <div class="stage-bar-outer"><div class="stage-bar-inner" id="stage-bar-inner"></div></div>
-    </div>
+  <div class="badge-strip container">
+    <div class="strip-item"><span class="ico">🔒</span> Fixed supply</div>
+    <div class="strip-item"><span class="ico">🔗</span> Paired to <span data-pair-ticker>$STONK</span></div>
+    <div class="strip-item"><span class="ico">🚀</span> Launched on StonkFun</div>
+    <div class="strip-item"><span class="ico">🫡</span> One mascot, zero side quests</div>
   </div>
 
-  <div class="container">
-    <div class="how-it-works">
-      <div class="how-step">
-        <div class="step-num">01</div>
-        <div>
-          <h4>Buy $SKITY</h4>
-          <p>Fair-launched on StonkFun. No presale, no hidden team allocation.</p>
-        </div>
-      </div>
-      <div class="how-step">
-        <div class="step-num">02</div>
-        <div>
-          <h4>Watch the bot trade</h4>
-          <p>Skity trades StonkFun's trending tokens live, starting capital: $100.</p>
-        </div>
-      </div>
-      <div class="how-step">
-        <div class="step-num">03</div>
-        <div>
-          <h4>Profit buys back supply</h4>
-          <p>Above the threshold, the excess buys back $SKITY on the open market.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="section" id="feed">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">Tamagotchi mode</div>
-        <h2>Feed <span id="feed-name">Skity</span></h2>
-        <p>The more the community feeds the cat, the more it evolves. Every level unlocks a new skin and gets it closer to a community badge.</p>
-      </div>
-      <div class="feed-grid panel">
-        <div>
-          <div class="stat-row">
-            <div class="stat"><div class="label">Level</div><div class="value" id="stat-level">1</div></div>
-            <div class="stat"><div class="label">Hunger</div><div class="value" id="stat-hunger">40%</div></div>
-            <div class="stat"><div class="label">Fed by you</div><div class="value" id="stat-fed">0</div></div>
-          </div>
-          <div class="bar-label"><span>Hunger</span><span id="hunger-pct">40%</span></div>
-          <div class="bar-outer"><div class="bar-inner" id="hunger-bar"></div></div>
-          <button class="btn feed-btn" id="feed-btn">🍣 Feed the cat</button>
-        </div>
-        <div class="mascot-stage" style="padding:0;">
-          <div class="panel" style="width:100%; text-align:center;">
-            <p style="color:var(--text-dim); font-size:13px;">The community's cat, fed <strong id="global-feeds">—</strong> times total*</p>
-            <p style="font-size:11px; color:#4d6157;">*local to your browser for now — will connect to a shared (database) counter at launch</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="bot">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">100% verifiable on-chain</div>
-        <h2>The bot that trades, live</h2>
+  <section class="section" id="about">
+    <div class="container about-grid">
+      <img class="about-mascot" id="about-mascot" src="" alt="$GOOB mascot waving" />
+      <div>
+        <div class="kicker">About</div>
+        <h2>Who's <span data-token-ticker>$GOOB</span>?</h2>
         <p>
-          <span id="bot-name">Skity</span> received a starting capital of <strong id="seed-amount">$100</strong>.
-          It trades StonkFun's trending tokens following a momentum strategy with a strict stoploss.
-          The moment the portfolio's value crosses <strong id="threshold-amount">$130</strong>, the excess is used to buy back
-          <span id="bot-ticker">$SKITY</span> on the open market.
+          A little slime in a backwards cap that showed up on StonkFun and refused to leave.
+          No lore beyond that — it exists to zip along next to <strong data-pair-ticker>$STONK</strong>
+          and let the community decide what happens next.
         </p>
       </div>
+    </div>
+  </section>
 
-      <div class="dash-grid">
-        <div class="desk-scene">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#060a10"/>
-            <rect x="60" y="60" width="280" height="150" rx="8" fill="#101a26" stroke="#1c2733"/>
-            <polyline points="80,180 110,150 130,165 155,120 180,140 205,95 230,110 255,80 280,100 305,70 320,90"
-              fill="none" stroke="#4dc8f5" stroke-width="2.5"/>
-            <rect x="75" y="65" width="8" height="60" fill="#3ddc84" opacity="0.7"/>
-            <rect x="90" y="90" width="8" height="35" fill="#ff5470" opacity="0.7"/>
-            <rect x="105" y="70" width="8" height="55" fill="#3ddc84" opacity="0.7"/>
-            <rect x="200" y="220" width="60" height="10" rx="4" fill="#1c2733"/>
-            <rect x="150" y="230" width="160" height="60" rx="6" fill="#0e131c" stroke="#1c2733"/>
-            <g class="cat-idle">
-              <ellipse cx="150" cy="255" rx="34" ry="10" fill="#000" opacity="0.3"/>
-              <circle cx="150" cy="220" r="36" fill="#4dc8f5"/>
-              <path d="M128 205 L118 180 L145 198 Z" fill="#4dc8f5"/>
-              <path d="M172 205 L182 180 L155 198 Z" fill="#4dc8f5"/>
-              <g class="cat-eyes">
-                <ellipse cx="138" cy="218" rx="6" ry="8" fill="#04121c"/>
-                <ellipse cx="162" cy="218" rx="6" ry="8" fill="#04121c"/>
-              </g>
-            </g>
-          </svg>
-        </div>
-
-        <div class="panel">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-            <span class="status-pill dry" id="bot-status-pill"><span class="dot"></span> <span id="bot-status-text">DRY-RUN (simulation)</span></span>
-            <span style="font-size:11px; color:var(--text-dim);" id="bot-updated">updated —</span>
+  <section class="section alt" id="pairing">
+    <div class="container">
+      <div class="section-head">
+        <div class="kicker">The mechanic</div>
+        <h2>Paired to <span data-pair-ticker>$STONK</span>, not SOL</h2>
+        <p>StonkFun lets any token launch with a fixed supply and a one-sided market quoted directly against another token — instead of the usual SOL pair. <span data-token-ticker>$GOOB</span> uses that to pair against <span data-pair-ticker>$STONK</span> itself.</p>
+      </div>
+      <div class="pairing-grid">
+        <img class="pairing-mascot" id="pairing-mascot" src="" alt="$GOOB mascot pointing" />
+        <div class="grid-3">
+          <div class="card">
+            <h3>One-sided market</h3>
+            <p>Every buy and sell of <span data-token-ticker>$GOOB</span> routes through <span data-pair-ticker>$STONK</span> reserves on StonkFun — there's no separate SOL pool to fragment liquidity.</p>
           </div>
-
-          <div class="tick-countdown">
-            <span class="label">Next check-in:</span>
-            <span class="clock" id="tick-clock">--:--</span>
+          <div class="card">
+            <h3>Tied to <span data-pair-ticker>$STONK</span></h3>
+            <p><span data-pair-ticker>$STONK</span> is StonkFun's own token. Pairing against it means <span data-token-ticker>$GOOB</span>'s liquidity moves with the platform it's launched on, not against it.</p>
           </div>
-
-          <div class="stat-row">
-            <div class="stat"><div class="label">Bot wallet</div><div class="value" style="font-size:13px;" id="stat-wallet">not deployed</div></div>
-            <div class="stat"><div class="label">Current balance</div><div class="value" id="stat-balance">$100.00</div></div>
-            <div class="stat"><div class="label">P&amp;L</div><div class="value" id="stat-pnl">+$0.00</div></div>
+          <div class="card">
+            <h3><span data-pair-ticker>$STONK</span> contract</h3>
+            <p class="mono-line"><code id="pair-ca"></code></p>
+            <a href="#" id="pair-ca-link" target="_blank" rel="noopener">View on Solscan ↗</a>
+            <button class="link-copy" data-copy="pair">copy address</button>
           </div>
-
-          <div class="buyback-progress">
-            <div class="bar-label"><span>Progress to next buyback</span><span id="buyback-pct">0%</span></div>
-            <div class="bar-outer"><div class="bar-inner" id="buyback-bar" style="width:0%;"></div></div>
-          </div>
-
-          <h4 style="margin:22px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em;">Latest trades</h4>
-          <ul class="trade-feed" id="trade-feed">
-            <li><span>The bot hasn't traded yet — waiting on deployment</span></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -236,51 +115,84 @@
     <div class="container">
       <div class="section-head">
         <div class="kicker">Tokenomics</div>
-        <h2>Simple, transparent, community-owned</h2>
+        <h2>What's confirmed so far</h2>
+        <p>Full numbers (supply, allocation) land here the moment <span data-token-ticker>$GOOB</span> mints on StonkFun. Nothing is hidden — check back at launch.</p>
       </div>
       <div class="grid-3">
         <div class="card">
-          <h3>100% public supply</h3>
-          <p>No hidden team allocation. Fair-launched on StonkFun, like any bonding curve token.</p>
+          <h3>Fixed supply</h3>
+          <p>Minted once on StonkFun, no further issuance. Exact figure published at launch.</p>
         </div>
         <div class="card">
-          <h3>Bot buybacks</h3>
-          <p>Every profit the bot makes above the threshold is used to buy back supply on the open market — visible live in the dashboard.</p>
+          <h3>StonkFun launch</h3>
+          <p>No custom contract, no separate presale infrastructure — <span data-token-ticker>$GOOB</span> launches through StonkFun's own LaunchLab.</p>
         </div>
         <div class="card">
-          <h3>Public treasury</h3>
-          <p>The bot's wallet is public from day one. You can verify every trade and every buyback on Solscan.</p>
+          <h3>Paired liquidity</h3>
+          <p>Market quoted against <span data-pair-ticker>$STONK</span> from block one — see the Pairing section above.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="roadmap">
+  <section class="section alt" id="how-to-buy">
+    <div class="container howtobuy-grid">
+      <div>
+        <div class="kicker">How to buy</div>
+        <h2>Four steps, one wallet</h2>
+        <div class="how-it-works">
+          <div class="how-step">
+            <div class="step-num">01</div>
+            <div><h4>Get a Solana wallet</h4><p>Phantom, Backpack, or anything that supports Solana.</p></div>
+          </div>
+          <div class="how-step">
+            <div class="step-num">02</div>
+            <div><h4>Fund it with SOL</h4><p>Enough to swap in, plus a little for network fees.</p></div>
+          </div>
+          <div class="how-step">
+            <div class="step-num">03</div>
+            <div><h4>Open StonkFun</h4><p>Search <span data-token-ticker>$GOOB</span> and connect your wallet.</p></div>
+          </div>
+          <div class="how-step">
+            <div class="step-num">04</div>
+            <div><h4>Swap for <span data-token-ticker>$GOOB</span></h4><p>StonkFun routes the trade through the <span data-pair-ticker>$STONK</span> pair for you.</p></div>
+          </div>
+        </div>
+        <a href="#" class="btn" data-buy-btn>Launching on StonkFun</a>
+      </div>
+      <img class="howtobuy-mascot" id="howtobuy-mascot" src="" alt="$GOOB mascot walking" />
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
     <div class="container">
       <div class="section-head">
-        <div class="kicker">Roadmap</div>
-        <h2>Where we're headed</h2>
+        <div class="kicker">Gallery</div>
+        <h2>Grab a <span data-token-ticker>$GOOB</span></h2>
+        <p>Six poses, zero watermarks. Use them as your PFP, in memes, wherever.</p>
       </div>
-      <div class="roadmap panel">
-        <div class="roadmap-item">
-          <h4>Phase 0 — Site + mascot</h4>
-          <p>Community site live, feed-the-cat mechanic, live StonkFun ticker.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 1 — StonkFun launch</h4>
-          <p>Token mint, fair launch, trading opens.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 2 — Bot in public dry-run</h4>
-          <p>The bot trades in simulation, results published live on the dashboard to prove the strategy before committing real capital.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 3 — Bot goes live with real capital</h4>
-          <p>Switch to real trading with the starting seed, first automatic buybacks.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 4 — Community</h4>
-          <p>Leaderboard for top "feeders", badges, community votes on the bot's parameters.</p>
+      <div class="gallery-grid">
+        <img src="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" alt="$GOOB jumping" />
+        <img src="assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png" alt="$GOOB waving" />
+        <img src="assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png" alt="$GOOB pointing" />
+        <img src="assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png" alt="$GOOB walking" />
+        <img src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="$GOOB standing" />
+        <img src="assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png" alt="$GOOB peeking" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="community">
+    <div class="container community-grid">
+      <img class="community-mascot" id="community-mascot" src="" alt="$GOOB mascot" />
+      <div>
+        <div class="kicker">Community</div>
+        <h2>Come hang out</h2>
+        <p>Socials go live around launch — check back here.</p>
+        <div class="social-row large">
+          <a href="#" data-social="x">X / Twitter</a>
+          <a href="#" data-social="telegram">Telegram</a>
+          <a href="#" data-social="stonkfun" target="_blank" rel="noopener">StonkFun ↗</a>
         </div>
       </div>
     </div>
@@ -290,26 +202,24 @@
 
 <footer>
   <div class="social-row">
-    <a href="#" id="social-x">X / Twitter</a>
-    <a href="#" id="social-tg">Telegram</a>
-    <a href="#" id="social-stonkfun">StonkFun</a>
+    <a href="#" data-social="x">X / Twitter</a>
+    <a href="#" data-social="telegram">Telegram</a>
+    <a href="#" data-social="stonkfun" target="_blank" rel="noopener">StonkFun</a>
   </div>
-  <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
-    <img src="assets/mascot-badge.svg" alt="" style="width:22px; height:22px; border-radius:50%;" />
-    <span id="footer-name">Skity</span>
+  <div class="footer-brand">
+    <img id="footer-mascot" src="" alt="" />
+    <span data-token-ticker>$GOOB</span>
   </div>
   <p class="disclaimer">
-    This is an experimental community token. The trading bot can lose some or all of its capital.
-    Nothing here is financial advice. DYOR. As long as the status shows "DRY-RUN", the bot has no real funds at risk.
+    This is an experimental community token. Nothing here is financial advice. DYOR.
+    <span data-token-ticker>$GOOB</span> is paired against <span data-pair-ticker>$STONK</span>, which means its price
+    is exposed to <span data-pair-ticker>$STONK</span>'s price movements in both directions.
   </p>
 </footer>
 
 <div class="toast" id="toast"></div>
 
 <script src="js/config.js"></script>
-<script src="js/mascot.js"></script>
-<script src="js/ticker.js"></script>
-<script src="js/dashboard.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

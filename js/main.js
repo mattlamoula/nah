@@ -1,30 +1,51 @@
+function shortAddr(addr) {
+  return `${addr.slice(0, 4)}…${addr.slice(-4)}`;
+}
+
 function applyBranding() {
   const c = SITE_CONFIG;
-  document.title = `${c.tokenName} — ${c.tagline}`;
   const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
   const setHref = (id, val) => { const el = document.getElementById(id); if (el) el.href = val; };
+  const setSrc = (id, val) => { const el = document.getElementById(id); if (el) el.src = val; };
 
-  ["brand-name", "tagline-name", "feed-name", "bot-name", "footer-name"].forEach(id => setText(id, c.tokenName));
-  setText("ticker-name", c.tokenTicker);
-  setText("bot-ticker", c.tokenTicker);
-  setText("seed-amount", `$${c.bot.seedUsd}`);
-  setText("threshold-amount", `$${c.bot.buybackThresholdUsd}`);
-  setText("contract-address", c.contractAddress || "coming soon");
-  setText("stat-wallet", c.botWalletAddress ? `${c.botWalletAddress.slice(0, 4)}…${c.botWalletAddress.slice(-4)}` : "not deployed");
+  document.title = `${c.tokenTicker} — paired to ${c.pairTicker} on StonkFun`;
 
-  document.documentElement.style.setProperty("--primary", c.colors.primary);
-  document.documentElement.style.setProperty("--primary-dim", c.colors.primaryDim);
-  document.documentElement.style.setProperty("--accent", c.colors.accent);
-  document.documentElement.style.setProperty("--bg", c.colors.bg);
-  document.documentElement.style.setProperty("--bg-panel", c.colors.bgPanel);
-  document.documentElement.style.setProperty("--warn", c.colors.warn);
-  document.documentElement.style.setProperty("--gain", c.colors.gain);
+  document.querySelectorAll("[data-token-name]").forEach(el => el.textContent = c.tokenName);
+  document.querySelectorAll("[data-token-ticker]").forEach(el => el.textContent = c.tokenTicker);
+  document.querySelectorAll("[data-pair-ticker]").forEach(el => el.textContent = c.pairTicker);
 
-  setHref("buy-btn", c.socials.stonkfun || "#");
-  setHref("buy-btn-2", c.socials.stonkfun || "#");
-  setHref("social-x", c.socials.x || "#");
-  setHref("social-tg", c.socials.telegram || "#");
-  setHref("social-stonkfun", c.socials.stonkfun || "#");
+  setText("pair-ca", shortAddr(c.pairContractAddress));
+  setHref("pair-ca-link", `https://solscan.io/token/${c.pairContractAddress}`);
+
+  const hasCA = Boolean(c.contractAddress);
+  setText("contract-address", hasCA ? c.contractAddress : "not minted yet");
+  document.querySelectorAll("[data-buy-btn]").forEach(el => {
+    el.href = hasCA ? c.launchUrl : c.socials.stonkfun;
+    el.textContent = hasCA ? `Buy ${c.tokenTicker}` : "Launching on StonkFun";
+  });
+
+  setSrc("hero-mascot", c.mascot.hero);
+  setSrc("about-mascot", c.mascot.wave);
+  setSrc("pairing-mascot", c.mascot.point);
+  setSrc("howtobuy-mascot", c.mascot.walk);
+  setSrc("community-mascot", c.mascot.front);
+  setSrc("footer-mascot", c.mascot.front);
+  setSrc("favicon", c.mascot.front);
+
+  document.querySelectorAll(".mascot-peek").forEach(el => el.src = c.mascot.peek);
+
+  const socialUrls = { x: c.socials.x, telegram: c.socials.telegram, stonkfun: c.socials.stonkfun };
+  document.querySelectorAll("[data-social]").forEach(el => {
+    const url = socialUrls[el.getAttribute("data-social")];
+    if (url) {
+      el.href = url;
+    } else {
+      el.href = "#";
+      el.classList.add("soon");
+      el.setAttribute("aria-disabled", "true");
+      el.title = "Coming soon";
+    }
+  });
 }
 
 function showToast(msg) {
@@ -36,22 +57,33 @@ function showToast(msg) {
   showToast._t = setTimeout(() => toast.classList.remove("show"), 2200);
 }
 
-function setupCopyCA() {
-  const btn = document.getElementById("copy-ca");
-  if (!btn) return;
-  btn.addEventListener("click", async () => {
-    const ca = SITE_CONFIG.contractAddress;
-    if (!ca) { showToast("No contract address yet"); return; }
-    try {
-      await navigator.clipboard.writeText(ca);
-      showToast("Address copied");
-    } catch {
-      showToast("Copy isn't supported in this browser");
-    }
+function setupCopyButtons() {
+  document.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const value = btn.getAttribute("data-copy") === "pair"
+        ? SITE_CONFIG.pairContractAddress
+        : SITE_CONFIG.contractAddress;
+      if (!value) { showToast("No contract address yet"); return; }
+      try {
+        await navigator.clipboard.writeText(value);
+        showToast("Address copied");
+      } catch {
+        showToast("Copy isn't supported in this browser");
+      }
+    });
   });
+}
+
+function setupNavToggle() {
+  const toggle = document.getElementById("nav-toggle");
+  const nav = document.getElementById("nav-links");
+  if (!toggle || !nav) return;
+  toggle.addEventListener("click", () => nav.classList.toggle("open"));
+  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   applyBranding();
-  setupCopyCA();
+  setupCopyButtons();
+  setupNavToggle();
 });

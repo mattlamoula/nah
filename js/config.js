@@ -1,45 +1,28 @@
-// All branding values live here.
-// Swap these placeholders for the real info before the StonkFun launch.
+// All branding values live here. Swap the placeholders for real info before launch.
 const SITE_CONFIG = {
-  tokenName: "Skity",
-  tokenTicker: "$SKITY",
-  mascotName: "Skity",
-  tagline: "The cat that trades for the community",
+  tokenName: "GOOB",
+  tokenTicker: "$GOOB",
 
-  // Contract address once the token is minted on StonkFun
+  pairTicker: "$STONK",
+  pairContractAddress: "6GmAFSYs4gk3FDao5FzzySQpPZaWsa4rUJHacpMpUNgx",
+
+  // Contract address once $GOOB is minted on StonkFun — leave empty until then.
   contractAddress: "",
 
-  // Trading bot's public wallet (must be visible on-chain, never the private key)
-  botWalletAddress: "",
+  launchUrl: "https://www.stonkfun.xyz/",
 
   socials: {
-    x: "#",
-    telegram: "#",
-    stonkfun: "#",
+    x: "",
+    telegram: "",
+    stonkfun: "https://www.stonkfun.xyz/",
   },
 
-  // Palette matched to stonkfun.xyz (very dark navy + cyan blue).
-  // gain/accent stay green/red: the universal convention for price moves.
-  colors: {
-    primary: "#4dc8f5",
-    primaryDim: "#1f6f96",
-    bg: "#080b11",
-    bgPanel: "#0e131c",
-    accent: "#ff5470",
-    gain: "#3ddc84",
-    warn: "#ffb347",
-  },
-
-  // Starting seed given to the bot (in USD) and the profit threshold that triggers a buyback
-  bot: {
-    seedUsd: 100,
-    buybackThresholdUsd: 130,
-    dryRun: true,
-  },
-
-  api: {
-    stonkfunTickerEndpoint: "/api/stonkfun",
-    tradesEndpoint: "/api/trades",
-    balanceEndpoint: "/api/balance",
+  mascot: {
+    hero: "assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png",
+    wave: "assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png",
+    point: "assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png",
+    walk: "assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png",
+    peek: "assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png",
+    front: "assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png",
   },
 };
