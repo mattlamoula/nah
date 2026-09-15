@@ -100,7 +100,7 @@ a.btn.soon:hover, button.btn.soon:hover { transform: none; box-shadow: 3px 3px 0
 /* ---------- Nav ---------- */
 .topbar {
   position: sticky;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   z-index: 50;
   background: var(--teal-dark);
   border-bottom: 3px solid var(--ink);
