@@ -28,7 +28,7 @@
       <a href="#how-to-buy">How to buy</a>
       <a href="#tokenomics">Tokenomics</a>
     </nav>
-    <a href="#" class="btn btn-coral nav-buy" data-buy-btn>BUY $GOOB</a>
+    <a href="#" class="btn btn-teal nav-buy" data-buy-btn>BUY $GOOB</a>
   </div>
 </header>
 
@@ -36,6 +36,9 @@
 
   <!-- 1. HERO -->
   <section class="hero" id="hero">
+    <div class="hero-sky" aria-hidden="true">
+      <div class="moon"></div>
+    </div>
     <div class="hero-inner">
       <div class="hero-stage">
         <img id="hero-mascot" class="hero-mascot" src="" alt="$GOOB mascot flying through the air, arms out" />
@@ -44,7 +47,7 @@
       <p class="hero-line">Buy <span data-token-ticker>$GOOB</span>. Get paid in <span data-pair-ticker>$STONK</span>.</p>
       <p class="hero-sub">The mascot of the <span data-pair-ticker>$STONK</span> biz. Launched on StonkFun.</p>
       <div class="hero-cta-row">
-        <a href="#" class="btn btn-coral btn-lg" data-buy-btn>BUY $GOOB</a>
+        <a href="#" class="btn btn-teal btn-lg" data-buy-btn>BUY $GOOB</a>
         <button class="btn btn-outline btn-lg" data-copy>COPY CA</button>
       </div>
       <div class="ca-box">
@@ -52,20 +55,23 @@
         <code data-contract-address>DROPPING AT LAUNCH</code>
       </div>
     </div>
+    <div class="zone-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C360,90 1080,0 1440,50 L1440,90 L0,90 Z"></path></svg>
+    </div>
   </section>
 
   <!-- 2. STATS BANNER -->
   <section class="stats-banner">
     <div class="container stats-grid">
-      <div class="stat">
+      <div class="stat stat-a">
         <div class="stat-num" data-pair-ticker>$STONK</div>
         <div class="stat-label">PAIRED WITH</div>
       </div>
-      <div class="stat">
+      <div class="stat stat-b">
         <div class="stat-num" data-reward-tax>1%</div>
         <div class="stat-label">REWARD TAX</div>
       </div>
-      <div class="stat">
+      <div class="stat stat-c">
         <div class="stat-num">StonkFun</div>
         <div class="stat-label">LAUNCHED ON</div>
       </div>
@@ -75,7 +81,9 @@
   <!-- 3. ABOUT -->
   <section class="section" id="about">
     <div class="container about-grid">
-      <img class="about-mascot" id="about-mascot" src="" alt="$GOOB mascot waving hello, tongue out, cap forward" />
+      <div class="photo-card">
+        <img class="about-mascot" id="about-mascot" src="" alt="$GOOB mascot waving hello, tongue out, cap forward" />
+      </div>
       <div class="about-copy">
         <div class="kicker">About</div>
         <h2>About GOOB</h2>
@@ -90,13 +98,12 @@
   </section>
 
   <!-- 4. BUY / APE IN BAND -->
-  <section class="section alt buy-band">
+  <section class="section buy-band">
     <div class="container buy-band-inner">
       <img class="buy-mascot" id="buy-mascot" src="" alt="$GOOB mascot pointing to the side" />
       <div class="buy-copy">
-        <div class="kicker">Ape in</div>
-        <h2>Ready to get GOOB?</h2>
-        <a href="#" class="btn btn-coral btn-lg" data-buy-btn>APE IN ON STONKFUN</a>
+        <p class="buy-eyebrow">You can now easily buy <span data-token-ticker>$GOOB</span> on StonkFun</p>
+        <a href="#" class="btn btn-teal btn-lg" data-buy-btn>APE IN ON STONKFUN</a>
         <p class="buy-subtext">
           Pair <span data-token-ticker>$GOOB</span> / <span data-pair-ticker>$STONK</span>.
           Pay in SOL — StonkFun routes it through <span data-pair-ticker>$STONK</span> for you.
@@ -114,17 +121,17 @@
         <h2>Our tokenomics are simple — StonkFun tokenomics.</h2>
         <p class="tokenomics-note">Fair launch. No presale. No team allocation. Bonding curve, then it graduates to Raydium.</p>
       </div>
-      <div class="tokenomics-card">
-        <div class="tok-row">
+      <div class="tok-cards">
+        <div class="tok-card">
           <span class="tok-label">Total supply</span>
           <span class="tok-value">1,000,000,000</span>
         </div>
-        <div class="tok-row">
+        <div class="tok-card">
           <span class="tok-label">Pair</span>
           <span class="tok-value"><span data-token-ticker>$GOOB</span> / <span data-pair-ticker>$STONK</span></span>
         </div>
-        <div class="tok-row">
-          <span class="tok-label">CA</span>
+        <div class="tok-card">
+          <span class="tok-label">Contract address</span>
           <span class="tok-value tok-ca">
             <code data-contract-address>DROPPING AT LAUNCH</code>
             <button class="copy-chip" data-copy>copy</button>
@@ -136,41 +143,41 @@
 
   <!-- 6. HOW TO BUY -->
   <section class="section howtobuy" id="how-to-buy">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">How to buy</div>
-        <h2>Four steps. One wallet.</h2>
+    <div class="container howtobuy-layout">
+      <div class="howtobuy-main">
+        <div class="section-head section-head-left">
+          <div class="kicker">How to buy</div>
+          <h2>Four steps. One wallet.</h2>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>CREATE A WALLET</h3>
+            <p>Grab Phantom (or any Solana wallet) from the app store or as a browser extension.</p>
+            <p>Set it up and keep your seed phrase somewhere safe.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>GET SOME $SOL</h3>
+            <p>Buy SOL on an exchange and send it to your wallet, or buy it directly inside Phantom.</p>
+            <p>That's the only asset you need to hold first.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>BUY $GOOB</h3>
+            <p>Head to StonkFun and hit buy. Your SOL routes through <span data-pair-ticker>$STONK</span> straight into <span data-token-ticker>$GOOB</span>.</p>
+            <p>One click, one wallet signature.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">4</div>
+            <h3>YOU'RE GOOB GANG</h3>
+            <p>Hold and every trade kicks a cut back to you, paid in <span data-pair-ticker>$STONK</span>.</p>
+            <p>No staking, no claim button — it just shows up.</p>
+          </div>
+        </div>
+        <a href="#" class="btn btn-teal btn-lg" data-buy-btn>BUY $GOOB</a>
       </div>
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-num">1</div>
-          <h3>CREATE A WALLET</h3>
-          <p>Grab Phantom (or any Solana wallet) from the app store or as a browser extension.</p>
-          <p>Set it up and keep your seed phrase somewhere safe.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">2</div>
-          <h3>GET SOME $SOL</h3>
-          <p>Buy SOL on an exchange and send it to your wallet, or buy it directly inside Phantom.</p>
-          <p>That's the only asset you need to hold first.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">3</div>
-          <h3>BUY $GOOB</h3>
-          <p>Head to StonkFun and hit buy. Your SOL routes through <span data-pair-ticker>$STONK</span> straight into <span data-token-ticker>$GOOB</span>.</p>
-          <p>One click, one wallet signature.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">4</div>
-          <h3>YOU'RE GOOB GANG</h3>
-          <p>Hold and every trade kicks a cut back to you, paid in <span data-pair-ticker>$STONK</span>.</p>
-          <p>No staking, no claim button — it just shows up.</p>
-        </div>
-      </div>
-      <div class="howtobuy-cta">
-        <img class="howtobuy-mascot" id="howtobuy-mascot" src="" alt="$GOOB mascot walking, tongue out" />
-        <a href="#" class="btn btn-coral btn-lg" data-buy-btn>BUY $GOOB</a>
-      </div>
+      <img class="howtobuy-mascot" id="howtobuy-mascot" src="" alt="$GOOB mascot walking, tongue out" />
     </div>
   </section>
 
@@ -194,33 +201,28 @@
     </div>
   </section>
 
-  <!-- 8. GALLERY / LOVED BY -->
-  <section class="section alt gallery-section" id="gallery">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">Loved by</div>
-        <h2>Loved by the <span data-pair-ticker>$STONK</span> biz</h2>
-      </div>
-    </div>
-    <div class="gallery-scroll">
-      <div class="gallery-track">
-        <img src="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" alt="$GOOB mascot flying" />
-        <img src="assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png" alt="$GOOB mascot waving" />
-        <img src="assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png" alt="$GOOB mascot pointing" />
-        <img src="assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png" alt="$GOOB mascot walking" />
-        <img src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="$GOOB mascot standing" />
-        <img src="assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png" alt="$GOOB mascot peeking" />
-        <img src="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" alt="" aria-hidden="true" />
-        <img src="assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png" alt="" aria-hidden="true" />
-        <img src="assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png" alt="" aria-hidden="true" />
-        <img src="assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png" alt="" aria-hidden="true" />
-        <img src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="" aria-hidden="true" />
-        <img src="assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png" alt="" aria-hidden="true" />
-      </div>
-    </div>
-  </section>
-
 </main>
+
+<!-- 8. GALLERY / LOVED BY -->
+<section class="gallery-section" id="gallery">
+  <div class="zone-divider zone-divider-flip" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,50 C360,0 1080,90 1440,40 L1440,0 L0,0 Z"></path></svg>
+  </div>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker kicker-on-dark">Loved by</div>
+      <h2 class="heading-on-dark">Loved by the <span data-pair-ticker>$STONK</span> biz</h2>
+    </div>
+    <div class="gallery-grid">
+      <img src="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" alt="$GOOB mascot flying" />
+      <img src="assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png" alt="$GOOB mascot waving" />
+      <img src="assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png" alt="$GOOB mascot pointing" />
+      <img src="assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png" alt="$GOOB mascot walking" />
+      <img src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="$GOOB mascot standing" />
+      <img src="assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png" alt="$GOOB mascot peeking" />
+    </div>
+  </div>
+</section>
 
 <!-- 9. FOOTER -->
 <footer>
@@ -229,10 +231,20 @@
       <img id="footer-mascot" src="" alt="" />
       <span data-token-ticker>$GOOB</span>
     </div>
+    <div class="kicker kicker-on-dark">Socials</div>
     <div class="social-row">
-      <a href="#" data-social="x">X / Twitter</a>
-      <a href="#" data-social="telegram">Telegram</a>
-      <a href="#" data-social="stonkfun" target="_blank" rel="noopener">StonkFun ↗</a>
+      <a href="#" data-social="x" class="social-tile">
+        <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.6L4.8 22H1.7l8.1-9.3L1 2h7l4.9 6.1L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg></span>
+        <span>X / Twitter</span>
+      </a>
+      <a href="#" data-social="telegram" class="social-tile">
+        <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21.9 3.3 2.7 10.8c-1.2.5-1.2 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.4.8.9.8s.7-.2 1-.5l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.7-.8L23.9 4.6c.3-1.3-.5-1.9-2-1.3ZM8.6 14.3l9-5.7c.5-.3.9-.1.5.2l-7.4 6.7-.3 3.1-1.8-4.3Z"/></svg></span>
+        <span>Telegram</span>
+      </a>
+      <a href="#" data-social="stonkfun" target="_blank" rel="noopener" class="social-tile">
+        <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-9v3l-8 9-4-4-6 6z"/></svg></span>
+        <span>StonkFun</span>
+      </a>
     </div>
     <div class="footer-ca">
       <span>CA:</span>
@@ -251,7 +263,7 @@
 
 <!-- STICKY MOBILE BUY BAR -->
 <div class="mobile-buy-bar">
-  <a href="#" class="btn btn-coral btn-lg btn-block" data-buy-btn>BUY $GOOB</a>
+  <a href="#" class="btn btn-teal btn-lg btn-block" data-buy-btn>BUY $GOOB</a>
 </div>
 
 <div class="toast" id="toast"></div>
