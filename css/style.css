@@ -175,7 +175,22 @@ section { scroll-margin-top: 90px; margin-top: 18px; }
 .feed-bar-track { height: 6px; background: var(--tile); border-radius: 999px; overflow: hidden; }
 .feed-bar-fill { height: 100%; background: var(--goob); border-radius: 999px; width: 0%; transition: width 0.6s ease; }
 .feed-bar-caption { margin-top: 6px; font: 500 12px/1 "JetBrains Mono", monospace; color: var(--muted); font-variant-numeric: tabular-nums; }
-.demo-note { margin-top: 10px; font-size: 12px; color: var(--muted); font-style: italic; }
+.demo-note {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+  padding: 5px 12px; border-radius: 999px; background: #fff2d9; color: #7a530a;
+  font: 700 12px/1 "Inter", sans-serif; letter-spacing: 0.02em;
+}
+.demo-note::before { content: "\26A0"; }
+
+/* Crop-resistant watermark: tiles across the whole element so no scroll/crop
+   region can show fabricated activity without this coming along. */
+.watermarked { position: relative; }
+.watermarked::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  border-radius: inherit; overflow: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='90'%3E%3Ctext x='-20' y='55' transform='rotate(-14 130 45)' font-family='Inter,sans-serif' font-size='14' font-weight='800' fill='rgba(4,20,26,0.07)'%3ENOT LIVE - DEMO TAPE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
 
 /* ---------- how ---------- */
 .tile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }

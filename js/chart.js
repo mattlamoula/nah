@@ -212,6 +212,29 @@ const GOOB_CHART = (() => {
       ctx.fillStyle = "#111111";
       ctx.fill();
     }
+
+    drawNotLiveWatermark();
+  }
+
+  // Baked into the pixels (not a DOM overlay) so a cropped screenshot of just
+  // the chart can't be passed off as real performance without this coming along.
+  function drawNotLiveWatermark() {
+    ctx.save();
+    ctx.translate(width / 2, height / 2);
+    ctx.rotate((-14 * Math.PI) / 180);
+    ctx.font = "800 13px 'Inter', sans-serif";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "rgba(4, 20, 26, 0.16)";
+    const label = "NOT LIVE  ·  DEMO TAPE   ";
+    const stepX = ctx.measureText(label).width + 8;
+    const stepY = 42;
+    const diag = Math.sqrt(width * width + height * height);
+    for (let y = -diag; y <= diag; y += stepY) {
+      for (let x = -diag; x <= diag; x += stepX) {
+        ctx.fillText(label, x, y);
+      }
+    }
+    ctx.restore();
   }
 
   function fmtAxisTime(tSec) {
