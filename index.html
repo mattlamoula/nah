@@ -2,314 +2,255 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Skity — the community's trading cat</title>
-<meta name="description" content="Skity ($SKITY): a Solana mascot that trades live and buys back its own supply with the profits. Launched on StonkFun." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>GOOB · every 3 min a new HUNT into the chart</title>
+<meta name="description" content="All the fees $GOOB takes from the hunt get blasted into $STONK every 3 minutes. One buy. Then holders get fed. No team cut. Dev 0. The bag stays on. GOOB does not eat itself." />
+<meta name="theme-color" content="#f4f4f4" />
+<meta property="og:title" content="GOOB · every 3 min a new HUNT into the chart" />
+<meta property="og:description" content="All the fees $GOOB takes from the hunt get blasted into $STONK every 3 minutes. One buy. Then holders get fed. No team cut. Dev 0. The bag stays on." />
+<link rel="icon" type="image/png" href="goob/stand.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/svg+xml" href="assets/mascot-badge.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <a href="#top" class="brand"><img src="assets/mascot-badge.svg" alt="" class="brand-badge" /> <span id="brand-name">Skity</span></a>
-    <nav class="links">
-      <a href="#feed">Feed the cat</a>
-      <a href="#bot">Trading Bot</a>
-      <a href="#tokenomics">Tokenomics</a>
-      <a href="#roadmap">Roadmap</a>
-    </nav>
-    <a href="#" id="buy-btn" class="btn">Buy on StonkFun</a>
-  </div>
-  <div class="ticker-wrap">
-    <div class="ticker-label">🔥 TOP STONKFUN</div>
-    <div class="ticker-track" id="ticker-track">
-      <div class="ticker-item"><span class="sym">Loading…</span></div>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <img src="goob/stand.png" alt="" class="brand-icon" />
+      <span class="brand-name">GOOB</span>
+    </a>
+    <div class="tabs" id="tabs">
+      <a href="#top" class="tab on" data-tab="live">Live</a>
+      <a href="#how" class="tab" data-tab="how">How</a>
+      <a href="#rules" class="tab" data-tab="rules">Rules</a>
+      <a href="#hunts" class="tab" data-tab="hunts">Hunts</a>
+      <a href="#socials" class="tab" data-tab="socials">Socials</a>
+    </div>
+    <div class="nav-right">
+      <span class="chip chip-ghost nav-chain">Solana · StonkFun</span>
+      <a href="#" class="pill pill-hot is-soon" data-buy aria-disabled="true">Buy $GOOB</a>
     </div>
   </div>
-</header>
+</nav>
 
 <main id="top">
+  <div class="wrap">
 
-  <section class="container hero">
-    <div>
-      <div class="level-badge" id="hero-badge">Live on Solana</div>
-      <h1>The cat that <span>trades</span> for the whole community.</h1>
-      <p class="sub">
-        <strong id="tagline-name">Skity</strong> runs a real portfolio, live.
-        The moment it turns a profit, it buys back its own supply on the open market — publicly,
-        verifiable on-chain, no empty promises.
-      </p>
-      <div class="cta-row">
-        <a href="#" id="buy-btn-2" class="btn">Buy <span id="ticker-name">$SKITY</span></a>
-        <a href="#bot" class="btn ghost">Watch the bot trade live</a>
-      </div>
-      <div class="ca-box">
-        <span>CA:</span>
-        <code id="contract-address">coming soon</code>
-        <button id="copy-ca">copy</button>
-      </div>
-    </div>
-
-    <div class="mascot-stage">
-      <svg id="mascot-svg" viewBox="0 0 300 300" class="cat-idle" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="150" cy="270" rx="90" ry="14" fill="#000" opacity="0.35"/>
-        <g class="cat-tail">
-          <path d="M215 190 Q260 160 245 100 Q240 80 220 85 Q232 120 210 150 Z" fill="#1f6f96"/>
-        </g>
-        <path d="M90 260 Q80 160 150 150 Q220 160 210 260 Z" fill="#4dc8f5"/>
-        <path d="M90 260 Q80 160 150 150 Q220 160 210 260 Z" fill="url(#catGrad)" opacity="0.5"/>
-        <circle cx="150" cy="120" r="70" fill="#4dc8f5"/>
-        <path d="M95 90 L75 35 L125 75 Z" fill="#4dc8f5"/>
-        <path d="M205 90 L225 35 L175 75 Z" fill="#4dc8f5"/>
-        <path d="M100 92 L85 55 L120 78 Z" fill="#04121c"/>
-        <path d="M200 92 L215 55 L180 78 Z" fill="#04121c"/>
-        <g class="cat-eyes">
-          <ellipse cx="122" cy="118" rx="12" ry="16" fill="#04121c"/>
-          <ellipse cx="178" cy="118" rx="12" ry="16" fill="#04121c"/>
-          <circle cx="126" cy="112" r="3.5" fill="#fff"/>
-          <circle cx="182" cy="112" r="3.5" fill="#fff"/>
-        </g>
-        <ellipse cx="150" cy="148" rx="7" ry="5" fill="#04121c"/>
-        <path class="cat-mouth" d="M150 153 Q140 165 128 155" stroke="#04121c" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path class="cat-mouth" d="M150 153 Q160 165 172 155" stroke="#04121c" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <line x1="95" y1="140" x2="45" y2="132" stroke="#04121c" stroke-width="2"/>
-        <line x1="95" y1="150" x2="45" y2="150" stroke="#04121c" stroke-width="2"/>
-        <line x1="205" y1="140" x2="255" y2="132" stroke="#04121c" stroke-width="2"/>
-        <line x1="205" y1="150" x2="255" y2="150" stroke="#04121c" stroke-width="2"/>
-        <defs>
-          <linearGradient id="catGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#fff" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div class="pet-actions">
-        <button class="pet-action-btn" id="action-pet" type="button">♡ Pet</button>
-        <button class="pet-action-btn" id="action-feed" type="button">✦ Feed</button>
-        <button class="pet-action-btn" id="action-play" type="button">⚡ Play</button>
-        <button class="pet-action-btn" id="action-purr" type="button">♪ Purr</button>
-      </div>
-    </div>
-  </section>
-
-  <div class="stage-timeline-panel">
-    <div class="container">
-      <div class="stage-timeline-head">
-        <div>
-          <div class="kicker">Five levels. One little cat.</div>
-          <h3>Every feed has a story.</h3>
+    <section class="hero" id="hero">
+      <div class="hero-left">
+        <div class="eyebrow-row">
+          <span class="chip chip-coal">$GOOB</span>
+          <span class="chip chip-status"><span class="ping" aria-hidden="true"></span><span id="hero-status-text">hunt armed</span></span>
         </div>
-      </div>
-      <div class="stage-steps" id="stage-steps"></div>
-      <div class="stage-bar-outer"><div class="stage-bar-inner" id="stage-bar-inner"></div></div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="how-it-works">
-      <div class="how-step">
-        <div class="step-num">01</div>
-        <div>
-          <h4>Buy $SKITY</h4>
-          <p>Fair-launched on StonkFun. No presale, no hidden team allocation.</p>
-        </div>
-      </div>
-      <div class="how-step">
-        <div class="step-num">02</div>
-        <div>
-          <h4>Watch the bot trade</h4>
-          <p>Skity trades StonkFun's trending tokens live, starting capital: $100.</p>
-        </div>
-      </div>
-      <div class="how-step">
-        <div class="step-num">03</div>
-        <div>
-          <h4>Profit buys back supply</h4>
-          <p>Above the threshold, the excess buys back $SKITY on the open market.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="section" id="feed">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">Tamagotchi mode</div>
-        <h2>Feed <span id="feed-name">Skity</span></h2>
-        <p>The more the community feeds the cat, the more it evolves. Every level unlocks a new skin and gets it closer to a community badge.</p>
-      </div>
-      <div class="feed-grid panel">
-        <div>
-          <div class="stat-row">
-            <div class="stat"><div class="label">Level</div><div class="value" id="stat-level">1</div></div>
-            <div class="stat"><div class="label">Hunger</div><div class="value" id="stat-hunger">40%</div></div>
-            <div class="stat"><div class="label">Fed by you</div><div class="value" id="stat-fed">0</div></div>
-          </div>
-          <div class="bar-label"><span>Hunger</span><span id="hunger-pct">40%</span></div>
-          <div class="bar-outer"><div class="bar-inner" id="hunger-bar"></div></div>
-          <button class="btn feed-btn" id="feed-btn">🍣 Feed the cat</button>
-        </div>
-        <div class="mascot-stage" style="padding:0;">
-          <div class="panel" style="width:100%; text-align:center;">
-            <p style="color:var(--text-dim); font-size:13px;">The community's cat, fed <strong id="global-feeds">—</strong> times total*</p>
-            <p style="font-size:11px; color:#4d6157;">*local to your browser for now — will connect to a shared (database) counter at launch</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="bot">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">100% verifiable on-chain</div>
-        <h2>The bot that trades, live</h2>
-        <p>
-          <span id="bot-name">Skity</span> received a starting capital of <strong id="seed-amount">$100</strong>.
-          It trades StonkFun's trending tokens following a momentum strategy with a strict stoploss.
-          The moment the portfolio's value crosses <strong id="threshold-amount">$130</strong>, the excess is used to buy back
-          <span id="bot-ticker">$SKITY</span> on the open market.
+        <h1 class="h1">
+          Every 3 min<br />
+          a new HUNT<br />
+          <em class="serif">into the chart.</em>
+        </h1>
+        <p class="hero-body">
+          All the fees <b>$GOOB</b> takes from the hunt get blasted into <b>$STONK</b> every 3 minutes.
+          One buy. Then holders get fed. <b>No team cut. Dev 0.</b> The bag stays on. GOOB does not eat itself.
         </p>
-      </div>
-
-      <div class="dash-grid">
-        <div class="desk-scene">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#060a10"/>
-            <rect x="60" y="60" width="280" height="150" rx="8" fill="#101a26" stroke="#1c2733"/>
-            <polyline points="80,180 110,150 130,165 155,120 180,140 205,95 230,110 255,80 280,100 305,70 320,90"
-              fill="none" stroke="#4dc8f5" stroke-width="2.5"/>
-            <rect x="75" y="65" width="8" height="60" fill="#3ddc84" opacity="0.7"/>
-            <rect x="90" y="90" width="8" height="35" fill="#ff5470" opacity="0.7"/>
-            <rect x="105" y="70" width="8" height="55" fill="#3ddc84" opacity="0.7"/>
-            <rect x="200" y="220" width="60" height="10" rx="4" fill="#1c2733"/>
-            <rect x="150" y="230" width="160" height="60" rx="6" fill="#0e131c" stroke="#1c2733"/>
-            <g class="cat-idle">
-              <ellipse cx="150" cy="255" rx="34" ry="10" fill="#000" opacity="0.3"/>
-              <circle cx="150" cy="220" r="36" fill="#4dc8f5"/>
-              <path d="M128 205 L118 180 L145 198 Z" fill="#4dc8f5"/>
-              <path d="M172 205 L182 180 L155 198 Z" fill="#4dc8f5"/>
-              <g class="cat-eyes">
-                <ellipse cx="138" cy="218" rx="6" ry="8" fill="#04121c"/>
-                <ellipse cx="162" cy="218" rx="6" ry="8" fill="#04121c"/>
-              </g>
-            </g>
-          </svg>
-        </div>
-
-        <div class="panel">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-            <span class="status-pill dry" id="bot-status-pill"><span class="dot"></span> <span id="bot-status-text">DRY-RUN (simulation)</span></span>
-            <span style="font-size:11px; color:var(--text-dim);" id="bot-updated">updated —</span>
-          </div>
-
-          <div class="tick-countdown">
-            <span class="label">Next check-in:</span>
-            <span class="clock" id="tick-clock">--:--</span>
-          </div>
-
-          <div class="stat-row">
-            <div class="stat"><div class="label">Bot wallet</div><div class="value" style="font-size:13px;" id="stat-wallet">not deployed</div></div>
-            <div class="stat"><div class="label">Current balance</div><div class="value" id="stat-balance">$100.00</div></div>
-            <div class="stat"><div class="label">P&amp;L</div><div class="value" id="stat-pnl">+$0.00</div></div>
-          </div>
-
-          <div class="buyback-progress">
-            <div class="bar-label"><span>Progress to next buyback</span><span id="buyback-pct">0%</span></div>
-            <div class="bar-outer"><div class="bar-inner" id="buyback-bar" style="width:0%;"></div></div>
-          </div>
-
-          <h4 style="margin:22px 0 8px; font-size:13px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em;">Latest trades</h4>
-          <ul class="trade-feed" id="trade-feed">
-            <li><span>The bot hasn't traded yet — waiting on deployment</span></li>
-          </ul>
+        <div class="cta-row">
+          <a href="#" class="pill pill-hot is-soon" data-buy aria-disabled="true">Buy $GOOB ↗</a>
+          <a href="#hunts" class="pill pill-white">See the hunts</a>
+          <button type="button" class="pill pill-white" data-copy-ca>Copy CA</button>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="hero-right">
+        <img src="goob/jump.png" alt="GOOB, the $GOOB mascot, leaping" class="hero-mascot" />
+      </div>
+    </section>
 
-  <section class="section" id="tokenomics">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">Tokenomics</div>
-        <h2>Simple, transparent, community-owned</h2>
+    <section class="stage" id="stage" aria-label="Next hunt countdown">
+      <div class="stage-col stage-clock">
+        <div class="stage-label"><span class="ping" aria-hidden="true"></span>NEXT HUNT IN</div>
+        <div class="clock" id="clock">03:00</div>
       </div>
-      <div class="grid-3">
-        <div class="card">
-          <h3>100% public supply</h3>
-          <p>No hidden team allocation. Fair-launched on StonkFun, like any bonding curve token.</p>
+      <div class="stage-col stage-mid">
+        <p class="stage-copy">Fees stack up. The clock hits zero. HUNT. One buy of $STONK, then holders eat.</p>
+        <div class="track"><div class="track-bar" id="progress-bar"></div></div>
+      </div>
+      <div class="stage-col stage-tiles">
+        <div class="tile">
+          <div class="tile-num" id="fuel-amount">0.0000 SOL</div>
+          <div class="tile-label">fuel for the next hunt</div>
         </div>
-        <div class="card">
-          <h3>Bot buybacks</h3>
-          <p>Every profit the bot makes above the threshold is used to buy back supply on the open market — visible live in the dashboard.</p>
-        </div>
-        <div class="card">
-          <h3>Public treasury</h3>
-          <p>The bot's wallet is public from day one. You can verify every trade and every buyback on Solscan.</p>
+        <div class="tile">
+          <div class="tile-num" id="last-hunt-amount">—</div>
+          <div class="tile-label">last hunt</div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section" id="roadmap">
-    <div class="container">
-      <div class="section-head">
-        <div class="kicker">Roadmap</div>
-        <h2>Where we're headed</h2>
+    <section class="ticker-outer" aria-label="Live trades">
+      <div class="ticker" id="ticker">
+        <div class="ticker-track" id="ticker-track"></div>
       </div>
-      <div class="roadmap panel">
-        <div class="roadmap-item">
-          <h4>Phase 0 — Site + mascot</h4>
-          <p>Community site live, feed-the-cat mechanic, live StonkFun ticker.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 1 — StonkFun launch</h4>
-          <p>Token mint, fair launch, trading opens.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 2 — Bot in public dry-run</h4>
-          <p>The bot trades in simulation, results published live on the dashboard to prove the strategy before committing real capital.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 3 — Bot goes live with real capital</h4>
-          <p>Switch to real trading with the starting seed, first automatic buybacks.</p>
-        </div>
-        <div class="roadmap-item">
-          <h4>Phase 4 — Community</h4>
-          <p>Leaderboard for top "feeders", badges, community votes on the bot's parameters.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
+    <section class="kpis" aria-label="Token stats">
+      <div class="kpi kpi-hot">
+        <div class="kpi-num">1B+</div>
+        <div class="kpi-label">supply</div>
+      </div>
+      <div class="kpi kpi-coal">
+        <div class="kpi-num">Dev 0</div>
+        <div class="kpi-label">bag stays on</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">0%</div>
+        <div class="kpi-label">tax</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" id="kpi-hunts">0</div>
+        <div class="kpi-label">hunts so far</div>
+      </div>
+    </section>
+
+    <section class="card chart-card">
+      <div class="chart-head">
+        <div class="chart-price"><span id="chart-mcap">$—</span> <span class="muted">mc</span></div>
+        <div class="range-pills" id="range-pills">
+          <button type="button" class="pill-range" data-range="15M">15M</button>
+          <button type="button" class="pill-range" data-range="1H">1H</button>
+          <button type="button" class="pill-range on" data-range="6H">6H</button>
+          <button type="button" class="pill-range" data-range="24H">24H</button>
+          <button type="button" class="pill-range" data-range="All">All</button>
+        </div>
+      </div>
+      <div class="chart-canvas-wrap">
+        <canvas id="chart-canvas"></canvas>
+        <div class="chart-tooltip" id="chart-tooltip" hidden></div>
+      </div>
+      <p class="visually-hidden">Latest $GOOB price: <span id="chart-fallback-price">$—</span></p>
+      <div class="chart-legend">
+        <span class="legend-item"><span class="swatch swatch-line" aria-hidden="true"></span>$GOOB price</span>
+        <span class="legend-item"><span class="swatch swatch-dot" aria-hidden="true"></span>a hunt</span>
+        <span class="legend-hint">drag · scroll to zoom · hover a hunt · live from the chain</span>
+      </div>
+      <div class="feed-bar-wrap">
+        <div class="feed-bar-track"><div class="feed-bar-fill" id="feed-bar-fill"></div></div>
+        <div class="feed-bar-caption" id="feed-bar-caption">0 $STONK fed to holders</div>
+      </div>
+      <p class="demo-note">demo tape — live from the chain at launch</p>
+    </section>
+
+    <section class="card how" id="how">
+      <h2 class="h2">How GOOB hunts</h2>
+      <p class="lead">No staking. No claiming. No team wallet. Fees become hunts. Hunts buy $STONK. Holders eat.</p>
+      <div class="tile-grid">
+        <div class="mini-tile">
+          <div class="badge">1</div>
+          <h4>Fees stack up</h4>
+          <p>Every trade of $GOOB pays fees. Nobody touches them. They pile up until the next hunt.</p>
+        </div>
+        <div class="mini-tile">
+          <div class="badge">2</div>
+          <h4>Every 3 min</h4>
+          <p>The clock hits zero. 100% of the fees get claimed. Not most of it. All of it.</p>
+        </div>
+        <div class="mini-tile">
+          <div class="badge">3</div>
+          <h4>HUNT</h4>
+          <p>All the SOL goes into one buy of $STONK. One green candle into the house chart, on the clock, every 3 minutes.</p>
+        </div>
+        <div class="mini-tile">
+          <div class="badge">4</div>
+          <h4>Holders eat</h4>
+          <p>GOOB does not eat itself. The $STONK is fed to holders. Dev 0. The bag stays on.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rules-wrap" id="rules">
+      <div class="card rules-card">
+        <h2 class="h2">The rules of GOOB</h2>
+        <p class="lead">Simple. Every number is live from the engine. Every hunt leaves transactions on the explorer: claim, buy $STONK, feed.</p>
+        <ol class="rules-list">
+          <li><h4>On the clock</h4><p>A hunt fires every 3 minutes. Always. Nobody can time it, everybody can see it coming.</p></li>
+          <li><h4>100% of the fees</h4><p>Everything the hunt takes goes into $STONK. The team keeps nothing.</p></li>
+          <li><h4>One buy</h4><p>All the SOL (minus a tiny gas reserve) becomes one buy of $STONK.</p></li>
+          <li><h4>Fed, not burned</h4><p>GOOB does not buy itself. Supply stays 1B. Holders eat the bag it fetches.</p></li>
+          <li><h4>Small fees wait</h4><p>Under the minimum, it waits and joins the next hunt. A failed hunt retries on the next one.</p></li>
+        </ol>
+      </div>
+      <div class="card engine-card">
+        <h3 class="h3">The engine</h3>
+        <div class="engine-row"><span>Hunt every</span><strong>3 min</strong></div>
+        <div class="engine-row"><span>Fees hunted</span><strong>100%</strong></div>
+        <div class="engine-row"><span>Team cut</span><strong>0%</strong></div>
+        <div class="engine-row"><span>Minimum hunt</span><strong id="engine-min-hunt">0.01 SOL</strong></div>
+        <div class="engine-row"><span>Gas reserve</span><strong>tiny</strong></div>
+        <div class="engine-row"><span>Slippage</span><strong id="engine-slippage">5%</strong></div>
+        <div class="engine-row engine-wallet">
+          <span>Engine wallet</span>
+          <a href="#" class="mono-link" data-soon>not deployed yet ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card social-panel" id="socials">
+      <div class="social-left">
+        <span class="chip chip-teal">GOOB-GANG</span>
+        <h2 class="h2">Join the <em class="serif serif-teal">hunt.</em></h2>
+        <p class="lead lead-pale">StonkFun built a furnace and forgot the cat. $GOOB is the animal on the hood — hunting anyway.</p>
+        <div class="mini-fact-row">
+          <div class="mini-fact"><img src="goob/wave.png" alt="" /><span>Dev 0</span></div>
+          <div class="mini-fact"><img src="goob/jump.png" alt="" /><span>0% tax</span></div>
+          <div class="mini-fact"><img src="goob/point.png" alt="" /><span>1B supply</span></div>
+        </div>
+        <div class="cta-row">
+          <a href="#" class="pill pill-outline" data-social="x">Twitter</a>
+          <a href="#" class="pill pill-outline" data-social="telegram">Telegram</a>
+          <a href="#" class="pill pill-outline" data-social="dexscreener">DexScreener</a>
+        </div>
+      </div>
+      <div class="social-right">
+        <div class="lore-tile">
+          <img src="goob/peek.png" alt="" class="lore-mascot" />
+          <p>StonkFun built a furnace and forgot the cat. $GOOB is the animal on the hood — the mascot nobody asked for, hunting anyway.</p>
+          <p>$GOOB does not eat itself. It hunts $STONK, drags it back every three minutes, and leaves it for the holders. Dev 0. The bag stays on.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card hunts-log" id="hunts">
+      <h2 class="h2">Hunts</h2>
+      <p class="lead">Every 3 minutes: claim, buy $STONK, feed. Three transactions each, all on the explorer.</p>
+      <p class="demo-note">demo tape — live from the chain at launch</p>
+      <div class="hunts-rows" id="hunts-rows"></div>
+    </section>
+
+  </div>
 </main>
 
-<footer>
-  <div class="social-row">
-    <a href="#" id="social-x">X / Twitter</a>
-    <a href="#" id="social-tg">Telegram</a>
-    <a href="#" id="social-stonkfun">StonkFun</a>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-ca">
+      <span class="footer-ca-text">CA drops at launch</span>
+      <button type="button" class="pill pill-white pill-sm" data-copy-ca>copy</button>
+    </div>
+    <div class="footer-mid">
+      <img src="goob/stand.png" alt="" class="footer-mascot" />
+      <span>Bag stays on · Dev 0</span>
+    </div>
+    <div class="footer-socials">
+      <a href="#" data-social="x">X</a>
+      <a href="#" data-social="telegram">Telegram</a>
+      <a href="#" data-social="dexscreener">DexScreener</a>
+    </div>
   </div>
-  <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
-    <img src="assets/mascot-badge.svg" alt="" style="width:22px; height:22px; border-radius:50%;" />
-    <span id="footer-name">Skity</span>
-  </div>
-  <p class="disclaimer">
-    This is an experimental community token. The trading bot can lose some or all of its capital.
-    Nothing here is financial advice. DYOR. As long as the status shows "DRY-RUN", the bot has no real funds at risk.
-  </p>
 </footer>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/config.js"></script>
-<script src="js/mascot.js"></script>
-<script src="js/ticker.js"></script>
-<script src="js/dashboard.js"></script>
-<script src="js/main.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/chart.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
