@@ -21,11 +21,12 @@ css/style.css         full design system (tokens in :root) + components + respon
 js/config.js          engine constants (taxPct, supply, demo pacing) — edit here first
 js/copy.js             EVERY visible string on the site — edit here for any copy change
 js/demo.js              deterministic demo-tape engine for $GOOB's own (not-yet-live) hunts
-js/stonk-live.js         REAL $STONK price/mcap from Dexscreener's public API — not demo
-js/goob-live.js           REAL $GOOB market data (price/mcap/liquidity/volume) — inert
-                           until CFG.caLive; feeds the homepage's floor-snapshot section
+js/stonkfun-live.js      REAL $STONK/platform data from StonkFun's own public API (price,
+                          mcap, buybacks, burns, new pad listings, pairs quoted) — not demo
+js/goob-live.js           REAL $GOOB market data (price/mcap/liquidity/volume) via
+                           Dexscreener — inert until CFG.caLive; feeds the floor-snapshot
 js/chrome.js             shared UI chrome: copy binding, toasts, copy-CA, nav scroll-spy
-js/ticker.js              builds the nav ticker tape (pair fact + fed-so-far + $STONK quote)
+js/ticker.js              builds the nav ticker tape (pair fact + fed-so-far + StonkFun items)
 js/app.js                 homepage-only bootstrap: live-fed strip, how-cards, snapshot, ticker
 js/feed-page.js            /feed page bootstrap: renders the hunt list
 
@@ -55,12 +56,23 @@ that element**; never render a placeholder dash in its place.
   card's HOLDERS, $STONK FED, and LAST HUNT rows read the exact same values
   as the live-fed strip — one source, written to both places, never a
   second empty one.
-- **$STONK price/mcap** (📈, in the ticker) come from `js/stonk-live.js`,
-  which really does fetch `https://api.dexscreener.com/latest/dex/tokens/{mint}`
-  every 20s. $STONK already trades on StonkFun today, so this is real — it
-  is deliberately **not** watermarked. The ticker only shows these two
-  items when **both** fetch successfully; if either fails, both are simply
-  omitted from the tape (never a dash, never a stale number).
+- **$STONK/platform data** (📈 price·mcap, 🔥 pad buyback, 🔥 $STONK burned,
+  🚀 new pad listings, 🔗 pairs quoted — all in the ticker) come from
+  `js/stonkfun-live.js`, which fetches StonkFun's own public API
+  (`/tokens/{mint}`, `/revenue`, `/tokens?sort=newest`,
+  `/tokens?quoteMint={mint}`) every 25s. $STONK already trades on StonkFun
+  today, so this is real — none of it is watermarked. Every item is
+  independent: the price·mcap item needs both values together, everything
+  else needs just its own field, and any endpoint that fails or returns an
+  unexpected shape drops only that item (never a dash, never a stale
+  number, never a crash). **Unverified against a live response** — this
+  sandbox's egress proxy blocks `stonkfun.xyz`, so the field names
+  (`priceUsd`, `marketCapUsd`, `buybacksUsd`, `burnsUsd`, `pagination.total`)
+  are exactly what was specified, tested against mocked responses matching
+  that spec, never against the real API. If StonkFun's actual response
+  shape differs, the affected item(s) will just silently never appear —
+  check the browser console for the real fetch responses if a ticker item
+  you expect isn't showing.
 - **$GOOB's own market data** (MC/price/liquidity/24h volume, in the
   floor-snapshot section) comes from `js/goob-live.js`, which stays
   completely inert — no fetch, `null` from every getter — until
@@ -91,12 +103,16 @@ for crawlers that don't run JS.
    `cumulativeFedAt`, `getHolderCount`) so `ticker.js`/`app.js`/`feed-page.js`
    don't need to change.
 3. `js/goob-live.js` needs its `fetchPair()` pointed at the real Dexscreener
-   pair for `contractAddress` (mirror `stonk-live.js`'s fetch shape) so the
-   floor-snapshot's MC/price/liquidity/volume tiles start revealing
-   themselves. Holders and payouts have no Dexscreener equivalent — keep
-   reading those from `demo.js`'s (now real) `getHolderCount`.
+   pair for `contractAddress` (mirror `stonkfun-live.js`'s defensive-fetch
+   style) so the floor-snapshot's MC/price/liquidity/volume tiles start
+   revealing themselves. Holders and payouts have no Dexscreener
+   equivalent — keep reading those from `demo.js`'s (now real)
+   `getHolderCount`.
 4. Wire the feed list's `data-soon` explorer links to real transaction URLs.
-5. `js/stonk-live.js` needs no changes — it's already reading the real chain.
+5. `js/stonkfun-live.js` needs no changes — it's already reading the real
+   chain via StonkFun's API. Once verifiable against a live response,
+   double-check the field names/shapes it assumes (see above) and remove
+   this note.
 
 ## Legacy bot/API scaffolding
 

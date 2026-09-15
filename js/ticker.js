@@ -1,12 +1,14 @@
-// The scrolling tape under the nav: the pair/tax fact and the (demo)
-// cumulative $STONK fed total always show. The two real $STONK figures
-// (price, mcap, from Dexscreener) only appear when BOTH fetch successfully —
-// never as a dash. No per-hunt entries and no "last hunt" — that already
-// lives in the live-fed strip.
+// The scrolling tape under the nav. Always-real items: the pair/tax fact
+// and the (demo) cumulative $STONK fed total. Everything else comes from
+// StonkFun's own public API (stonkfun-live.js) and only appears once its
+// specific value actually arrives — never as a dash, never partially (the
+// $STONK quote needs both price and mcap together). No per-hunt entries
+// and no "last hunt" — that already lives in the live-fed strip.
 const GOOB_TICKER = (() => {
   const CFG = GOOB_CONFIG;
   const DEMO = GOOB_DEMO;
   const COPY = GOOB_COPY;
+  const SF = GOOB_STONKFUN_LIVE;
 
   function itemHtml(item) {
     return `<span class="tick-emoji">${item.emoji}</span><b>${item.event}</b><span class="tick-detail">${item.detail}</span>`;
@@ -26,12 +28,32 @@ const GOOB_TICKER = (() => {
       { ...COPY.ticker.pairFact(CFG.taxPct) },
       { ...COPY.ticker.fedSoFar(DEMO.formatBig(DEMO.cumulativeFedAt(now / 1000))), href: "/feed" },
     ];
-    const priceText = GOOB_STONK_LIVE.getPriceText();
-    const mcapText = GOOB_STONK_LIVE.getMcapText();
+
+    const priceText = SF.getPriceText();
+    const mcapText = SF.getMcapText();
     if (priceText && mcapText) {
-      items.push({ ...COPY.ticker.stonkPrice(priceText), href: GOOB_STONK_LIVE.dexUrl, external: true });
-      items.push({ ...COPY.ticker.stonkMcap(mcapText), href: GOOB_STONK_LIVE.dexUrl, external: true });
+      items.push({ ...COPY.ticker.stonkQuote(priceText, mcapText), href: SF.siteUrl, external: true });
     }
+
+    const buybackText = SF.getBuybackText();
+    if (buybackText) {
+      items.push({ ...COPY.ticker.padBuyback(buybackText), href: SF.siteUrl, external: true });
+    }
+
+    const burnText = SF.getBurnText();
+    if (burnText) {
+      items.push({ ...COPY.ticker.stonkBurned(burnText), href: SF.siteUrl, external: true });
+    }
+
+    SF.getNewTokens().forEach((t) => {
+      items.push({ ...COPY.ticker.newOnPad(t.symbol), href: SF.siteUrl, external: true });
+    });
+
+    const pairsCount = SF.getPairsCount();
+    if (pairsCount != null) {
+      items.push({ ...COPY.ticker.pairsQuoted(pairsCount), href: SF.siteUrl, external: true });
+    }
+
     return items;
   }
 
@@ -44,9 +66,9 @@ const GOOB_TICKER = (() => {
 
   function init() {
     render();
-    // Re-renders on its own 20s price refresh; app.js also calls refresh()
+    // Re-renders on its own 25s refresh; app.js also calls refresh()
     // immediately when a new demo hunt lands, so "Fed so far" stays current.
-    GOOB_STONK_LIVE.init(render);
+    SF.init(render);
   }
 
   return { init, refresh: render };

@@ -1,9 +1,9 @@
 // $GOOB's own market stats (mc, price, liquidity, 24h volume) for the floor
-// snapshot. Unlike stonk-live.js, there is genuinely nothing to fetch yet —
-// $GOOB has no mint until launch — so every getter returns null (rendered as
-// an em dash) until GOOB_CONFIG.caLive + contractAddress are both set. Once
-// they are, this mirrors stonk-live.js's Dexscreener call against $GOOB's
-// own mint. Holder count and payout count need a different data source
+// snapshot, via Dexscreener — separate from stonkfun-live.js, which reads
+// StonkFun's own API for $STONK/platform data. There is genuinely nothing
+// to fetch yet — $GOOB has no mint until launch — so every getter returns
+// null (rendered as an em dash) until GOOB_CONFIG.caLive + contractAddress
+// are both set. Holder count and payout count need a different data source
 // entirely (a Solana RPC/indexer, not Dexscreener) and are left as a
 // permanent em dash here — wire them up separately when that's chosen.
 const GOOB_LIVE = (() => {

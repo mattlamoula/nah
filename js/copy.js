@@ -19,9 +19,12 @@ const GOOB_COPY = {
 
   ticker: {
     fedSoFar: (stonk) => ({ emoji: "📦", event: "Fed so far", detail: `${stonk} $STONK` }),
-    stonkPrice: (price) => ({ emoji: "📈", event: "$STONK", detail: `${price} · live` }),
-    stonkMcap: (mcap) => ({ emoji: "📈", event: "$STONK", detail: `mcap ${mcap}` }),
     pairFact: (pct) => ({ emoji: "🔗", event: "$GOOB/$STONK", detail: `${pct}% hunt tax · Dev 0` }),
+    stonkQuote: (price, mcap) => ({ emoji: "📈", event: "$STONK", detail: `${price} · mcap ${mcap}` }),
+    padBuyback: (usd) => ({ emoji: "🔥", event: "Pad buyback", detail: usd }),
+    stonkBurned: (usd) => ({ emoji: "🔥", event: "$STONK burned", detail: usd }),
+    newOnPad: (symbol) => ({ emoji: "🚀", event: "New on pad", detail: `$${symbol}` }),
+    pairsQuoted: (n) => ({ emoji: "🔗", event: "Pairs in $STONK", detail: `${n} quoted` }),
     dash: "—",
   },
 
