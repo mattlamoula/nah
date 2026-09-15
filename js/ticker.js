@@ -1,8 +1,8 @@
-// The scrolling tape under the nav. Exactly four rotating facts, in this
-// order: the pair/tax fact, the (demo) cumulative $STONK fed total, and two
-// genuinely real $STONK figures from Dexscreener (price, mcap). No per-hunt
-// entries and no "last hunt" — that already lives in the live-fed strip.
-// Never fabricates a number: a failed $STONK fetch renders as an em dash.
+// The scrolling tape under the nav: the pair/tax fact and the (demo)
+// cumulative $STONK fed total always show. The two real $STONK figures
+// (price, mcap, from Dexscreener) only appear when BOTH fetch successfully —
+// never as a dash. No per-hunt entries and no "last hunt" — that already
+// lives in the live-fed strip.
 const GOOB_TICKER = (() => {
   const CFG = GOOB_CONFIG;
   const DEMO = GOOB_DEMO;
@@ -22,14 +22,17 @@ const GOOB_TICKER = (() => {
   }
 
   function buildItems(now) {
-    const priceText = GOOB_STONK_LIVE.getPriceText();
-    const mcapText = GOOB_STONK_LIVE.getMcapText();
-    return [
+    const items = [
       { ...COPY.ticker.pairFact(CFG.taxPct) },
       { ...COPY.ticker.fedSoFar(DEMO.formatBig(DEMO.cumulativeFedAt(now / 1000))), href: "/feed" },
-      { ...COPY.ticker.stonkPrice(priceText || COPY.ticker.dash), href: GOOB_STONK_LIVE.dexUrl, external: true },
-      { ...COPY.ticker.stonkMcap(mcapText || COPY.ticker.dash), href: GOOB_STONK_LIVE.dexUrl, external: true },
     ];
+    const priceText = GOOB_STONK_LIVE.getPriceText();
+    const mcapText = GOOB_STONK_LIVE.getMcapText();
+    if (priceText && mcapText) {
+      items.push({ ...COPY.ticker.stonkPrice(priceText), href: GOOB_STONK_LIVE.dexUrl, external: true });
+      items.push({ ...COPY.ticker.stonkMcap(mcapText), href: GOOB_STONK_LIVE.dexUrl, external: true });
+    }
+    return items;
   }
 
   function render() {

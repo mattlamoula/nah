@@ -42,8 +42,11 @@ const GOOB_CHROME = (() => {
     }
   }
 
+  // Only ever called with a real CA (see initGlobalClicks) — there is no
+  // placeholder-text fallback to copy pre-launch, since Copy CA is disabled
+  // until CFG.caLive.
   function copyCA() {
-    const text = CFG.caLive ? CFG.contractAddress : COPY.copyCaText;
+    const text = CFG.contractAddress;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
         .writeText(text)
@@ -76,6 +79,10 @@ const GOOB_CHROME = (() => {
       const copyEl = e.target.closest("[data-copy-ca]");
       if (copyEl) {
         e.preventDefault();
+        if (!CFG.caLive) {
+          toast(COPY.soonToast);
+          return;
+        }
         copyCA();
         return;
       }
@@ -91,7 +98,7 @@ const GOOB_CHROME = (() => {
     document.querySelectorAll("[data-stat-tax]").forEach((el) => (el.textContent = COPY.stats.tax(CFG.taxPct)));
     document.querySelectorAll("[data-live-tax], [data-tax-num]").forEach((el) => (el.textContent = `${CFG.taxPct}%`));
     if (CFG.caLive) {
-      document.querySelectorAll("[data-buy]").forEach((el) => {
+      document.querySelectorAll("[data-buy], [data-copy-ca]").forEach((el) => {
         el.classList.remove("is-soon");
         el.removeAttribute("aria-disabled");
       });

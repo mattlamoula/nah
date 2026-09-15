@@ -51,7 +51,7 @@ section { scroll-margin-top: 140px; margin-top: 18px; }
 }
 .pill-hot { background: var(--goob); color: var(--coal); box-shadow: var(--shadow); }
 .pill-hot:hover { transform: translateY(-1px); }
-.pill-hot.is-soon { opacity: 0.55; cursor: not-allowed; }
+.is-soon { opacity: 0.55; cursor: not-allowed; }
 .pill-white { background: #fff; color: var(--ink); box-shadow: var(--shadow); }
 .pill-white:hover { transform: translateY(-1px); }
 .pill-outline { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.35); }

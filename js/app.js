@@ -17,17 +17,41 @@
     el.innerHTML = COPY.snapshot.bullets.map((b) => `<li>${b}</li>`).join("");
   }
 
+  // Every field here either shows a real fetched value or stays hidden —
+  // never a "—" placeholder. The header (MC/PRICE) and each card tile are
+  // revealed independently, only once their own value actually arrives.
   function initSnapshotLive() {
-    const dash = COPY.snapshot.dash;
-    GOOB_LIVE.init((state) => {
-      const set = (id, val) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = val == null ? dash : val;
-      };
-      set("snap-mc", GOOB_LIVE.getMcapText());
-      set("snap-price", GOOB_LIVE.getPriceText());
-      set("snap-liquidity", GOOB_LIVE.getLiquidityText());
-      set("snap-volume", GOOB_LIVE.getVolumeText());
+    function setOrHide(valueId, tileId, text) {
+      const valueEl = document.getElementById(valueId);
+      const tileEl = tileId ? document.getElementById(tileId) : valueEl;
+      if (!tileEl) return;
+      if (text) {
+        if (valueEl) valueEl.textContent = text;
+        tileEl.hidden = false;
+      } else {
+        tileEl.hidden = true;
+      }
+    }
+
+    GOOB_LIVE.init(() => {
+      const price = GOOB_LIVE.getPriceText();
+      const mcap = GOOB_LIVE.getMcapText();
+      const header = document.getElementById("snapshot-market-header");
+      if (header) header.hidden = !(price && mcap);
+      if (price) document.getElementById("snap-price").textContent = price;
+      if (mcap) document.getElementById("snap-mc").textContent = mcap;
+
+      setOrHide("snap-liquidity", "snap-liquidity-tile", GOOB_LIVE.getLiquidityText());
+      setOrHide("snap-volume", "snap-volume-tile", GOOB_LIVE.getVolumeText());
+      setOrHide("snap-payouts", "snap-payouts-tile", null); // no real payouts source wired yet
+
+      const cardsRow = document.getElementById("snapshot-market-cards");
+      if (cardsRow) {
+        const anyVisible = ["snap-liquidity-tile", "snap-volume-tile", "snap-payouts-tile"].some(
+          (id) => !document.getElementById(id).hidden
+        );
+        cardsRow.hidden = !anyVisible;
+      }
     });
   }
 
@@ -52,13 +76,16 @@
       const lastEl = document.getElementById("live-last-hunt");
       if (lastEl) lastEl.textContent = last ? `${DEMO.formatStonk(last.stonk)} $STONK` : COPY.liveStrip.lastHuntFallback;
 
+      const holders = DEMO.getHolderCount(now);
       const holdersEl = document.getElementById("live-holders");
-      if (holdersEl) holdersEl.textContent = DEMO.getHolderCount(now).toLocaleString();
+      if (holdersEl) holdersEl.textContent = holders.toLocaleString();
 
       const snapFedEl = document.getElementById("snap-fed");
       if (snapFedEl) snapFedEl.textContent = `${DEMO.formatBig(total)} $STONK`;
       const snapLastHuntEl = document.getElementById("snap-last-hunt");
       if (snapLastHuntEl) snapLastHuntEl.textContent = last ? `${DEMO.formatStonk(last.stonk)} $STONK` : COPY.liveStrip.lastHuntFallback;
+      const snapHoldersEl = document.getElementById("snap-holders");
+      if (snapHoldersEl) snapHoldersEl.textContent = holders.toLocaleString();
 
       const curId = last ? last.id : null;
       if (lastSeenId === null) lastSeenId = curId;

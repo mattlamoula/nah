@@ -68,18 +68,15 @@ const GOOB_COPY = {
     mcLabel: "MC",
     priceLabel: "PRICE",
     liquidityLabel: "LIQUIDITY",
-    liquidityLocked: "LOCKED",
     volumeLabel: "24H VOLUME",
     volumeCaption: "ACTIVE TAPE",
     holdersLabel: "HOLDERS",
-    holdersCaption: "EARNING",
     engineTitle: "Hold $GOOB. Earn $STONK.",
     engineFedLabel: "$STONK FED",
     engineLastHuntLabel: "LAST HUNT",
     payoutsLabel: "PAYOUTS",
     payoutsCaption: "COMPLETED",
     taxLabel: "HUNT TAX",
-    taxCaption: "REWARD ROUTING",
     bullets: [
       "$GOOB is paired with $STONK, not SOL.",
       "Every swap hunts. Holders get paid. No claim.",
@@ -122,7 +119,6 @@ const GOOB_COPY = {
     socialDex: "Dexscreener",
   },
 
-  copyCaText: "CA drops at launch — $GOOB is not live yet",
   soonToast: "Dropping at launch — the hunt is armed.",
   copiedToast: "Copied to clipboard",
 };
