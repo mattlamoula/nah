@@ -10,7 +10,6 @@ const GOOB_COPY = {
   },
 
   nav: {
-    brand: "GOOB",
     tabLive: "Live",
     tabFeed: "Feed",
     tabSocials: "Socials",
