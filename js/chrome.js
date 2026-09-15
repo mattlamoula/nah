@@ -89,7 +89,7 @@ const GOOB_CHROME = (() => {
 
   function initStaticContent() {
     document.querySelectorAll("[data-stat-tax]").forEach((el) => (el.textContent = COPY.stats.tax(CFG.taxPct)));
-    document.querySelectorAll("[data-live-tax]").forEach((el) => (el.textContent = `${CFG.taxPct}%`));
+    document.querySelectorAll("[data-live-tax], [data-tax-num]").forEach((el) => (el.textContent = `${CFG.taxPct}%`));
     if (CFG.caLive) {
       document.querySelectorAll("[data-buy]").forEach((el) => {
         el.classList.remove("is-soon");
@@ -100,6 +100,11 @@ const GOOB_CHROME = (() => {
       const url = CFG.socials[el.dataset.social];
       if (url) el.href = url;
     });
+    // Footer shows the real CA in full once live; the placeholder text is
+    // authored in the HTML for the pre-launch case and left alone otherwise.
+    if (CFG.caLive && CFG.contractAddress) {
+      document.querySelectorAll(".footer-ca-text").forEach((el) => (el.textContent = CFG.contractAddress));
+    }
   }
 
   function initScrollspy() {

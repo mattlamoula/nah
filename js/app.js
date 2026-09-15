@@ -11,6 +11,26 @@
       .join("");
   }
 
+  function renderSnapshotBullets() {
+    const el = document.getElementById("snapshot-bullets");
+    if (!el) return;
+    el.innerHTML = COPY.snapshot.bullets.map((b) => `<li>${b}</li>`).join("");
+  }
+
+  function initSnapshotLive() {
+    const dash = COPY.snapshot.dash;
+    GOOB_LIVE.init((state) => {
+      const set = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val == null ? dash : val;
+      };
+      set("snap-mc", GOOB_LIVE.getMcapText());
+      set("snap-price", GOOB_LIVE.getPriceText());
+      set("snap-liquidity", GOOB_LIVE.getLiquidityText());
+      set("snap-volume", GOOB_LIVE.getVolumeText());
+    });
+  }
+
   function flashLiveStrip() {
     const el = document.getElementById("live-strip");
     if (!el) return;
@@ -35,6 +55,11 @@
       const holdersEl = document.getElementById("live-holders");
       if (holdersEl) holdersEl.textContent = DEMO.getHolderCount(now).toLocaleString();
 
+      const snapFedEl = document.getElementById("snap-fed");
+      if (snapFedEl) snapFedEl.textContent = `${DEMO.formatBig(total)} $STONK`;
+      const snapLastHuntEl = document.getElementById("snap-last-hunt");
+      if (snapLastHuntEl) snapLastHuntEl.textContent = last ? `${DEMO.formatStonk(last.stonk)} $STONK` : COPY.liveStrip.lastHuntFallback;
+
       const curId = last ? last.id : null;
       if (lastSeenId === null) lastSeenId = curId;
       if (curId !== null && curId !== lastSeenId) {
@@ -50,7 +75,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     GOOB_CHROME.init();
     renderHowSteps();
+    renderSnapshotBullets();
     initLiveStrip();
+    initSnapshotLive();
     GOOB_TICKER.init();
   });
 })();

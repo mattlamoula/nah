@@ -12,7 +12,6 @@ const GOOB_COPY = {
   nav: {
     brand: "GOOB",
     tabLive: "Live",
-    tabHow: "How",
     tabFeed: "Feed",
     tabSocials: "Socials",
     chainPill: "Solana · StonkFun",
@@ -20,14 +19,10 @@ const GOOB_COPY = {
   },
 
   ticker: {
-    huntSent: (id, stonk) => ({ emoji: "🎯", event: `Hunt #${id}`, detail: `${stonk} $STONK · sent to holders` }),
-    huntBought: (id, stonk) => ({ emoji: "🎯", event: `Hunt #${id}`, detail: `bought ${stonk} $STONK · no claim` }),
-    lastHunt: (stonk, ago) => ({ emoji: "🎯", event: "Last hunt", detail: `${stonk} $STONK · ${ago}` }),
     fedSoFar: (stonk) => ({ emoji: "📦", event: "Fed so far", detail: `${stonk} $STONK` }),
     stonkPrice: (price) => ({ emoji: "📈", event: "$STONK", detail: `${price} · live` }),
     stonkMcap: (mcap) => ({ emoji: "📈", event: "$STONK", detail: `mcap ${mcap}` }),
     pairFact: (pct) => ({ emoji: "🔗", event: "$GOOB/$STONK", detail: `${pct}% hunt tax · Dev 0` }),
-    volumeFact: () => ({ emoji: "🔗", event: "Volume in.", detail: "$STONK out." }),
     dash: "—",
   },
 
@@ -64,6 +59,37 @@ const GOOB_COPY = {
       { n: "02", title: "Every swap hunts", body: "3% tax buys $STONK on the open market." },
       { n: "03", title: "Holders get paid", body: "$STONK hits wallets automatically. No staking. No claim." },
     ],
+  },
+
+  snapshot: {
+    eyebrow: "$GOOB",
+    headline: "HOLD $GOOB   EARN $STONK",
+    subtitle: "Live floor snapshot · StonkFun pair",
+    mcLabel: "MC",
+    priceLabel: "PRICE",
+    liquidityLabel: "LIQUIDITY",
+    liquidityLocked: "LOCKED",
+    volumeLabel: "24H VOLUME",
+    volumeCaption: "ACTIVE TAPE",
+    holdersLabel: "HOLDERS",
+    holdersCaption: "EARNING",
+    engineTitle: "Hold $GOOB. Earn $STONK.",
+    engineFedLabel: "$STONK FED",
+    engineLastHuntLabel: "LAST HUNT",
+    payoutsLabel: "PAYOUTS",
+    payoutsCaption: "COMPLETED",
+    taxLabel: "HUNT TAX",
+    taxCaption: "REWARD ROUTING",
+    bullets: [
+      "$GOOB is paired with $STONK, not SOL.",
+      "Every swap hunts. Holders get paid. No claim.",
+      "Dev 0. No team cut.",
+      "3% tax. Hold $GOOB. Earn $STONK.",
+    ],
+    footerLine1: "SAME ZIPPER. BIGGER STONKS.",
+    footerLine2: "Built on StonkFun",
+    footerLine3: "Not financial advice.",
+    dash: "—",
   },
 
   cta: {

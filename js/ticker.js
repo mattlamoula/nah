@@ -1,7 +1,8 @@
-// The scrolling tape under the nav: ~70% $GOOB hunt events (from the demo
-// engine — still simulated pre-launch), ~30% $STONK facts (real live price/
-// mcap from Dexscreener, plus static pair facts). Never fabricates a number:
-// a failed $STONK fetch renders as an em dash, the tape keeps moving.
+// The scrolling tape under the nav. Exactly four rotating facts, in this
+// order: the pair/tax fact, the (demo) cumulative $STONK fed total, and two
+// genuinely real $STONK figures from Dexscreener (price, mcap). No per-hunt
+// entries and no "last hunt" — that already lives in the live-fed strip.
+// Never fabricates a number: a failed $STONK fetch renders as an em dash.
 const GOOB_TICKER = (() => {
   const CFG = GOOB_CONFIG;
   const DEMO = GOOB_DEMO;
@@ -21,53 +22,28 @@ const GOOB_TICKER = (() => {
   }
 
   function buildItems(now) {
-    const huntItems = [];
-    const last = DEMO.getLastFeed(now);
-    if (last) {
-      huntItems.push({ ...COPY.ticker.lastHunt(DEMO.formatStonk(last.stonk), DEMO.formatAgo(last.atMs, now)), href: "/feed" });
-    }
-    const recent = DEMO.getFeedsList(now, 4);
-    recent.forEach((f, i) => {
-      const tpl = i % 2 === 0 ? COPY.ticker.huntSent(f.id, DEMO.formatStonk(f.stonk)) : COPY.ticker.huntBought(f.id, DEMO.formatStonk(f.stonk));
-      huntItems.push({ ...tpl, href: "/feed" });
-    });
-    huntItems.push({ ...COPY.ticker.fedSoFar(DEMO.formatBig(DEMO.cumulativeFedAt(now / 1000))), href: "/feed" });
-
     const priceText = GOOB_STONK_LIVE.getPriceText();
     const mcapText = GOOB_STONK_LIVE.getMcapText();
-    const stonkItems = [
+    return [
+      { ...COPY.ticker.pairFact(CFG.taxPct) },
+      { ...COPY.ticker.fedSoFar(DEMO.formatBig(DEMO.cumulativeFedAt(now / 1000))), href: "/feed" },
       { ...COPY.ticker.stonkPrice(priceText || COPY.ticker.dash), href: GOOB_STONK_LIVE.dexUrl, external: true },
       { ...COPY.ticker.stonkMcap(mcapText || COPY.ticker.dash), href: GOOB_STONK_LIVE.dexUrl, external: true },
-      Math.floor(now / 60000) % 2 === 0 ? COPY.ticker.pairFact(CFG.taxPct) : COPY.ticker.volumeFact(),
     ];
-
-    // Interleave so the newest hunt leads and stonk facts are spread through
-    // the loop rather than clumped at the end.
-    const out = [];
-    let hi = 0,
-      si = 0;
-    const pattern = ["h", "h", "s", "h", "h", "s", "h", "s", "h", "h"];
-    pattern.forEach((kind) => {
-      if (kind === "h" && hi < huntItems.length) out.push(huntItems[hi++]);
-      else if (kind === "s" && si < stonkItems.length) out.push(stonkItems[si++]);
-    });
-    while (hi < huntItems.length) out.push(huntItems[hi++]);
-    while (si < stonkItems.length) out.push(stonkItems[si++]);
-    return out;
   }
 
   function render() {
     const track = document.getElementById("nav-ticker-track");
     if (!track) return;
-    const now = Date.now();
-    const items = buildItems(now).map(renderItem).join('<span class="tick-sep">·</span>');
+    const items = buildItems(Date.now()).map(renderItem).join('<span class="tick-sep">·</span>');
     track.innerHTML = items + '<span class="tick-sep">·</span>' + items + '<span class="tick-sep">·</span>';
   }
 
   function init() {
     render();
+    // Re-renders on its own 20s price refresh; app.js also calls refresh()
+    // immediately when a new demo hunt lands, so "Fed so far" stays current.
     GOOB_STONK_LIVE.init(render);
-    setInterval(render, CFG.poll.tradesMs);
   }
 
   return { init, refresh: render };

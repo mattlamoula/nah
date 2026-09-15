@@ -24,7 +24,6 @@
     </a>
     <div class="tabs" id="tabs">
       <a href="#top" class="tab on" data-copy="nav.tabLive">Live</a>
-      <a href="#how" class="tab" data-copy="nav.tabHow">How</a>
       <a href="/feed" class="tab" data-copy="nav.tabFeed">Feed</a>
       <a href="#cta" class="tab" data-copy="nav.tabSocials">Socials</a>
     </div>
@@ -85,14 +84,72 @@
     </section>
 
     <section class="stat-chips" aria-label="Token facts">
-      <div class="kpi kpi-hot"><div class="kpi-num" data-copy="stats.dev">Dev 0</div></div>
-      <div class="kpi"><div class="kpi-num" data-stat-tax>3% hunt tax</div></div>
-      <div class="kpi kpi-coal"><div class="kpi-num" data-copy="stats.paid">Paid in $STONK</div></div>
+      <span class="stat-chip hot" data-copy="stats.dev">Dev 0</span>
+      <span class="stat-chip plain" data-stat-tax>3% hunt tax</span>
+      <span class="stat-chip coal" data-copy="stats.paid">Paid in $STONK</span>
     </section>
 
     <section class="card how" id="how">
       <h2 class="h2" data-copy="how.h2">How it works</h2>
       <div class="tile-grid" id="how-steps"></div>
+    </section>
+
+    <section class="card floor-snapshot">
+      <div class="snapshot-header">
+        <div>
+          <span class="chip chip-teal" data-copy="snapshot.eyebrow">$GOOB</span>
+          <h3 class="snapshot-headline" data-copy="snapshot.headline">HOLD $GOOB   EARN $STONK</h3>
+          <p class="snapshot-subtitle" data-copy="snapshot.subtitle">Live floor snapshot · StonkFun pair</p>
+        </div>
+        <div class="snapshot-header-stats">
+          <div><span class="tile-label" data-copy="snapshot.mcLabel">MC</span><span class="live-num snapshot-header-num" id="snap-mc">—</span></div>
+          <div><span class="tile-label" data-copy="snapshot.priceLabel">PRICE</span><span class="live-num snapshot-header-num" id="snap-price">—</span></div>
+        </div>
+      </div>
+
+      <div class="snapshot-cards">
+        <div class="tile">
+          <div class="tile-label" data-copy="snapshot.liquidityLabel">LIQUIDITY</div>
+          <div class="tile-num" id="snap-liquidity">—</div>
+        </div>
+        <div class="tile">
+          <div class="tile-label" data-copy="snapshot.volumeLabel">24H VOLUME</div>
+          <div class="tile-num" id="snap-volume">—</div>
+          <div class="tile-caption" data-copy="snapshot.volumeCaption">ACTIVE TAPE</div>
+        </div>
+        <div class="tile">
+          <div class="tile-label" data-copy="snapshot.holdersLabel">HOLDERS</div>
+          <div class="tile-num">—</div>
+          <div class="tile-caption" data-copy="snapshot.holdersCaption">EARNING</div>
+        </div>
+      </div>
+
+      <div class="snapshot-engine watermarked">
+        <h4 data-copy="snapshot.engineTitle">Hold $GOOB. Earn $STONK.</h4>
+        <div class="engine-row"><span data-copy="snapshot.engineFedLabel">$STONK FED</span><strong id="snap-fed">0</strong></div>
+        <div class="engine-row"><span data-copy="snapshot.engineLastHuntLabel">LAST HUNT</span><strong id="snap-last-hunt">—</strong></div>
+      </div>
+
+      <div class="snapshot-cards">
+        <div class="tile">
+          <div class="tile-label" data-copy="snapshot.payoutsLabel">PAYOUTS</div>
+          <div class="tile-num">—</div>
+          <div class="tile-caption" data-copy="snapshot.payoutsCaption">COMPLETED</div>
+        </div>
+        <div class="tile">
+          <div class="tile-label" data-copy="snapshot.taxLabel">HUNT TAX</div>
+          <div class="tile-num" data-tax-num>3%</div>
+          <div class="tile-caption" data-copy="snapshot.taxCaption">REWARD ROUTING</div>
+        </div>
+      </div>
+
+      <ul class="snapshot-bullets" id="snapshot-bullets"></ul>
+
+      <div class="snapshot-footer">
+        <p class="snapshot-footer-strong" data-copy="snapshot.footerLine1">SAME ZIPPER. BIGGER STONKS.</p>
+        <p data-copy="snapshot.footerLine2">Built on StonkFun</p>
+        <p data-copy="snapshot.footerLine3">Not financial advice.</p>
+      </div>
     </section>
 
     <section class="card cta-panel" id="cta">
@@ -134,6 +191,7 @@
 <script src="js/copy.js"></script>
 <script src="js/demo.js"></script>
 <script src="js/stonk-live.js"></script>
+<script src="js/goob-live.js"></script>
 <script src="js/chrome.js"></script>
 <script src="js/ticker.js"></script>
 <script src="js/app.js"></script>
