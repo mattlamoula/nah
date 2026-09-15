@@ -10,7 +10,7 @@
 <meta property="og:image" content="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 <link id="favicon" rel="icon" type="image/png" href="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -28,7 +28,7 @@
       <a href="#how-to-buy">How to buy</a>
       <a href="#tokenomics">Tokenomics</a>
     </nav>
-    <a href="#" class="btn btn-teal nav-buy" data-buy-btn>BUY $GOOB</a>
+    <a href="#" class="btn btn-coral nav-buy" data-buy-btn>BUY $GOOB</a>
   </div>
 </header>
 
@@ -36,9 +36,7 @@
 
   <!-- 1. HERO -->
   <section class="hero" id="hero">
-    <div class="hero-sky" aria-hidden="true">
-      <div class="moon"></div>
-    </div>
+    <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-inner">
       <div class="hero-stage">
         <img id="hero-mascot" class="hero-mascot" src="" alt="$GOOB mascot flying through the air, arms out" />
@@ -47,7 +45,7 @@
       <p class="hero-line">Buy <span data-token-ticker>$GOOB</span>. Get paid in <span data-pair-ticker>$STONK</span>.</p>
       <p class="hero-sub">The mascot of the <span data-pair-ticker>$STONK</span> biz. Launched on StonkFun.</p>
       <div class="hero-cta-row">
-        <a href="#" class="btn btn-teal btn-lg" data-buy-btn>BUY $GOOB</a>
+        <a href="#" class="btn btn-coral btn-lg" data-buy-btn>BUY $GOOB</a>
         <button class="btn btn-outline btn-lg" data-copy>COPY CA</button>
       </div>
       <div class="ca-box">
@@ -55,35 +53,34 @@
         <code data-contract-address>DROPPING AT LAUNCH</code>
       </div>
     </div>
-    <div class="zone-divider" aria-hidden="true">
-      <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,40 C360,90 1080,0 1440,50 L1440,90 L0,90 Z"></path></svg>
-    </div>
   </section>
 
-  <!-- 2. STATS BANNER -->
-  <section class="stats-banner">
-    <div class="container stats-grid">
-      <div class="stat stat-a">
-        <div class="stat-num" data-pair-ticker>$STONK</div>
-        <div class="stat-label">PAIRED WITH</div>
-      </div>
-      <div class="stat stat-b">
-        <div class="stat-num" data-reward-tax>1%</div>
-        <div class="stat-label">REWARD TAX</div>
-      </div>
-      <div class="stat stat-c">
-        <div class="stat-num">StonkFun</div>
-        <div class="stat-label">LAUNCHED ON</div>
-      </div>
+  <!-- 2. STATS TICKER -->
+  <div class="ticker" role="note" aria-label="Key facts">
+    <div class="ticker-track">
+      <span class="ticker-item">PAIRED WITH <strong data-pair-ticker>$STONK</strong></span>
+      <span class="ticker-sep">★</span>
+      <span class="ticker-item"><strong data-reward-tax>1%</strong> REWARD TAX</span>
+      <span class="ticker-sep">★</span>
+      <span class="ticker-item">LAUNCHED ON STONKFUN</span>
+      <span class="ticker-sep">★</span>
+      <span class="ticker-item">FAIR LAUNCH · NO PRESALE</span>
+      <span class="ticker-sep">★</span>
+      <span class="ticker-item">PAIRED WITH <strong data-pair-ticker>$STONK</strong></span>
+      <span class="ticker-sep">★</span>
+      <span class="ticker-item"><strong data-reward-tax>1%</strong> REWARD TAX</span>
+      <span class="ticker-sep">★</span>
+      <span class="ticker-item">LAUNCHED ON STONKFUN</span>
+      <span class="ticker-sep">★</span>
+      <span class="ticker-item">FAIR LAUNCH · NO PRESALE</span>
+      <span class="ticker-sep">★</span>
     </div>
-  </section>
+  </div>
 
   <!-- 3. ABOUT -->
   <section class="section" id="about">
     <div class="container about-grid">
-      <div class="photo-card">
-        <img class="about-mascot" id="about-mascot" src="" alt="$GOOB mascot waving hello, tongue out, cap forward" />
-      </div>
+      <img class="about-mascot" id="about-mascot" src="" alt="$GOOB mascot waving hello, tongue out, cap forward" />
       <div class="about-copy">
         <div class="kicker">About</div>
         <h2>About GOOB</h2>
@@ -103,7 +100,7 @@
       <img class="buy-mascot" id="buy-mascot" src="" alt="$GOOB mascot pointing to the side" />
       <div class="buy-copy">
         <p class="buy-eyebrow">You can now easily buy <span data-token-ticker>$GOOB</span> on StonkFun</p>
-        <a href="#" class="btn btn-teal btn-lg" data-buy-btn>APE IN ON STONKFUN</a>
+        <a href="#" class="btn btn-coral btn-lg" data-buy-btn>APE IN ON STONKFUN</a>
         <p class="buy-subtext">
           Pair <span data-token-ticker>$GOOB</span> / <span data-pair-ticker>$STONK</span>.
           Pay in SOL — StonkFun routes it through <span data-pair-ticker>$STONK</span> for you.
@@ -142,7 +139,7 @@
   </section>
 
   <!-- 6. HOW TO BUY -->
-  <section class="section howtobuy" id="how-to-buy">
+  <section class="section" id="how-to-buy">
     <div class="container howtobuy-layout">
       <div class="howtobuy-main">
         <div class="section-head section-head-left">
@@ -175,54 +172,33 @@
             <p>No staking, no claim button — it just shows up.</p>
           </div>
         </div>
-        <a href="#" class="btn btn-teal btn-lg" data-buy-btn>BUY $GOOB</a>
+        <a href="#" class="btn btn-coral btn-lg" data-buy-btn>BUY $GOOB</a>
       </div>
       <img class="howtobuy-mascot" id="howtobuy-mascot" src="" alt="$GOOB mascot walking, tongue out" />
     </div>
   </section>
 
-  <!-- 7. PFP SECTION -->
-  <section class="section pfp-section" id="pfp">
+  <!-- 7. STICKER SHEET (PFP + gallery merged — one payoff, not two redundant grids) -->
+  <section class="section sticker-section" id="pfp">
     <div class="container">
       <div class="section-head">
-        <div class="kicker">PFP</div>
+        <div class="kicker">Sticker sheet</div>
         <h2>Set GOOB as PFP</h2>
-        <p>Six poses, zero watermarks. Grab one, slap it on your profile.</p>
+        <p>All six poses. Zero watermarks. Peel one off, slap it everywhere.</p>
       </div>
-      <div class="pfp-grid">
-        <img src="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" alt="$GOOB mascot flying, arms out" />
-        <img src="assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png" alt="$GOOB mascot waving hello" />
-        <img src="assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png" alt="$GOOB mascot pointing" />
-        <img src="assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png" alt="$GOOB mascot walking" />
-        <img src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="$GOOB mascot standing front-facing" />
-        <img src="assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png" alt="$GOOB mascot peeking in from the edge" />
+      <div class="sticker-sheet">
+        <img class="sticker sticker-1" src="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" alt="$GOOB mascot flying, arms out" />
+        <img class="sticker sticker-2" src="assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png" alt="$GOOB mascot waving hello" />
+        <img class="sticker sticker-3" src="assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png" alt="$GOOB mascot pointing" />
+        <img class="sticker sticker-4" src="assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png" alt="$GOOB mascot walking" />
+        <img class="sticker sticker-5" src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="$GOOB mascot standing front-facing" />
+        <img class="sticker sticker-6" src="assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png" alt="$GOOB mascot peeking in from the edge" />
       </div>
       <a href="#" class="btn btn-outline" data-social="x">Post your PFP on X ↗</a>
     </div>
   </section>
 
 </main>
-
-<!-- 8. GALLERY / LOVED BY -->
-<section class="gallery-section" id="gallery">
-  <div class="zone-divider zone-divider-flip" aria-hidden="true">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0,50 C360,0 1080,90 1440,40 L1440,0 L0,0 Z"></path></svg>
-  </div>
-  <div class="container">
-    <div class="section-head">
-      <div class="kicker kicker-on-dark">Loved by</div>
-      <h2 class="heading-on-dark">Loved by the <span data-pair-ticker>$STONK</span> biz</h2>
-    </div>
-    <div class="gallery-grid">
-      <img src="assets/mascot/Gemini_Generated_Image_c9iugqc9iugqc9iu-removebg-preview.png" alt="$GOOB mascot flying" />
-      <img src="assets/mascot/25d0a02d-de7e-42e7-aed1-845006fe4f2a-removebg-preview.png" alt="$GOOB mascot waving" />
-      <img src="assets/mascot/Gemini_Generated_Image_j6jjj8j6jjj8j6jj-removebg-preview.png" alt="$GOOB mascot pointing" />
-      <img src="assets/mascot/Gemini_Generated_Image_o04uajo04uajo04u-removebg-preview.png" alt="$GOOB mascot walking" />
-      <img src="assets/mascot/a07ba0c7-0330-456d-8d6e-4dcf6566afe7-removebg-preview.png" alt="$GOOB mascot standing" />
-      <img src="assets/mascot/Gemini_Generated_Image_pcve1zpcve1zpcve-removebg-preview.png" alt="$GOOB mascot peeking" />
-    </div>
-  </div>
-</section>
 
 <!-- 9. FOOTER -->
 <footer>
@@ -231,7 +207,7 @@
       <img id="footer-mascot" src="" alt="" />
       <span data-token-ticker>$GOOB</span>
     </div>
-    <div class="kicker kicker-on-dark">Socials</div>
+    <div class="kicker">Socials</div>
     <div class="social-row">
       <a href="#" data-social="x" class="social-tile">
         <span class="social-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.6L4.8 22H1.7l8.1-9.3L1 2h7l4.9 6.1L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg></span>
@@ -263,7 +239,7 @@
 
 <!-- STICKY MOBILE BUY BAR -->
 <div class="mobile-buy-bar">
-  <a href="#" class="btn btn-teal btn-lg btn-block" data-buy-btn>BUY $GOOB</a>
+  <a href="#" class="btn btn-coral btn-lg btn-block" data-buy-btn>BUY $GOOB</a>
 </div>
 
 <div class="toast" id="toast"></div>
