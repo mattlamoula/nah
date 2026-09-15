@@ -21,7 +21,6 @@ const GOOB_CONFIG = {
 
   caLive: false,
   contractAddress: "",
-  explorerTxBase: "https://solscan.io/tx/",
 
   socials: {
     x: "",
@@ -31,7 +30,6 @@ const GOOB_CONFIG = {
 
   poll: {
     infoMs: 5000,
-    chartMs: 15000,
     tradesMs: 10000,
     feedMs: 30000,
   },

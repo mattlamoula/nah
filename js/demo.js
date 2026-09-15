@@ -31,15 +31,6 @@ const GOOB_DEMO = (() => {
     return Math.floor(ms / 1000 / TICK);
   }
 
-  function walletStr(seed) {
-    const chars = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
-    let start = "";
-    for (let i = 0; i < 4; i++) start += chars[Math.floor(rnd(seed, 200 + i) * chars.length)];
-    let end = "";
-    for (let i = 0; i < 4; i++) end += chars[Math.floor(rnd(seed, 210 + i) * chars.length)];
-    return `${start}…${end}`;
-  }
-
   function txHash(seed, salt) {
     const a = Math.floor(rnd(seed, salt) * 0xffffffff).toString(36);
     const b = Math.floor(rnd(seed, salt + 1) * 0xffffffff).toString(36);
@@ -136,35 +127,6 @@ const GOOB_DEMO = (() => {
     return Math.max(1, Math.round(BASE_HOLDERS + hours * HOLDER_GROWTH_PER_HOUR + wiggle));
   }
 
-  function getTicks(nowMs, count) {
-    const nowSec = Math.floor(nowMs / 1000);
-    const out = [];
-    let t = nowSec - (nowSec % 6);
-    let guard = 0;
-    while (out.length < count * 2 && guard < count * 8) {
-      const slot = Math.floor(t / 6);
-      if (rnd(slot, 100) < 0.55) {
-        const isBuy = rnd(slot, 101) < 0.62;
-        out.push({
-          type: isBuy ? "buy" : "sell",
-          wallet: walletStr(slot),
-          sol: +(0.02 + rnd(slot, 102) * 0.5).toFixed(2),
-          atMs: t * 1000,
-        });
-      }
-      t -= 3 + Math.floor(rnd(slot, 103) * 4);
-      guard++;
-    }
-    const oldestMs = out.length ? out[out.length - 1].atMs : nowMs;
-    const cur = cycleAt(nowMs);
-    for (let c = cur; c >= GENESIS_CYCLE && c * TICK * 1000 >= oldestMs - TICK * 1000; c--) {
-      const f = getFeed(c);
-      if (f) out.push({ type: "feed", id: f.id, sol: f.sol, stonk: f.stonk, atMs: f.atMs });
-    }
-    out.sort((a, b) => b.atMs - a.atMs);
-    return out.slice(0, count);
-  }
-
   function formatAgo(atMs, nowMs) {
     const s = Math.max(0, Math.round((nowMs - atMs) / 1000));
     if (s < 60) return `${s}s ago`;
@@ -191,7 +153,6 @@ const GOOB_DEMO = (() => {
     getFeed,
     getLastFeed,
     getFeedsList,
-    getTicks,
     cumulativeFedAt,
     getHolderCount,
     formatAgo,

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>GOOB · Feed</title>
+<meta name="description" content="Each hunt buys $STONK and airdrops it to holders." />
+<meta name="theme-color" content="#f4f4f4" />
+<link rel="icon" type="image/png" href="/goob/stand.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">
+      <img src="/goob/stand.png" alt="" class="brand-icon" />
+      <span class="brand-name" data-copy="nav.brand">GOOB</span>
+    </a>
+    <div class="tabs" id="tabs">
+      <a href="/#top" class="tab" data-copy="nav.tabLive">Live</a>
+      <a href="/#how" class="tab" data-copy="nav.tabHow">How</a>
+      <a href="/feed" class="tab on" data-copy="nav.tabFeed">Feed</a>
+      <a href="/#cta" class="tab" data-copy="nav.tabSocials">Socials</a>
+    </div>
+    <div class="nav-right">
+      <span class="chip chip-ghost nav-chain" data-copy="nav.chainPill">Solana · StonkFun</span>
+      <a href="#" class="pill pill-hot is-soon" data-buy aria-disabled="true" data-copy="nav.buy">Buy $GOOB</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <section class="card feed-log" style="margin-top: 20px;">
+      <h2 class="h2" data-copy="feedPage.h2">Feed</h2>
+      <p class="lead" data-copy="feedPage.lead">Each hunt buys $STONK and airdrops it to holders.</p>
+      <p class="demo-note" data-copy="feedPage.demoNote">Live from chain at launch.</p>
+      <div class="feed-rows watermarked" id="feed-rows"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-ca">
+      <span class="footer-ca-text" data-copy="footer.caPlaceholder">CA drops at launch</span>
+      <button type="button" class="pill pill-white pill-sm" data-copy-ca><span data-copy="footer.copyBtn">copy</span></button>
+    </div>
+    <div class="footer-socials">
+      <a href="#" data-social="x" data-copy="footer.socialX">X</a>
+      <a href="#" data-social="telegram" data-copy="footer.socialTelegram">Telegram</a>
+      <a href="#" data-social="dexscreener" data-copy="footer.socialDex">Dexscreener</a>
+    </div>
+  </div>
+  <p class="footer-disclaimer" data-copy="footer.disclaimer">Unofficial mascot on StonkFun. Not financial advice.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/js/config.js"></script>
+<script src="/js/copy.js"></script>
+<script src="/js/demo.js"></script>
+<script src="/js/chrome.js"></script>
+<script src="/js/feed-page.js"></script>
+</body>
+</html>
