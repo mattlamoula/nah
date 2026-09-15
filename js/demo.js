@@ -1,12 +1,16 @@
-// Deterministic demo-tape engine: every value is a pure function of wall-clock time,
-// so the countdown, chart, ticker and hunts log all agree with each other and stay
-// consistent across reloads/tabs without any shared backend. Swap for real chain
-// reads by keeping the same function names and return shapes.
+// Deterministic demo-tape engine: every value is a pure function of wall-clock
+// time, so the live strip, chart, ticker and feed log all agree with each
+// other and stay consistent across reloads without a backend. There is no
+// countdown here on purpose — $GOOB's tax hunts $STONK on every trade, not on
+// a clock, so the "tick" below is only internal pacing for the simulation,
+// never surfaced as a product claim. Swap for real chain reads by keeping the
+// same function names and return shapes.
 const GOOB_DEMO = (() => {
   const CFG = GOOB_CONFIG;
-  const I = CFG.INTERVAL_SEC;
-  const GENESIS_CYCLE = Math.floor(CFG.demoGenesisMs / 1000 / I);
-  const BASE_PRICE = 0.0000340;
+  const TICK = CFG.demoTickSec;
+  const GENESIS_CYCLE = Math.floor(CFG.demoGenesisMs / 1000 / TICK);
+  const BASE_HOLDERS = 140;
+  const HOLDER_GROWTH_PER_HOUR = 3.2;
 
   function rnd(seed, salt) {
     const x = Math.sin((seed + 1) * 12.9898 + (salt + 1) * 78.233) * 43758.5453;
@@ -24,14 +28,7 @@ const GOOB_DEMO = (() => {
   }
 
   function cycleAt(ms) {
-    return Math.floor(ms / 1000 / I);
-  }
-
-  function statusFor(cycle) {
-    const r = rnd(cycle, 3);
-    if (r < 0.03) return "failed";
-    if (r < 0.1) return "rolled";
-    return "done";
+    return Math.floor(ms / 1000 / TICK);
   }
 
   function walletStr(seed) {
@@ -49,71 +46,94 @@ const GOOB_DEMO = (() => {
     return (a + b).padEnd(16, "0");
   }
 
-  function getHunt(cycle) {
-    const id = cycle - GENESIS_CYCLE + 1;
-    if (id < 1) return null;
-    const status = statusFor(cycle);
+  function isFeedCycle(cycle) {
+    return rnd(cycle, 3) < CFG.demoFeedChance;
+  }
+
+  function getFeed(cycle) {
+    if (cycle < GENESIS_CYCLE || !isFeedCycle(cycle)) return null;
     const r1 = rnd(cycle, 1);
     const r2 = rnd(cycle, 2);
-    const sol =
-      status === "rolled"
-        ? +(0.001 + r1 * 0.008).toFixed(4)
-        : +(0.05 + r1 * 0.55).toFixed(4);
+    const sol = +(0.05 + r1 * 0.55).toFixed(4);
     const stonk = Math.round(sol * CFG.demoStonkPerSol * (0.9 + r2 * 0.2));
     const usd = sol * CFG.demoSolUsd;
-    const atMs = (cycle + 1) * I * 1000;
+    const atMs = (cycle + 1) * TICK * 1000;
     return {
-      id,
+      id: cycle - GENESIS_CYCLE + 1,
       cycle,
-      status,
       sol,
       stonk,
       usd,
       atMs,
-      tx: { claim: txHash(cycle, 11), buy: txHash(cycle, 21), feed: txHash(cycle, 31) },
+      tx: { buy: txHash(cycle, 21), feed: txHash(cycle, 31) },
     };
   }
 
-  function priceAt(tSec) {
-    const slow = (noise(tSec, 900) - 0.5) * 0.5;
-    const fast = (noise(tSec + 50000, 110) - 0.5) * 0.12;
-    const k = Math.floor(tSec / I);
-    let pulse = 0;
-    for (let c = k - 1; c <= k; c++) {
-      if (c < GENESIS_CYCLE) continue;
-      const boundary = (c + 1) * I;
-      if (boundary <= tSec && statusFor(c) === "done") {
-        const amp = 0.01 + rnd(c, 4) * 0.045;
-        pulse += amp * Math.exp(-(tSec - boundary) / 45);
-      }
+  function getLastFeed(nowMs) {
+    const cur = cycleAt(nowMs);
+    for (let c = cur; c >= GENESIS_CYCLE; c--) {
+      const f = getFeed(c);
+      if (f) return f;
     }
-    const mult = Math.max(0.15, 1 + slow + fast + pulse);
-    return BASE_PRICE * mult;
+    return null;
   }
 
-  function nextHuntAtMs(nowMs) {
-    return (cycleAt(nowMs) + 1) * I * 1000;
-  }
-
-  function getFuel(nowMs) {
-    const n = cycleAt(nowMs);
-    const frac = nowMs / 1000 / I - n;
-    const target = 0.05 + rnd(n, 1) * 0.55;
-    return +(target * Math.min(1, Math.max(0, frac))).toFixed(4);
-  }
-
-  function getLastHunt(nowMs) {
-    return getHunt(cycleAt(nowMs) - 1);
-  }
-
-  function getHuntsList(nowMs, count) {
-    const n = cycleAt(nowMs);
+  function getFeedsList(nowMs, count) {
+    const cur = cycleAt(nowMs);
     const out = [];
-    for (let k = n - 1; k >= GENESIS_CYCLE && out.length < count; k--) {
-      const h = getHunt(k);
-      if (h) out.push(h);
+    for (let c = cur; c >= GENESIS_CYCLE && out.length < count; c--) {
+      const f = getFeed(c);
+      if (f) out.push(f);
     }
     return out;
+  }
+
+  // Cumulative $STONK fed is a step function: flat between feed events, so we
+  // only need checkpoints at the events themselves, built incrementally and
+  // cached, then binary-searched for any timestamp.
+  let checkpoints = null;
+  let checkpointsUpToCycle = null;
+
+  function ensureCheckpoints(uptoCycle) {
+    if (checkpoints === null) {
+      checkpoints = [[GENESIS_CYCLE * TICK, 0]];
+      checkpointsUpToCycle = GENESIS_CYCLE - 1;
+    }
+    if (uptoCycle <= checkpointsUpToCycle) return;
+    let total = checkpoints[checkpoints.length - 1][1];
+    for (let c = checkpointsUpToCycle + 1; c <= uptoCycle; c++) {
+      const f = getFeed(c);
+      if (f) {
+        total += f.stonk;
+        checkpoints.push([f.atMs / 1000, total]);
+      }
+    }
+    checkpointsUpToCycle = uptoCycle;
+  }
+
+  function cumulativeFedAt(tSec) {
+    ensureCheckpoints(cycleAt(tSec * 1000));
+    let lo = 0,
+      hi = checkpoints.length - 1,
+      ans = 0;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (checkpoints[mid][0] <= tSec) {
+        ans = checkpoints[mid][1];
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    return ans;
+  }
+
+  function getHolderCount(nowMs) {
+    const tSec = nowMs / 1000;
+    const genesisSec = GENESIS_CYCLE * TICK;
+    const hours = Math.max(0, (tSec - genesisSec) / 3600);
+    const wiggle = (noise(tSec, 1800) - 0.5) * 14;
+    return Math.max(1, Math.round(BASE_HOLDERS + hours * HOLDER_GROWTH_PER_HOUR + wiggle));
   }
 
   function getTicks(nowMs, count) {
@@ -136,12 +156,10 @@ const GOOB_DEMO = (() => {
       guard++;
     }
     const oldestMs = out.length ? out[out.length - 1].atMs : nowMs;
-    const n = cycleAt(nowMs);
-    for (let k = n - 1; k >= GENESIS_CYCLE && (k + 1) * I * 1000 >= oldestMs; k--) {
-      const h = getHunt(k);
-      if (h && h.status === "done") {
-        out.push({ type: "hunt", id: h.id, sol: h.sol, stonk: h.stonk, atMs: h.atMs });
-      }
+    const cur = cycleAt(nowMs);
+    for (let c = cur; c >= GENESIS_CYCLE && c * TICK * 1000 >= oldestMs - TICK * 1000; c--) {
+      const f = getFeed(c);
+      if (f) out.push({ type: "feed", id: f.id, sol: f.sol, stonk: f.stonk, atMs: f.atMs });
     }
     out.sort((a, b) => b.atMs - a.atMs);
     return out.slice(0, count);
@@ -160,25 +178,24 @@ const GOOB_DEMO = (() => {
     return String(n);
   }
 
-  function formatMcap(n) {
-    if (n >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
-    if (n >= 1e3) return `$${(n / 1e3).toFixed(1)}K`;
-    return `$${n.toFixed(2)}`;
+  function formatBig(n) {
+    if (n >= 1e6) return `${(n / 1e6).toFixed(2)}M`;
+    if (n >= 1e3) return `${(n / 1e3).toFixed(1)}K`;
+    return String(Math.round(n));
   }
 
   return {
     GENESIS_CYCLE,
-    INTERVAL_SEC: I,
+    TICK_SEC: TICK,
     cycleAt,
-    priceAt,
-    getHunt,
-    getFuel,
-    getLastHunt,
-    getHuntsList,
+    getFeed,
+    getLastFeed,
+    getFeedsList,
     getTicks,
-    nextHuntAtMs,
+    cumulativeFedAt,
+    getHolderCount,
     formatAgo,
     formatStonk,
-    formatMcap,
+    formatBig,
   };
 })();

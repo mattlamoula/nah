@@ -1,6 +1,68 @@
 (() => {
   const CFG = GOOB_CONFIG;
   const DEMO = GOOB_DEMO;
+  const COPY = GOOB_COPY;
+
+  function getByPath(obj, path) {
+    return path.split(".").reduce((o, k) => (o == null ? undefined : o[k]), obj);
+  }
+
+  function applyCopy() {
+    document.querySelectorAll("[data-copy]").forEach((el) => {
+      const val = getByPath(COPY, el.dataset.copy);
+      if (typeof val === "string") el.textContent = val;
+    });
+    document.title = COPY.meta.title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", COPY.meta.description);
+  }
+
+  function renderHowSteps() {
+    const el = document.getElementById("how-steps");
+    if (!el) return;
+    el.innerHTML = COPY.how.steps
+      .map((s) => `<div class="mini-tile"><div class="badge">${s.n}</div><h4>${s.title}</h4><p>${s.body}</p></div>`)
+      .join("");
+  }
+
+  function renderRulesItems() {
+    const el = document.getElementById("rules-items");
+    if (!el) return;
+    el.innerHTML = COPY.rules.items.map((r) => `<li><h4>${r.title}</h4><p>${r.body}</p></li>`).join("");
+  }
+
+  function renderEngineRows() {
+    const el = document.getElementById("engine-rows");
+    if (!el) return;
+    const rows = COPY.rules.engineRows;
+    const val = (v) => (typeof v === "function" ? v(CFG.taxPct) : v);
+    el.innerHTML = [rows.pair, rows.tax, rows.team, rows.payout, rows.claim]
+      .map((r) => `<div class="engine-row"><span>${r.label}</span><strong>${val(r.value)}</strong></div>`)
+      .join("");
+  }
+
+  function renderMiniFacts() {
+    const el = document.getElementById("mini-facts");
+    if (!el) return;
+    const items = [
+      { img: "goob/wave.png", text: COPY.social.miniFactDev },
+      { img: "goob/jump.png", text: COPY.social.miniFactTax(CFG.taxPct) },
+      { img: "goob/point.png", text: COPY.social.miniFactSupply },
+    ];
+    el.innerHTML = items.map((i) => `<div class="mini-fact"><img src="${i.img}" alt="" /><span>${i.text}</span></div>`).join("");
+  }
+
+  function renderLore() {
+    const el = document.getElementById("lore-paragraphs");
+    if (!el) return;
+    el.innerHTML = COPY.social.loreParagraphs.map((p) => `<p>${p}</p>`).join("");
+  }
+
+  function renderUnderlyingFacts() {
+    const el = document.getElementById("underlying-facts");
+    if (!el) return;
+    el.innerHTML = COPY.underlying.facts.map((f) => `<span class="fact-chip">${f}</span>`).join("");
+  }
 
   function toast(msg) {
     const el = document.getElementById("toast");
@@ -28,14 +90,14 @@
   }
 
   function copyCA() {
-    const text = CFG.caLive ? CFG.contractAddress : CFG.copyCaText;
+    const text = CFG.caLive ? CFG.contractAddress : COPY.copyCaText;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
         .writeText(text)
-        .then(() => toast("Copied to clipboard"))
-        .catch(() => (fallbackCopy(text) ? toast("Copied to clipboard") : toast(text)));
+        .then(() => toast(COPY.copiedToast))
+        .catch(() => toast(fallbackCopy(text) ? COPY.copiedToast : text));
     } else {
-      toast(fallbackCopy(text) ? "Copied to clipboard" : text);
+      toast(fallbackCopy(text) ? COPY.copiedToast : text);
     }
   }
 
@@ -45,7 +107,7 @@
       if (buyEl) {
         if (!CFG.caLive) {
           e.preventDefault();
-          toast(CFG.soonToast);
+          toast(COPY.soonToast);
         }
         return;
       }
@@ -54,7 +116,7 @@
         const url = CFG.socials[socialEl.dataset.social];
         if (!url) {
           e.preventDefault();
-          toast(CFG.soonToast);
+          toast(COPY.soonToast);
         }
         return;
       }
@@ -67,24 +129,21 @@
       const soonEl = e.target.closest("[data-soon]");
       if (soonEl) {
         e.preventDefault();
-        toast(CFG.soonToast);
+        toast(COPY.soonToast);
       }
     });
   }
 
   function initStaticContent() {
-    const minHunt = document.getElementById("engine-min-hunt");
-    if (minHunt) minHunt.textContent = `${CFG.minHuntSol} SOL`;
-    const slippage = document.getElementById("engine-slippage");
-    if (slippage) slippage.textContent = `${CFG.slippagePct}%`;
-    const heroStatus = document.getElementById("hero-status-text");
-    if (heroStatus) heroStatus.textContent = CFG.caLive ? "on-chain · real hunts" : "hunt armed";
-
+    document.querySelectorAll("[data-kpi-tax]").forEach((el) => (el.textContent = COPY.kpis.taxNum(CFG.taxPct)));
+    document.querySelectorAll("[data-live-tax]").forEach((el) => (el.textContent = `${CFG.taxPct}%`));
     if (CFG.caLive) {
       document.querySelectorAll("[data-buy]").forEach((el) => {
         el.classList.remove("is-soon");
         el.removeAttribute("aria-disabled");
       });
+      const status = document.querySelector("[data-copy='hero.chipStatus']");
+      if (status) status.textContent = "on-chain · real hunts";
     }
     document.querySelectorAll("[data-social]").forEach((el) => {
       const url = CFG.socials[el.dataset.social];
@@ -119,8 +178,8 @@
   }
 
   function renderTickItem(it, now) {
-    if (it.type === "hunt") {
-      return `<span class="tick tick-hunt">💥 hunt #${it.id} · ${it.sol.toFixed(2)} SOL → 🔥 ${DEMO.formatStonk(it.stonk)} ${CFG.huntTicker} · ${DEMO.formatAgo(it.atMs, now)}</span>`;
+    if (it.type === "feed") {
+      return `<span class="tick tick-feed">🍽️ ${COPY.ticker.feed(DEMO.formatStonk(it.stonk))} · ${DEMO.formatAgo(it.atMs, now)}</span>`;
     }
     const emoji = it.type === "buy" ? "🟢" : "🔴";
     return `<span class="tick tick-${it.type}">${emoji} ${it.type} ${it.wallet} ${it.sol.toFixed(2)} SOL · ${DEMO.formatAgo(it.atMs, now)}</span>`;
@@ -141,88 +200,64 @@
     track.innerHTML = html + html;
   }
 
-  function renderHuntRow(h) {
-    const d = new Date(h.atMs);
-    let statusHtml, mid;
-    if (h.status === "done") {
-      statusHtml = '<span class="status status-done">done</span>';
-      mid = `claimed ${h.sol.toFixed(4)} SOL → bought ${DEMO.formatStonk(h.stonk)} ${CFG.huntTicker} → fed holders
-        <span class="explorer-links"><a href="#" data-soon>claim ↗</a> · <a href="#" data-soon>buy ↗</a> · <a href="#" data-soon>feed ↗</a></span>`;
-    } else if (h.status === "rolled") {
-      statusHtml = '<span class="status status-rolled">rolled</span>';
-      mid = `${h.sol.toFixed(4)} SOL — too small, waits for the next hunt`;
-    } else {
-      statusHtml = '<span class="status status-failed">failed</span>';
-      mid = `claim reverted — retries on the next hunt`;
-    }
-    const amount = h.status === "done" ? `🔥 ${DEMO.formatStonk(h.stonk)}` : "—";
-    const usd = h.status === "done" ? `$${h.usd.toFixed(2)}` : "";
-    return `<div class="round" data-hunt="${h.id}">
+  function renderFeedRow(f) {
+    const d = new Date(f.atMs);
+    return `<div class="round" data-hunt="${f.id}">
       <div class="round-left">
-        <div class="round-title">Hunt #${h.id}</div>
+        <div class="round-title">Feed #${f.id}</div>
         <div class="round-time">${d.toLocaleString()}</div>
-        ${statusHtml}
       </div>
-      <div class="round-mid">${mid}</div>
+      <div class="round-mid">
+        ${COPY.feedLog.row(DEMO.formatStonk(f.stonk))}
+        <span class="explorer-links"><a href="#" data-soon>${COPY.feedLog.linkBuy}</a> · <a href="#" data-soon>${COPY.feedLog.linkFeed}</a></span>
+      </div>
       <div class="round-right">
-        <div class="round-amount">${amount}</div>
-        <div class="round-usd">${usd}</div>
+        <div class="round-amount">🔥 ${DEMO.formatStonk(f.stonk)}</div>
+        <div class="round-usd">$${f.usd.toFixed(2)}</div>
       </div>
     </div>`;
   }
 
-  function renderHunts() {
-    const rows = document.getElementById("hunts-rows");
+  function renderFeedLog() {
+    const rows = document.getElementById("feed-rows");
     if (!rows) return;
-    const hunts = DEMO.getHuntsList(Date.now(), 50);
-    rows.innerHTML = hunts.map(renderHuntRow).join("") || '<p class="lead">No hunts yet. The log starts with the first claim.</p>';
+    const feeds = DEMO.getFeedsList(Date.now(), 50);
+    rows.innerHTML = feeds.map(renderFeedRow).join("") || `<p class="lead">${COPY.feedLog.empty}</p>`;
   }
 
-  function flashStage() {
-    const stage = document.getElementById("stage");
-    if (!stage) return;
-    stage.classList.add("stage-hit");
-    setTimeout(() => stage.classList.remove("stage-hit"), 900);
+  function flashLiveStrip() {
+    const el = document.getElementById("live-strip");
+    if (!el) return;
+    el.classList.add("live-strip-hit");
+    setTimeout(() => el.classList.remove("live-strip-hit"), 900);
   }
 
-  function initCountdown() {
-    const clock = document.getElementById("clock");
-    const bar = document.getElementById("progress-bar");
-    const fuel = document.getElementById("fuel-amount");
-    const lastHunt = document.getElementById("last-hunt-amount");
-    let lastCycle = null;
-
+  function initLiveStrip() {
+    let lastSeenId = null;
     function tick() {
       const now = Date.now();
-      const nextAt = DEMO.nextHuntAtMs(now);
-      const remainMs = Math.max(0, nextAt - now);
-      const remainS = Math.ceil(remainMs / 1000);
-      const mm = String(Math.floor(remainS / 60)).padStart(2, "0");
-      const ss = String(remainS % 60).padStart(2, "0");
-      if (clock) {
-        clock.textContent = `${mm}:${ss}`;
-        clock.classList.toggle("warn", remainMs < 10000);
-      }
-      const elapsed = CFG.INTERVAL_SEC - remainS;
-      const pct = Math.min(100, Math.max(0, (elapsed / CFG.INTERVAL_SEC) * 100));
-      if (bar) bar.style.width = pct + "%";
-      if (fuel) fuel.textContent = `${DEMO.getFuel(now).toFixed(4)} SOL`;
-      if (lastHunt) {
-        const last = DEMO.getLastHunt(now);
-        lastHunt.textContent = last ? `${last.sol.toFixed(4)} SOL` : "—";
-      }
+      const total = DEMO.cumulativeFedAt(now / 1000);
+      const fedEl = document.getElementById("live-fed");
+      if (fedEl) fedEl.textContent = `${DEMO.formatBig(total)} $STONK`;
 
-      const cycle = DEMO.cycleAt(now);
-      if (lastCycle === null) lastCycle = cycle;
-      if (cycle !== lastCycle) {
-        lastCycle = cycle;
+      const last = DEMO.getLastFeed(now);
+      const lastEl = document.getElementById("live-last-hunt");
+      if (lastEl) lastEl.textContent = last ? `${DEMO.formatStonk(last.stonk)} $STONK` : COPY.liveStrip.lastHuntFallback;
+
+      const holdersEl = document.getElementById("live-holders");
+      if (holdersEl) holdersEl.textContent = DEMO.getHolderCount(now).toLocaleString();
+
+      const curId = last ? last.id : null;
+      if (lastSeenId === null) lastSeenId = curId;
+      if (curId !== null && curId !== lastSeenId) {
+        lastSeenId = curId;
         renderTicker();
-        renderHunts();
-        flashStage();
+        renderFeedLog();
+        flashLiveStrip();
       }
     }
     tick();
-    setInterval(tick, 1000);
+    setInterval(tick, CFG.poll.infoMs);
   }
 
   function initReducedMotion() {
@@ -233,14 +268,21 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     initReducedMotion();
+    applyCopy();
+    renderHowSteps();
+    renderRulesItems();
+    renderEngineRows();
+    renderMiniFacts();
+    renderLore();
+    renderUnderlyingFacts();
     initStaticContent();
     initGlobalClicks();
     initScrollspy();
     renderTicker();
-    renderHunts();
-    initCountdown();
+    renderFeedLog();
+    initLiveStrip();
     setInterval(renderTicker, CFG.poll.tradesMs);
-    setInterval(renderHunts, CFG.poll.huntsMs);
+    setInterval(renderFeedLog, CFG.poll.feedMs);
     GOOB_CHART.init();
   });
 })();

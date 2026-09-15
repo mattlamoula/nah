@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>GOOB · every 3 min a new HUNT into the chart</title>
-<meta name="description" content="All the fees $GOOB takes from the hunt get blasted into $STONK every 3 minutes. One buy. Then holders get fed. No team cut. Dev 0. The bag stays on. GOOB does not eat itself." />
+<title>GOOB · the unofficial mascot of the hunt</title>
+<meta name="description" content="$GOOB is paired with $STONK. Every trade hunts the house token and feeds holders. Dev 0. The bag stays on." />
 <meta name="theme-color" content="#f4f4f4" />
-<meta property="og:title" content="GOOB · every 3 min a new HUNT into the chart" />
-<meta property="og:description" content="All the fees $GOOB takes from the hunt get blasted into $STONK every 3 minutes. One buy. Then holders get fed. No team cut. Dev 0. The bag stays on." />
+<meta property="og:title" content="GOOB · the unofficial mascot of the hunt" />
+<meta property="og:description" content="$GOOB is paired with $STONK. Every trade hunts the house token and feeds holders. Dev 0. The bag stays on." />
 <link rel="icon" type="image/png" href="goob/stand.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,18 +20,18 @@
   <div class="nav-inner">
     <a href="#top" class="brand">
       <img src="goob/stand.png" alt="" class="brand-icon" />
-      <span class="brand-name">GOOB</span>
+      <span class="brand-name" data-copy="nav.brand">GOOB</span>
     </a>
     <div class="tabs" id="tabs">
-      <a href="#top" class="tab on" data-tab="live">Live</a>
-      <a href="#how" class="tab" data-tab="how">How</a>
-      <a href="#rules" class="tab" data-tab="rules">Rules</a>
-      <a href="#hunts" class="tab" data-tab="hunts">Hunts</a>
-      <a href="#socials" class="tab" data-tab="socials">Socials</a>
+      <a href="#top" class="tab on" data-tab="live" data-copy="nav.tabLive">Live</a>
+      <a href="#how" class="tab" data-tab="how" data-copy="nav.tabHow">How</a>
+      <a href="#rules" class="tab" data-tab="rules" data-copy="nav.tabRules">Rules</a>
+      <a href="#feed" class="tab" data-tab="feed" data-copy="nav.tabFeed">Feed</a>
+      <a href="#socials" class="tab" data-tab="socials" data-copy="nav.tabSocials">Socials</a>
     </div>
     <div class="nav-right">
-      <span class="chip chip-ghost nav-chain">Solana · StonkFun</span>
-      <a href="#" class="pill pill-hot is-soon" data-buy aria-disabled="true">Buy $GOOB</a>
+      <span class="chip chip-ghost nav-chain" data-copy="nav.chainPill">Solana · StonkFun</span>
+      <a href="#" class="pill pill-hot is-soon" data-buy aria-disabled="true" data-copy="nav.buy">Buy $GOOB</a>
     </div>
   </div>
 </nav>
@@ -42,22 +42,22 @@
     <section class="hero" id="hero">
       <div class="hero-left">
         <div class="eyebrow-row">
-          <span class="chip chip-coal">$GOOB</span>
-          <span class="chip chip-status"><span class="ping" aria-hidden="true"></span><span id="hero-status-text">hunt armed</span></span>
+          <span class="chip chip-coal" data-copy="hero.chipTicker">$GOOB</span>
+          <span class="chip chip-pair" data-copy="hero.chipPair">$GOOB / $STONK</span>
+          <span class="chip chip-status"><span class="ping" aria-hidden="true"></span><span data-copy="hero.chipStatus">hunt armed</span></span>
         </div>
         <h1 class="h1">
-          Every 3 min<br />
-          a new HUNT<br />
-          <em class="serif">into the chart.</em>
+          <span data-copy="hero.h1Line1">The unofficial</span><br />
+          <span data-copy="hero.h1Line2">mascot of the</span><br />
+          <em class="serif" data-copy="hero.h1Line3">hunt.</em>
         </h1>
-        <p class="hero-body">
-          All the fees <b>$GOOB</b> takes from the hunt get blasted into <b>$STONK</b> every 3 minutes.
-          One buy. Then holders get fed. <b>No team cut. Dev 0.</b> The bag stays on. GOOB does not eat itself.
+        <p class="hero-body" data-copy="hero.body">
+          $GOOB is paired with $STONK. Every trade hunts the house token and feeds it to holders. No team cut. Dev 0. The zipper stays shut on the bag.
         </p>
         <div class="cta-row">
-          <a href="#" class="pill pill-hot is-soon" data-buy aria-disabled="true">Buy $GOOB ↗</a>
-          <a href="#hunts" class="pill pill-white">See the hunts</a>
-          <button type="button" class="pill pill-white" data-copy-ca>Copy CA</button>
+          <a href="#" class="pill pill-hot is-soon" data-buy aria-disabled="true" data-copy="hero.ctaBuy">Buy $GOOB ↗</a>
+          <a href="#feed" class="pill pill-white" data-copy="hero.ctaFeed">See the feed</a>
+          <button type="button" class="pill pill-white" data-copy-ca><span data-copy="hero.ctaCopy">Copy CA</span></button>
         </div>
       </div>
       <div class="hero-right">
@@ -65,23 +65,27 @@
       </div>
     </section>
 
-    <section class="stage" id="stage" aria-label="Next hunt countdown">
-      <div class="stage-col stage-clock">
-        <div class="stage-label"><span class="ping" aria-hidden="true"></span>NEXT HUNT IN</div>
-        <div class="clock" id="clock">03:00</div>
+    <section class="live-strip" id="live-strip" aria-label="Live feed">
+      <div class="live-col live-col-headline">
+        <div class="live-label"><span class="ping" aria-hidden="true"></span><span data-copy="liveStrip.label">LIVE FEED</span></div>
+        <div class="live-num" id="live-fed">0 $STONK</div>
+        <div class="tile-label" data-copy="liveStrip.fedLabel">$STONK fed to holders</div>
       </div>
-      <div class="stage-col stage-mid">
-        <p class="stage-copy">Fees stack up. The clock hits zero. HUNT. One buy of $STONK, then holders eat.</p>
-        <div class="track"><div class="track-bar" id="progress-bar"></div></div>
+      <div class="live-col live-col-caption">
+        <p class="live-caption" data-copy="liveStrip.caption">Volume in. $STONK out. No claim button.</p>
       </div>
-      <div class="stage-col stage-tiles">
+      <div class="live-col live-col-tiles">
         <div class="tile">
-          <div class="tile-num" id="fuel-amount">0.0000 SOL</div>
-          <div class="tile-label">fuel for the next hunt</div>
+          <div class="tile-num" id="live-last-hunt">—</div>
+          <div class="tile-label" data-copy="liveStrip.lastHuntLabel">last hunt</div>
         </div>
         <div class="tile">
-          <div class="tile-num" id="last-hunt-amount">—</div>
-          <div class="tile-label">last hunt</div>
+          <div class="tile-num" id="live-holders">—</div>
+          <div class="tile-label" data-copy="liveStrip.holdersLabel">holders eating</div>
+        </div>
+        <div class="tile">
+          <div class="tile-num" data-live-tax>3%</div>
+          <div class="tile-label" data-copy="liveStrip.taxLabel">tax</div>
         </div>
       </div>
     </section>
@@ -94,26 +98,26 @@
 
     <section class="kpis" aria-label="Token stats">
       <div class="kpi kpi-hot">
-        <div class="kpi-num">1B+</div>
-        <div class="kpi-label">supply</div>
+        <div class="kpi-num" data-copy="kpis.supplyNum">1B+</div>
+        <div class="kpi-label" data-copy="kpis.supplyLabel">supply</div>
       </div>
       <div class="kpi kpi-coal">
-        <div class="kpi-num">Dev 0</div>
-        <div class="kpi-label">bag stays on</div>
+        <div class="kpi-num" data-copy="kpis.devNum">Dev 0</div>
+        <div class="kpi-label" data-copy="kpis.devLabel">bag stays on</div>
       </div>
       <div class="kpi">
-        <div class="kpi-num">0%</div>
-        <div class="kpi-label">tax</div>
+        <div class="kpi-num" data-kpi-tax>3%</div>
+        <div class="kpi-label" data-copy="kpis.taxLabel">hunt tax</div>
       </div>
       <div class="kpi">
-        <div class="kpi-num" id="kpi-hunts">0</div>
-        <div class="kpi-label">hunts so far</div>
+        <div class="kpi-num" data-copy="kpis.pairNum">$STONK</div>
+        <div class="kpi-label" data-copy="kpis.pairLabel">pair</div>
       </div>
     </section>
 
     <section class="card chart-card watermarked">
       <div class="chart-head">
-        <div class="chart-price"><span id="chart-mcap">$—</span> <span class="muted">mc</span></div>
+        <div class="chart-price"><span id="chart-header-num">0 $STONK</span> <span class="muted" data-copy="chart.headerSuffix">fed</span></div>
         <div class="range-pills" id="range-pills">
           <button type="button" class="pill-range" data-range="15M">15M</button>
           <button type="button" class="pill-range" data-range="1H">1H</button>
@@ -126,103 +130,72 @@
         <canvas id="chart-canvas"></canvas>
         <div class="chart-tooltip" id="chart-tooltip" hidden></div>
       </div>
-      <p class="visually-hidden">Latest $GOOB price: <span id="chart-fallback-price">$—</span></p>
+      <p class="visually-hidden" id="chart-fallback-price">Total $STONK fed to holders: 0</p>
       <div class="chart-legend">
-        <span class="legend-item"><span class="swatch swatch-line" aria-hidden="true"></span>$GOOB price</span>
-        <span class="legend-item"><span class="swatch swatch-dot" aria-hidden="true"></span>a hunt</span>
-        <span class="legend-hint">drag · scroll to zoom · hover a hunt · live from the chain</span>
+        <span class="legend-item"><span class="swatch swatch-line" aria-hidden="true"></span><span data-copy="chart.legendLine">$STONK fed to holders</span></span>
+        <span class="legend-item"><span class="swatch swatch-dot" aria-hidden="true"></span><span data-copy="chart.legendDot">a hunt</span></span>
+        <span class="legend-hint" data-copy="chart.legendHint">drag · scroll to zoom · hover a hunt · live from the chain</span>
       </div>
       <div class="feed-bar-wrap">
         <div class="feed-bar-track"><div class="feed-bar-fill" id="feed-bar-fill"></div></div>
         <div class="feed-bar-caption" id="feed-bar-caption">0 $STONK fed to holders</div>
       </div>
-      <p class="demo-note">demo tape — live from the chain at launch</p>
+      <p class="demo-note" data-copy="chart.demoNote">demo tape — live from the chain at launch</p>
+    </section>
+
+    <section class="card underlying">
+      <h2 class="h2">
+        <span data-copy="underlying.h2Line1">Every pair on the pad</span><br />
+        <span data-copy="underlying.h2Line2">is our chart.</span>
+      </h2>
+      <p class="lead" data-copy="underlying.body">
+        $STONK isn't a mascot here: it's the other side of the pair. StonkFun is the furnace. $GOOB is the animal they forgot to paint on the hood. When the pad does volume, the zipper hunts.
+      </p>
+      <div class="fact-row" id="underlying-facts"></div>
     </section>
 
     <section class="card how" id="how">
-      <h2 class="h2">How GOOB hunts</h2>
-      <p class="lead">No staking. No claiming. No team wallet. Fees become hunts. Hunts buy $STONK. Holders eat.</p>
-      <div class="tile-grid">
-        <div class="mini-tile">
-          <div class="badge">1</div>
-          <h4>Fees stack up</h4>
-          <p>Every trade of $GOOB pays fees. Nobody touches them. They pile up until the next hunt.</p>
-        </div>
-        <div class="mini-tile">
-          <div class="badge">2</div>
-          <h4>Every 3 min</h4>
-          <p>The clock hits zero. 100% of the fees get claimed. Not most of it. All of it.</p>
-        </div>
-        <div class="mini-tile">
-          <div class="badge">3</div>
-          <h4>HUNT</h4>
-          <p>All the SOL goes into one buy of $STONK. One green candle into the house chart, on the clock, every 3 minutes.</p>
-        </div>
-        <div class="mini-tile">
-          <div class="badge">4</div>
-          <h4>Holders eat</h4>
-          <p>GOOB does not eat itself. The $STONK is fed to holders. Dev 0. The bag stays on.</p>
-        </div>
-      </div>
+      <h2 class="h2" data-copy="how.h2">Three things, then you're caught up.</h2>
+      <div class="tile-grid" id="how-steps"></div>
     </section>
 
     <section class="rules-wrap" id="rules">
       <div class="card rules-card">
-        <h2 class="h2">The rules of GOOB</h2>
-        <p class="lead">Simple. Every number is live from the engine. Every hunt leaves transactions on the explorer: claim, buy $STONK, feed.</p>
-        <ol class="rules-list">
-          <li><h4>On the clock</h4><p>A hunt fires every 3 minutes. Always. Nobody can time it, everybody can see it coming.</p></li>
-          <li><h4>100% of the fees</h4><p>Everything the hunt takes goes into $STONK. The team keeps nothing.</p></li>
-          <li><h4>One buy</h4><p>All the SOL (minus a tiny gas reserve) becomes one buy of $STONK.</p></li>
-          <li><h4>Fed, not burned</h4><p>GOOB does not buy itself. Supply stays 1B. Holders eat the bag it fetches.</p></li>
-          <li><h4>Small fees wait</h4><p>Under the minimum, it waits and joins the next hunt. A failed hunt retries on the next one.</p></li>
-        </ol>
+        <h2 class="h2" data-copy="rules.h2">The rules of GOOB</h2>
+        <p class="lead" data-copy="rules.lead">Simple. Every number is live from the engine.</p>
+        <ol class="rules-list" id="rules-items"></ol>
       </div>
       <div class="card engine-card">
-        <h3 class="h3">The engine</h3>
-        <div class="engine-row"><span>Hunt every</span><strong>3 min</strong></div>
-        <div class="engine-row"><span>Fees hunted</span><strong>100%</strong></div>
-        <div class="engine-row"><span>Team cut</span><strong>0%</strong></div>
-        <div class="engine-row"><span>Minimum hunt</span><strong id="engine-min-hunt">0.01 SOL</strong></div>
-        <div class="engine-row"><span>Gas reserve</span><strong>tiny</strong></div>
-        <div class="engine-row"><span>Slippage</span><strong id="engine-slippage">5%</strong></div>
-        <div class="engine-row engine-wallet">
-          <span>Engine wallet</span>
-          <a href="#" class="mono-link" data-soon>not deployed yet ↗</a>
-        </div>
+        <h3 class="h3" data-copy="rules.engineTitle">The engine</h3>
+        <div id="engine-rows"></div>
       </div>
     </section>
 
     <section class="card social-panel" id="socials">
       <div class="social-left">
-        <span class="chip chip-teal">GOOB-GANG</span>
-        <h2 class="h2">Join the <em class="serif serif-teal">hunt.</em></h2>
-        <p class="lead lead-pale">StonkFun built a furnace and forgot the cat. $GOOB is the animal on the hood — hunting anyway.</p>
-        <div class="mini-fact-row">
-          <div class="mini-fact"><img src="goob/wave.png" alt="" /><span>Dev 0</span></div>
-          <div class="mini-fact"><img src="goob/jump.png" alt="" /><span>0% tax</span></div>
-          <div class="mini-fact"><img src="goob/point.png" alt="" /><span>1B supply</span></div>
-        </div>
+        <span class="chip chip-teal" data-copy="social.chip">GOOB-GANG</span>
+        <h2 class="h2"><span data-copy="social.h2Plain">Join the </span><em class="serif serif-teal" data-copy="social.h2Serif">hunt.</em></h2>
+        <p class="lead lead-pale" data-copy="social.lead">StonkFun built a furnace and forgot the cat. $GOOB is the animal on the hood — hunting anyway.</p>
+        <div class="mini-fact-row" id="mini-facts"></div>
         <div class="cta-row">
-          <a href="#" class="pill pill-outline" data-social="x">Twitter</a>
-          <a href="#" class="pill pill-outline" data-social="telegram">Telegram</a>
-          <a href="#" class="pill pill-outline" data-social="dexscreener">DexScreener</a>
+          <a href="#" class="pill pill-outline" data-social="x" data-copy="social.socialX">Twitter</a>
+          <a href="#" class="pill pill-outline" data-social="telegram" data-copy="social.socialTelegram">Telegram</a>
+          <a href="#" class="pill pill-outline" data-social="dexscreener" data-copy="social.socialDex">DexScreener</a>
         </div>
       </div>
       <div class="social-right">
         <div class="lore-tile">
           <img src="goob/peek.png" alt="" class="lore-mascot" />
-          <p>StonkFun built a furnace and forgot the cat. $GOOB is the animal on the hood — the mascot nobody asked for, hunting anyway.</p>
-          <p>$GOOB does not eat itself. It hunts $STONK, drags it back every three minutes, and leaves it for the holders. Dev 0. The bag stays on.</p>
+          <div id="lore-paragraphs"></div>
         </div>
       </div>
     </section>
 
-    <section class="card hunts-log" id="hunts">
-      <h2 class="h2">Hunts</h2>
-      <p class="lead">Every 3 minutes: claim, buy $STONK, feed. Three transactions each, all on the explorer.</p>
-      <p class="demo-note">demo tape — live from the chain at launch</p>
-      <div class="hunts-rows watermarked" id="hunts-rows"></div>
+    <section class="card feed-log" id="feed">
+      <h2 class="h2" data-copy="feedLog.h2">Feed</h2>
+      <p class="lead" data-copy="feedLog.lead">Each hunt buys $STONK with the tax it collects, then airdrops it to holders. No claim button, no clock — just the tape.</p>
+      <p class="demo-note" data-copy="feedLog.demoNote">demo tape — live from the chain at launch</p>
+      <div class="feed-rows watermarked" id="feed-rows"></div>
     </section>
 
   </div>
@@ -231,24 +204,26 @@
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-ca">
-      <span class="footer-ca-text">CA drops at launch</span>
-      <button type="button" class="pill pill-white pill-sm" data-copy-ca>copy</button>
+      <span class="footer-ca-text" data-copy="footer.caPlaceholder">CA drops at launch</span>
+      <button type="button" class="pill pill-white pill-sm" data-copy-ca><span data-copy="footer.copyBtn">copy</span></button>
     </div>
     <div class="footer-mid">
       <img src="goob/stand.png" alt="" class="footer-mascot" />
-      <span>Bag stays on · Dev 0</span>
+      <span data-copy="footer.tagline">Bag stays on · Dev 0 · $GOOB does not eat itself.</span>
     </div>
     <div class="footer-socials">
-      <a href="#" data-social="x">X</a>
-      <a href="#" data-social="telegram">Telegram</a>
-      <a href="#" data-social="dexscreener">DexScreener</a>
+      <a href="#" data-social="x" data-copy="footer.socialX">X</a>
+      <a href="#" data-social="telegram" data-copy="footer.socialTelegram">Telegram</a>
+      <a href="#" data-social="dexscreener" data-copy="footer.socialDex">DexScreener</a>
     </div>
   </div>
+  <p class="footer-disclaimer" data-copy="footer.disclaimer">Unofficial mascot. Not StonkFun. Not financial advice.</p>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/config.js"></script>
+<script src="js/copy.js"></script>
 <script src="js/demo.js"></script>
 <script src="js/chart.js"></script>
 <script src="js/app.js"></script>

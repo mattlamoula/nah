@@ -16,13 +16,11 @@ const GOOB_CHART = (() => {
     dragMoved: false,
     dragStartX: 0,
     dragStartView: null,
-    hoverX: null,
-    hoverHunt: null,
   };
-  let lastHunts = [];
+  let lastFeeds = [];
 
   function genesisSec() {
-    return (GOOB_DEMO.GENESIS_CYCLE * GOOB_DEMO.INTERVAL_SEC);
+    return GOOB_DEMO.GENESIS_CYCLE * GOOB_DEMO.TICK_SEC;
   }
 
   function nowSec() {
@@ -66,15 +64,13 @@ const GOOB_CHART = (() => {
     return state.viewStart + (x / width) * (state.viewEnd - state.viewStart);
   }
 
-  function huntsInView() {
-    const startCycle = Math.floor(state.viewStart / GOOB_DEMO.INTERVAL_SEC) - 1;
-    const endCycle = Math.ceil(state.viewEnd / GOOB_DEMO.INTERVAL_SEC) + 1;
+  function feedsInView() {
+    const startCycle = Math.floor(state.viewStart / GOOB_DEMO.TICK_SEC) - 1;
+    const endCycle = Math.ceil(state.viewEnd / GOOB_DEMO.TICK_SEC) + 1;
     const out = [];
     for (let c = startCycle; c <= endCycle; c++) {
-      const h = GOOB_DEMO.getHunt(c);
-      if (h && h.status === "done" && h.atMs / 1000 >= state.viewStart && h.atMs / 1000 <= state.viewEnd) {
-        out.push(h);
-      }
+      const f = GOOB_DEMO.getFeed(c);
+      if (f && f.atMs / 1000 >= state.viewStart && f.atMs / 1000 <= state.viewEnd) out.push(f);
     }
     // Decimate by pixel spacing so wide zooms (24H/All) don't pack hundreds of
     // markers into an unreadable smear; always keep the most recent one.
@@ -105,7 +101,7 @@ const GOOB_CHART = (() => {
     const pts = [];
     for (let i = 0; i <= samples; i++) {
       const t = state.viewStart + (i / samples) * (state.viewEnd - state.viewStart);
-      pts.push([t, GOOB_DEMO.priceAt(t)]);
+      pts.push([t, GOOB_DEMO.cumulativeFedAt(t)]);
     }
     let pmin = Infinity,
       pmax = -Infinity;
@@ -113,8 +109,9 @@ const GOOB_CHART = (() => {
       if (p < pmin) pmin = p;
       if (p > pmax) pmax = p;
     });
-    const padP = (pmax - pmin) * 0.15 || pmax * 0.1;
-    pmin -= padP;
+    if (pmax === pmin) pmax = pmin + 1;
+    const padP = (pmax - pmin) * 0.15;
+    pmin = Math.max(0, pmin - padP);
     pmax += padP;
 
     const mapP = (p) => padTop + (1 - (p - pmin) / (pmax - pmin)) * plotH;
@@ -130,7 +127,7 @@ const GOOB_CHART = (() => {
       ctx.lineTo(width - padRight, y);
       ctx.stroke();
       const p = pmax - ((pmax - pmin) * i) / 3;
-      ctx.fillText("$" + p.toFixed(7), padLeft + 4, y - 4);
+      ctx.fillText(GOOB_DEMO.formatBig(p) + " $STONK", padLeft + 4, y - 4);
     }
     const tickCount = 5;
     for (let i = 0; i <= tickCount; i++) {
@@ -139,6 +136,11 @@ const GOOB_CHART = (() => {
       ctx.fillText(fmtAxisTime(t), Math.min(Math.max(x - 24, 0), width - 60), height - 8);
     }
 
+    const lastPt = pts[pts.length - 1];
+    const firstPt = pts[0];
+    const grad = ctx.createLinearGradient(0, padTop, 0, height - padBottom);
+    grad.addColorStop(0, "rgba(46,179,196,0.30)");
+    grad.addColorStop(1, "rgba(46,179,196,0)");
     ctx.beginPath();
     pts.forEach(([t, p], i) => {
       const x = mapT(t);
@@ -146,11 +148,6 @@ const GOOB_CHART = (() => {
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     });
-    const lastPt = pts[pts.length - 1];
-    const firstPt = pts[0];
-    const grad = ctx.createLinearGradient(0, padTop, 0, height - padBottom);
-    grad.addColorStop(0, "rgba(46,179,196,0.30)");
-    grad.addColorStop(1, "rgba(46,179,196,0)");
     ctx.save();
     ctx.lineTo(mapT(lastPt[0]), height - padBottom);
     ctx.lineTo(mapT(firstPt[0]), height - padBottom);
@@ -172,10 +169,10 @@ const GOOB_CHART = (() => {
     ctx.lineCap = "round";
     ctx.stroke();
 
-    lastHunts = huntsInView();
-    lastHunts.forEach((h) => {
-      const x = mapT(h.atMs / 1000);
-      const y = mapP(GOOB_DEMO.priceAt(h.atMs / 1000));
+    lastFeeds = feedsInView();
+    lastFeeds.forEach((f) => {
+      const x = mapT(f.atMs / 1000);
+      const y = mapP(GOOB_DEMO.cumulativeFedAt(f.atMs / 1000));
       ctx.save();
       ctx.setLineDash([4, 4]);
       ctx.strokeStyle = "rgba(4,20,26,0.25)";
@@ -200,8 +197,8 @@ const GOOB_CHART = (() => {
       ctx.textAlign = "start";
       ctx.textBaseline = "alphabetic";
 
-      h._x = x;
-      h._y = y;
+      f._x = x;
+      f._y = y;
     });
 
     if (state.following) {
@@ -248,15 +245,15 @@ const GOOB_CHART = (() => {
     return d.toLocaleDateString([], { month: "short", day: "numeric" });
   }
 
-  function nearestHunt(px, py) {
+  function nearestFeed(px, py) {
     let best = null,
       bestD = 12;
-    lastHunts.forEach((h) => {
-      if (h._x == null) return;
-      const d = Math.hypot(h._x - px, (h._y ?? py) - py);
+    lastFeeds.forEach((f) => {
+      if (f._x == null) return;
+      const d = Math.hypot(f._x - px, (f._y ?? py) - py);
       if (d < bestD) {
         bestD = d;
-        best = h;
+        best = f;
       }
     });
     return best;
@@ -292,20 +289,16 @@ const GOOB_CHART = (() => {
       return;
     }
 
-    const hunt = nearestHunt(x, y);
-    if (hunt) {
+    const feed = nearestFeed(x, y);
+    if (feed) {
       canvas.style.cursor = "pointer";
-      const d = new Date(hunt.atMs);
-      showTooltip(
-        x,
-        y,
-        `hunt #${hunt.id} · ${hunt.sol.toFixed(2)} SOL → ${GOOB_DEMO.formatStonk(hunt.stonk)} ${GOOB_CONFIG.huntTicker} · ${d.toLocaleTimeString()} · click for tx`
-      );
+      const d = new Date(feed.atMs);
+      showTooltip(x, y, GOOB_COPY.chart.huntTooltip(feed.id, feed.sol.toFixed(2), GOOB_DEMO.formatStonk(feed.stonk), d.toLocaleTimeString()));
     } else {
       canvas.style.cursor = "default";
       const t = mapX(x);
-      const p = GOOB_DEMO.priceAt(t);
-      showTooltip(x, y, `$${p.toFixed(7)} · ${new Date(t * 1000).toLocaleString()}`);
+      const total = GOOB_DEMO.cumulativeFedAt(t);
+      showTooltip(x, y, GOOB_COPY.chart.totalTooltip(GOOB_DEMO.formatBig(total), new Date(t * 1000).toLocaleString()));
     }
   }
 
@@ -326,18 +319,18 @@ const GOOB_CHART = (() => {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const hunt = nearestHunt(x, y);
-      if (hunt) scrollToHunt(hunt.id);
+      const feed = nearestFeed(x, y);
+      if (feed) scrollToFeed(feed.id);
     }
     state.dragging = false;
   }
 
-  function scrollToHunt(id) {
+  function scrollToFeed(id) {
     const row = document.querySelector(`[data-hunt="${id}"]`);
     if (!row) return;
     row.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "center" });
-    row.classList.add("hunt-row-hit");
-    setTimeout(() => row.classList.remove("hunt-row-hit"), 1400);
+    row.classList.add("feed-row-hit");
+    setTimeout(() => row.classList.remove("feed-row-hit"), 1400);
   }
 
   function onWheel(e) {
@@ -360,32 +353,20 @@ const GOOB_CHART = (() => {
     return MILESTONES[MILESTONES.length - 1] * 2;
   }
 
-  function cumulativeFed(nowMs) {
-    const n = GOOB_DEMO.cycleAt(nowMs);
-    let total = 0;
-    for (let k = GOOB_DEMO.GENESIS_CYCLE; k < n; k++) {
-      const h = GOOB_DEMO.getHunt(k);
-      if (h && h.status === "done") total += h.stonk;
-    }
-    return total;
-  }
-
   function updateHeaderAndBar() {
     const nowMs = Date.now();
-    const price = GOOB_DEMO.priceAt(nowMs / 1000);
-    const mcap = price * GOOB_CONFIG.supply;
-    const mcapEl = document.getElementById("chart-mcap");
-    if (mcapEl) mcapEl.textContent = GOOB_DEMO.formatMcap(mcap);
+    const total = GOOB_DEMO.cumulativeFedAt(nowMs / 1000);
+    const headerNum = document.getElementById("chart-header-num");
+    if (headerNum) headerNum.textContent = `${GOOB_DEMO.formatBig(total)} $STONK`;
     const fallback = document.getElementById("chart-fallback-price");
-    if (fallback) fallback.textContent = "$" + price.toFixed(7);
+    if (fallback) fallback.textContent = GOOB_COPY.chart.fallbackPrefix + Math.round(total).toLocaleString() + " $STONK";
 
-    const fed = cumulativeFed(nowMs);
-    const milestone = niceMilestone(fed);
+    const milestone = niceMilestone(total);
     const fill = document.getElementById("feed-bar-fill");
-    if (fill) fill.style.width = Math.min(100, (fed / milestone) * 100) + "%";
+    if (fill) fill.style.width = Math.min(100, (total / milestone) * 100) + "%";
     const caption = document.getElementById("feed-bar-caption");
     if (caption) {
-      caption.textContent = `${Math.round(fed).toLocaleString()} / ${milestone.toLocaleString()} ${GOOB_CONFIG.huntTicker} fed to holders`;
+      caption.textContent = GOOB_COPY.chart.feedBarCaption(Math.round(total).toLocaleString(), milestone.toLocaleString());
     }
   }
 

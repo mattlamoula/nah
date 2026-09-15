@@ -2,31 +2,26 @@
 const GOOB_CONFIG = {
   name: "GOOB",
   ticker: "$GOOB",
-  huntTicker: "$STONK",
+  pairTicker: "$STONK",
   chain: "Solana",
   launchpad: "StonkFun",
 
   supply: 1_000_000_000,
-  taxPct: 0,
+  taxPct: 3,
   devPct: 0,
 
-  // Single source of truth for the hunt clock. Change only this to retime everything.
-  INTERVAL_SEC: 180,
+  // Demo-tape only: internal pacing for the simulated feed stream. Not a
+  // product concept — never surfaced as a countdown or "every Xs" claim.
+  demoTickSec: 60,
+  demoFeedChance: 0.32,
 
-  minHuntSol: 0.01,
-  gasReserveSol: 0.003,
-  slippagePct: 5,
-
-  // Demo-tape only constants (used until caLive is true).
   demoSolUsd: 150,
   demoStonkPerSol: 31000,
   demoGenesisMs: Date.parse("2026-09-08T00:00:00Z"),
 
   caLive: false,
   contractAddress: "",
-  engineWallet: "",
   explorerTxBase: "https://solscan.io/tx/",
-  explorerAddressBase: "https://solscan.io/account/",
 
   socials: {
     x: "",
@@ -34,13 +29,10 @@ const GOOB_CONFIG = {
     dexscreener: "",
   },
 
-  copyCaText: "CA drops at launch — $GOOB is not live yet",
-  soonToast: "Dropping at launch — the hunt is armed.",
-
   poll: {
     infoMs: 5000,
     chartMs: 15000,
     tradesMs: 10000,
-    huntsMs: 30000,
+    feedMs: 30000,
   },
 };
