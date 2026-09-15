@@ -1,11 +1,5 @@
-function shortAddr(addr) {
-  return `${addr.slice(0, 4)}…${addr.slice(-4)}`;
-}
-
 function applyBranding() {
   const c = SITE_CONFIG;
-  const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  const setHref = (id, val) => { const el = document.getElementById(id); if (el) el.href = val; };
   const setSrc = (id, val) => { const el = document.getElementById(id); if (el) el.src = val; };
 
   document.title = `${c.tokenTicker} — paired to ${c.pairTicker} on StonkFun`;
@@ -15,35 +9,25 @@ function applyBranding() {
   document.querySelectorAll("[data-pair-ticker]").forEach(el => el.textContent = c.pairTicker);
   document.querySelectorAll("[data-reward-tax]").forEach(el => el.textContent = `${c.rewardTaxPercent}%`);
 
-  setText("pair-ca", shortAddr(c.pairContractAddress));
-  setHref("pair-ca-link", `https://solscan.io/token/${c.pairContractAddress}`);
-
   const hasCA = Boolean(c.contractAddress);
-  setText("contract-address", hasCA ? c.contractAddress : "DROPPING AT LAUNCH");
-  document.querySelectorAll("[data-buy-btn]").forEach(el => {
-    el.href = hasCA ? c.launchUrl : c.socials.stonkfun;
-    el.textContent = hasCA ? `Buy ${c.tokenTicker} on StonkFun` : "Launching on StonkFun";
+  document.querySelectorAll("[data-contract-address]").forEach(el => {
+    el.textContent = hasCA ? c.contractAddress : "DROPPING AT LAUNCH";
   });
 
-  const chartLink = document.querySelector("[data-chart-link]");
-  if (chartLink) {
-    if (hasCA) {
-      chartLink.href = `https://dexscreener.com/solana/${c.contractAddress}`;
-      chartLink.hidden = false;
-    } else {
-      chartLink.hidden = true;
-    }
-  }
+  // Button labels are fixed per section (BUY $GOOB / APE IN ON STONKFUN / nav BUY) —
+  // only the destination changes once $GOOB is actually minted.
+  document.querySelectorAll("[data-buy-btn]").forEach(el => {
+    el.href = hasCA ? c.launchUrl : c.socials.stonkfun;
+  });
 
   setSrc("hero-mascot", c.mascot.hero);
-  setSrc("about-mascot", c.mascot.wave);
-  setSrc("pairing-mascot", c.mascot.point);
-  setSrc("howtobuy-mascot", c.mascot.walk);
-  setSrc("community-mascot", c.mascot.front);
-  setSrc("footer-mascot", c.mascot.front);
-  setSrc("favicon", c.mascot.front);
-
-  document.querySelectorAll(".mascot-peek").forEach(el => el.src = c.mascot.peek);
+  setSrc("about-mascot", c.mascot.about);
+  setSrc("buy-mascot", c.mascot.buy);
+  setSrc("howtobuy-mascot", c.mascot.howtobuy);
+  setSrc("tokenomics-peek", c.mascot.peek);
+  setSrc("nav-badge", c.mascot.badge);
+  setSrc("footer-mascot", c.mascot.badge);
+  setSrc("favicon", c.mascot.badge);
 
   const socialUrls = { x: c.socials.x, telegram: c.socials.telegram, stonkfun: c.socials.stonkfun };
   document.querySelectorAll("[data-social]").forEach(el => {
@@ -71,9 +55,7 @@ function showToast(msg) {
 function setupCopyButtons() {
   document.querySelectorAll("[data-copy]").forEach(btn => {
     btn.addEventListener("click", async () => {
-      const value = btn.getAttribute("data-copy") === "pair"
-        ? SITE_CONFIG.pairContractAddress
-        : SITE_CONFIG.contractAddress;
+      const value = SITE_CONFIG.contractAddress;
       if (!value) { showToast("No contract address yet"); return; }
       try {
         await navigator.clipboard.writeText(value);
